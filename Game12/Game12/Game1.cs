@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace WizardLizard
+namespace Game12
 {
     /// <summary>
     /// This is the main type for your game.
@@ -60,7 +60,7 @@ namespace WizardLizard
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                
+                Exit();
 
             // TODO: Add your update logic here
 
