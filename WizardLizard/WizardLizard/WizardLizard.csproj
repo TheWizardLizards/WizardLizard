@@ -38,9 +38,25 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
+    <Compile Include="Animation.cs" />
+    <Compile Include="Animator.cs" />
+    <Compile Include="Collider.cs" />
+    <Compile Include="Component.cs" />
+    <Compile Include="Director.cs" />
+    <Compile Include="GameWorld.cs" />
+    <Compile Include="GameObject.cs" />
+    <Compile Include="IAnimateable.cs" />
+    <Compile Include="IBuilder.cs" />
+    <Compile Include="ICollisionEnter.cs" />
+    <Compile Include="ICollisionExit.cs" />
+    <Compile Include="IDrawable.cs" />
+    <Compile Include="ILoadable.cs" />
+    <Compile Include="IStrategy.cs" />
+    <Compile Include="IUpdateable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpriteRenderer.cs" />
+    <Compile Include="Transform.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
