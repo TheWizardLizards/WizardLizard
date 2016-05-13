@@ -17,7 +17,7 @@ namespace WizardLizard
         private Animator animator;
         private int john;
         private int speed = 200;
-        bool hasJumped;
+        private bool hasJumped;
 
         public Player(GameObject gameObject) : base(gameObject)
         {
@@ -40,7 +40,7 @@ namespace WizardLizard
             if (Pet.Petcontrol == false)
             {
                 translation += velocity;
-                if (transform.Position.Y >= 100)
+                if (transform.Position.Y >= 200)
                 {
                     hasJumped = false;
                 }

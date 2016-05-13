@@ -13,6 +13,8 @@ namespace WizardLizard
     {
         private Transform transform;
         private Animator animator;
+        private Vector2 velocity;
+        private bool hasJumped;
         private static bool petcontrol = false;
         private static bool derp = true;
         private int speed = 1;
@@ -77,6 +79,27 @@ namespace WizardLizard
             if (Petcontrol == true)
             {
                 speed = 200;
+                translation += velocity;
+                if (transform.Position.Y >= 200)
+                {
+                    hasJumped = false;
+                }
+                if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
+                {
+                    translation.Y -= 10f;
+                    velocity.Y = -10f;
+                    hasJumped = true;
+                }
+                if (hasJumped == true)
+                {
+                    float i = 5;
+                    velocity.Y += 0.15f * i;
+                }
+
+                if (hasJumped == false)
+                {
+                    velocity.Y = 0f;
+                }
                 if (keyState.IsKeyDown(Keys.D))
                 {
                     translation += new Vector2(1, 0);
@@ -90,11 +113,6 @@ namespace WizardLizard
                 if (keyState.IsKeyDown(Keys.S))
                 {
                     translation += new Vector2(0, 1);
-                    bo = 1;
-                }
-                if (keyState.IsKeyDown(Keys.W))
-                {
-                    translation += new Vector2(0, -1);
                     bo = 1;
                 }
                 if (keyState.IsKeyDown(Keys.Space) && bo == 1)
