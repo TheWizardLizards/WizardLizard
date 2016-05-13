@@ -18,15 +18,5 @@ namespace WizardLizard
             builder.BuildGameObject(position);
             return builder.GetResult();
         }
-        public GameObject Construct(Vector2 position, string name)
-        {
-            builder.BuildGameObject(position, name);
-            return builder.GetResult();
-        }
-        public GameObject Construct(Vector2 position, string name, string spriteName)
-        {
-            builder.BuildGameObject(position, name, spriteName);
-            return builder.GetResult();
-        }
     }
 }
