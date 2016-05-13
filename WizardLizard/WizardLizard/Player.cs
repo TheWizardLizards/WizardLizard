@@ -13,7 +13,6 @@ namespace WizardLizard
     class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
-        private Vector2 position;
         private Vector2 velocity;
         private Animator animator;
         private int john;
@@ -40,10 +39,28 @@ namespace WizardLizard
             Vector2 translation = Vector2.Zero;
             if (Pet.Petcontrol == false)
             {
-                if (keyState.IsKeyDown(Keys.W))
+                translation += velocity;
+                if (transform.Position.Y >= 100)
                 {
-
+                    hasJumped = false;
                 }
+                if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
+                {
+                    translation.Y -= 10f;
+                    velocity.Y = -10f;
+                    hasJumped = true;
+                }
+                if (hasJumped == true)
+                {
+                    float i = 5;
+                    velocity.Y += 0.15f * i;
+                }
+
+                if (hasJumped == false)
+                {
+                    velocity.Y = 0f;
+                }
+
 
                 if (keyState.IsKeyDown(Keys.D))
                 {
@@ -81,34 +98,6 @@ namespace WizardLizard
                 //}
             }
 
-            //position += velocity;
-            //if 
-            //(keyState.IsKeyDown(Keys.A)) velocity.X = 3f;
-            //else if 
-            //(keyState.IsKeyDown(Keys.D)) velocity.X = -3f;
-            //else
-            //velocity.X = 0f;
-
-            //if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
-            //{
-            //    position.Y -= 10f;
-            //    velocity.Y = -10f;
-            //    hasJumped = true;
-            //}
-            //if (hasJumped == true)
-            //{
-            //    float i = 1;
-            //    velocity.Y += 0.15f * i;
-            //}
-            //if (position.Y  >= 600)
-            //{
-            //    hasJumped = false;
-            //}
-
-            //if (hasJumped == false)
-            //{
-            //    velocity.Y = 0f;
-            //}
             transform.Translate(translation * GameWorld.DeltaTime * speed);
         }
 

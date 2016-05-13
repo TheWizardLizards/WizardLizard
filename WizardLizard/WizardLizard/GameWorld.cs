@@ -96,10 +96,10 @@ namespace WizardLizard
         {
             // TODO: Add your initialization logic here
             director = new Director(new PlayerBuilder());
-            gameObjects.Add(director.Construct(new Vector2(100, 100)));
+            gameObjects.Add(director.Construct(new Vector2(10, 10)));
             
             director = new Director(new PetBuilder());
-            gameObjects.Add(director.Construct(new Vector2(100, 100)));
+            gameObjects.Add(director.Construct(new Vector2(10, 10)));
             base.Initialize();
         }
 
@@ -136,6 +136,7 @@ namespace WizardLizard
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             foreach (GameObject go in goToAdd)
             {
                 go.LoadContent(Content);
