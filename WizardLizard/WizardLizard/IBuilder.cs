@@ -10,7 +10,5 @@ namespace WizardLizard
     {
         GameObject GetResult();
         void BuildGameObject(Vector2 position);
-        void BuildGameObject(Vector2 position, string name);
-        void BuildGameObject(Vector2 position, string name, string spriteName);
     }
 }

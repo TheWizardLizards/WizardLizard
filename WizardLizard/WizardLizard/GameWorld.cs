@@ -10,10 +10,13 @@ namespace WizardLizard
     /// </summary>
     public class GameWorld : Game
     {
+        Director director;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private static Vector2 playerPos;
         private static GameWorld instance;
         private static float deltaTime;
+        private static List<GameObject> goToAdd = new List<GameObject>();
         private static List<GameObject> gameObjects = new List<GameObject>();
 
         public GameWorld()
@@ -70,6 +73,19 @@ namespace WizardLizard
             }
         }
 
+        public static Vector2 PlayerPos
+        {
+            get
+            {
+                return playerPos;
+            }
+
+            set
+            {
+                playerPos = value;
+            }
+        }
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -79,7 +95,11 @@ namespace WizardLizard
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            director = new Director(new PlayerBuilder());
+            gameObjects.Add(director.Construct(new Vector2(10, 10)));
+            
+            director = new Director(new PetBuilder());
+            gameObjects.Add(director.Construct(new Vector2(10, 10)));
             base.Initialize();
         }
 
@@ -114,6 +134,24 @@ namespace WizardLizard
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+            deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            foreach (GameObject go in goToAdd)
+            {
+                go.LoadContent(Content);
+            }
+            foreach (GameObject go in gameObjects)
+            {
+                go.Update();
+            }
+            foreach (GameObject go in GameObjects)
+            {
+                if(go.GetComponent("Player") != null)
+                {
+                    PlayerPos = go.Transform.Position;
+                }
+            }
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
@@ -125,7 +163,12 @@ namespace WizardLizard
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin();
+            foreach (GameObject go in gameObjects)
+            {
+                go.Draw(spriteBatch);
+            }
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
