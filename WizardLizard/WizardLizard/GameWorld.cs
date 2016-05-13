@@ -22,7 +22,7 @@ namespace WizardLizard
             Content.RootDirectory = "Content";
         }
 
-        public static List<GameObject> GameObjects
+        private static List<GameObject> GameObjects
         {
             get
             {

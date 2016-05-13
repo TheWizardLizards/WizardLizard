@@ -35,7 +35,7 @@ namespace WizardLizard
             if (Keyboard.GetState().IsKeyDown(Keys.A)) velocity.X = 3f;
             else if (Keyboard.GetState().IsKeyDown(Keys.D)) velocity.X = -3f; else velocity.X = 0f;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && hasJumped == false)
+            if (Keyboard.GetState().IsKeyDown(Keys.W) && hasJumped == false)
             {
                 position.Y -= 10f;
                 velocity.Y = -10f;

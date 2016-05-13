@@ -51,6 +51,7 @@
     <Compile Include="ICollisionExit.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="ILoadable.cs" />
+    <Compile Include="IMoveAble.cs" />
     <Compile Include="IStrategy.cs" />
     <Compile Include="IUpdateable.cs" />
     <Compile Include="Player.cs" />
