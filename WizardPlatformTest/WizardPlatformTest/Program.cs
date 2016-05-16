@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WizardLizard
+namespace WizardPlatformTest
 {
 #if WINDOWS || LINUX
     /// <summary>
@@ -14,7 +14,7 @@ namespace WizardLizard
         [STAThread]
         static void Main()
         {
-            using (var game = GameWorld.Instance)
+            using (var game = new GameWorld())
                 game.Run();
         }
     }

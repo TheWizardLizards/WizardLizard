@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0FBBA000-EACD-4E5B-8CBF-93D76280317E}</ProjectGuid>
+    <ProjectGuid>{F6DE9FC1-BC33-4542-B8F7-2BDE6E947E01}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WizardLizard</RootNamespace>
-    <AssemblyName>WizardLizard</AssemblyName>
+    <RootNamespace>WizardPlatformTest</RootNamespace>
+    <AssemblyName>WizardPlatformTest</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -43,24 +43,24 @@
     <Compile Include="Collider.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Director.cs" />
-    <Compile Include="Fireball.cs" />
-    <Compile Include="GameWorld.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="GameWorld.cs" />
     <Compile Include="IAnimateable.cs" />
     <Compile Include="IBuilder.cs" />
     <Compile Include="ICollisionEnter.cs" />
     <Compile Include="ICollisionExit.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="ILoadable.cs" />
-    <Compile Include="IMoveAble.cs" />
     <Compile Include="IStrategy.cs" />
     <Compile Include="IUpdateable.cs" />
+    <Compile Include="LevelBuilder.cs" />
     <Compile Include="Pet.cs" />
     <Compile Include="PetBuilder.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolidPlatform.cs" />
     <Compile Include="SpriteRenderer.cs" />
     <Compile Include="Transform.cs" />
   </ItemGroup>
@@ -72,16 +72,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Fireball.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Hero.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Pet.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\player.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

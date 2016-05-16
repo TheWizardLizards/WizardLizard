@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-namespace WizardLizard
+namespace WizardPlatformTest
 {
     /// <summary>
     /// This is the main type for your game.
@@ -25,7 +25,7 @@ namespace WizardLizard
             Content.RootDirectory = "Content";
         }
 
-        private static List<GameObject> GameObjects
+        public static List<GameObject> GameObjects
         {
             get
             {
