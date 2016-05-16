@@ -53,7 +53,7 @@
     <Compile Include="ILoadable.cs" />
     <Compile Include="IStrategy.cs" />
     <Compile Include="IUpdateable.cs" />
-    <Compile Include="LevelBuilder.cs" />
+    <Compile Include="PlatformBuilder.cs" />
     <Compile Include="Pet.cs" />
     <Compile Include="PetBuilder.cs" />
     <Compile Include="Player.cs" />
@@ -72,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CollisionTexture.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Hero.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
