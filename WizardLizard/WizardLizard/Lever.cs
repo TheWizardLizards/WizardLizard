@@ -28,12 +28,12 @@ namespace WizardLizard
 
         public void OnCollisionEnter(Collider other)
         {
-            throw new NotImplementedException();
+           
         }
 
         public void OnCollisionExit(Collider other)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void Update()

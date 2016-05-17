@@ -23,7 +23,7 @@ namespace WizardLizard
         private bool shield = true;
         private Director director;
         private bool canInteract = false;
-
+        private bool haveInteracted = true;
         public Player(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
@@ -134,10 +134,16 @@ namespace WizardLizard
                 {
                     shield = true;
                 }
-                if (keyState.IsKeyDown(Keys.E)&& canInteract == true)
+                if (keyState.IsKeyDown(Keys.E)&& canInteract == true && haveInteracted == true)
                 {
                     director = new Director(new FireballBuilder());
                     GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                    haveInteracted = false;
+                    canInteract = false;
+                }
+                if (keyState.IsKeyUp(Keys.E))
+                {
+                    haveInteracted = true;
                 }
             }
 
@@ -151,7 +157,7 @@ namespace WizardLizard
 
         public void OnCollisionEnter(Collider other)
         {
-            if (other.GameObject.GetComponent("lever") != null)
+            if (other.GameObject.GetComponent("Lever") != null)
             {
                 canInteract = true;
             }
@@ -159,10 +165,7 @@ namespace WizardLizard
 
         public void OnCollisionExit(Collider other)
         {
-            if (other.GameObject.GetComponent("lever") != null)
-            {
-                canInteract = false;
-            }
+           
         }
 
 

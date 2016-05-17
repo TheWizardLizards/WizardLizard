@@ -20,6 +20,9 @@ namespace WizardLizard
         private static bool derp = true;
         private int speed = 1;
         private int bo = 0;
+        private bool canInteract = false;
+        private bool haveInteracted = true;
+        private Director director;
 
         public static bool Petcontrol
         {
@@ -64,12 +67,15 @@ namespace WizardLizard
 
         public void OnCollisionEnter(Collider other)
         {
-            throw new NotImplementedException();
+            if (other.GameObject.GetComponent("Lever") != null)
+            {
+                canInteract = true;
+            }
         }
 
         public void OnCollisionExit(Collider other)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void Update()
@@ -122,6 +128,17 @@ namespace WizardLizard
                 if (keyState.IsKeyUp(Keys.Space))
                 {
                     canControle = true;
+                }
+                if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
+                {
+                    director = new Director(new FireballBuilder());
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                    haveInteracted = false;
+                    canInteract = false;
+                }
+                if (keyState.IsKeyUp(Keys.E))
+                {
+                    haveInteracted = true;
                 }
             }
             else
