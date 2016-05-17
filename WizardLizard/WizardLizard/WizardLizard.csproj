@@ -48,7 +48,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="Director.cs" />
     <Compile Include="Builder\FireballBuilder.cs" />
-    <Compile Include="Fireball.cs" />
+    <Compile Include="Spells\Fireball.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IAnimateable.cs" />
@@ -60,13 +60,13 @@
     <Compile Include="IMoveAble.cs" />
     <Compile Include="IStrategy.cs" />
     <Compile Include="IUpdateable.cs" />
-    <Compile Include="LightningStrike.cs" />
+    <Compile Include="Spells\LightningStrike.cs" />
     <Compile Include="Builder\LightningStrikeBuilder.cs" />
     <Compile Include="Morph.cs" />
     <Compile Include="Builder\MorphBuilder.cs" />
     <Compile Include="Pet.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="PlayerShield.cs" />
+    <Compile Include="Spells\PlayerShield.cs" />
     <Compile Include="Builder\PlayerShieldBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

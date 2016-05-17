@@ -40,8 +40,8 @@ namespace WizardLizard
             {
                 if (go.GetComponent("LightningStrike") != null)
                 {
-                    //visible += GameWorld.TimeElapsed;
-                    if (visible >= 700)
+                    visible ++;
+                    if (visible >= 50)
                     {
                         GameWorld.ObjectsToRemove.Add(go);
                         visible = 0;

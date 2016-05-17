@@ -13,6 +13,7 @@ namespace WizardLizard
         private Animator animator;
         private Transform transform;
         Vector2 playerPos;
+        private int visible = 0;
         public PlayerShield(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
@@ -21,12 +22,27 @@ namespace WizardLizard
         public void Update()
         {
             Vector2 translation = Vector2.Zero;
-
+            visible++;
             foreach (GameObject go in GameWorld.GameObjects)
             {
                 if (go.GetComponent("Player") != null)
                 {
                     playerPos = go.Transform.Position;
+                }
+            }
+            if (visible >= 100)
+            {
+                foreach (GameObject go in GameWorld.GameObjects)
+                {
+                    if (go.GetComponent("PlayerShield") != null)
+                    {
+                        visible++;
+                        if (visible >= 50)
+                        {
+                            GameWorld.ObjectsToRemove.Add(go);
+                            visible = 0;
+                        }
+                    }
                 }
             }
             transform.Position = playerPos;

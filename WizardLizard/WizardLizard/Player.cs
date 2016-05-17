@@ -18,6 +18,9 @@ namespace WizardLizard
         private bool canControle = true;
         private int speed = 200;
         private bool hasJumped;
+        private bool fireball = true;
+        private bool lightning = true;
+        private bool shield = true;
         private Director director;
 
         public Player(GameObject gameObject) : base(gameObject)
@@ -96,14 +99,34 @@ namespace WizardLizard
                     GameWorld.GameObjects.Add(director.Construct(new Vector2(10, 10)));
                    
                 }
-                //if (mouseState.RightButton == ButtonState.Pressed)
-                //{
-                //    director = new Director(new FireballBuilder());
-                //    GameWorld.ToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
-                //}
-                //if (mouseState.RightButton == ButtonState.Released && fireballPower > 0)
-                //{
-                //}
+                //Shoots a fireball towards the moueses position
+                if (mouseState.RightButton == ButtonState.Pressed && fireball == true)
+                {
+                    director = new Director(new FireballBuilder());
+                    //Opdater fireball spawn punkt.
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                    fireball = false;
+                }
+                if (mouseState.RightButton == ButtonState.Released)
+                {
+                    fireball = true;
+                }
+                //Shoots a lightningstrike from above towards the moueses position
+                if (keyState.IsKeyDown(Keys.R) && lightning == true)
+                {
+                    director = new Director(new LightningStrikeBuilder());
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, mouseState.Y - 479)));
+                    lightning = false;
+                }
+                if (keyState.IsKeyUp(Keys.R))
+                {
+                    lightning = true;
+                }
+                if (keyState.IsKeyDown(Keys.Q))
+                {
+                    director = new Director(new PlayerShieldBuilder());
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                }
             }
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
