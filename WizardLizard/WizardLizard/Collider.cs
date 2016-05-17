@@ -15,6 +15,10 @@ namespace WizardLizard
         private Rectangle collisionBox;
         private List<Collider> otherColliders = new List<Collider>();
         private bool doCollisionChecks;
+        private Rectangle topLine;
+        private Rectangle bottomLine;
+        private Rectangle rightLine;
+        private Rectangle leftLine;
 
         public Collider(GameObject gameObject) : base(gameObject)
         {
@@ -42,6 +46,58 @@ namespace WizardLizard
             }
         }
 
+        public Rectangle TopLine
+        {
+            get
+            {
+                return topLine;
+            }
+
+            set
+            {
+                topLine = value;
+            }
+        }
+
+        public Rectangle BottomLine
+        {
+            get
+            {
+                return bottomLine;
+            }
+
+            set
+            {
+                bottomLine = value;
+            }
+        }
+
+        public Rectangle RightLine
+        {
+            get
+            {
+                return rightLine;
+            }
+
+            set
+            {
+                rightLine = value;
+            }
+        }
+
+        public Rectangle LeftLine
+        {
+            get
+            {
+                return leftLine;
+            }
+
+            set
+            {
+                leftLine = value;
+            }
+        }
+
         public void LoadContent(ContentManager content)
         {
             spriterenderer = (SpriteRenderer)GameObject.GetComponent("SpriteRenderer");
@@ -56,15 +112,15 @@ namespace WizardLizard
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle topLine = new Rectangle(CollisionBox.X, CollisionBox.Y, CollisionBox.Width, 1);
-            Rectangle bottomLine = new Rectangle(CollisionBox.X, CollisionBox.Y + CollisionBox.Height, CollisionBox.Width, 1);
-            Rectangle rightLine = new Rectangle(CollisionBox.X + CollisionBox.Width, CollisionBox.Y, 1, CollisionBox.Height);
-            Rectangle leftLine = new Rectangle(CollisionBox.X, CollisionBox.Y, 1, CollisionBox.Height);
+            TopLine = new Rectangle(CollisionBox.X, CollisionBox.Y, CollisionBox.Width, 1);
+            BottomLine = new Rectangle(CollisionBox.X, CollisionBox.Y + CollisionBox.Height, CollisionBox.Width, 1);
+            RightLine = new Rectangle(CollisionBox.X + CollisionBox.Width, CollisionBox.Y, 1, CollisionBox.Height);
+            LeftLine = new Rectangle(CollisionBox.X, CollisionBox.Y, 1, CollisionBox.Height);
 
-            spriteBatch.Draw(texture2D, topLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture2D, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture2D, rightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture2D, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture2D, TopLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture2D, BottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture2D, RightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture2D, LeftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
 
         }
 
