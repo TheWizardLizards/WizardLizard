@@ -14,6 +14,7 @@ namespace WizardLizard
         private Transform transform;
         private Animator animator;
         private Vector2 velocity;
+        private Director director;
         private bool hasJumped;
         private static bool hasMorphed = false;
         private static bool derp = true;
@@ -22,36 +23,24 @@ namespace WizardLizard
 
         public static bool HasMorphed
         {
-            get
-            {
-                return hasMorphed;
-            }
-
-            set
-            {
-                hasMorphed = value;
-            }
+            get { return hasMorphed; }
+            set { hasMorphed = value; }
         }
 
         public static bool Derp
         {
-            get
-            {
-                return derp;
-            }
-
-            set
-            {
-                derp = value;
-            }
+            get { return derp; }
+            set { derp = value; }
         }
 
         public Morph(GameObject gameObject) : base(gameObject)
         {
-            
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
+            HasMorphed = true;
+          
         }
+
         public void LoadContent(ContentManager content)
         {
 
@@ -74,11 +63,9 @@ namespace WizardLizard
 
         public void Update()
         {
+            
             KeyboardState keyState = Keyboard.GetState();
             Vector2 translation = Vector2.Zero;
-
-            if (HasMorphed == true)
-            {
 
                 speed = 200;
                 translation += velocity;
@@ -88,14 +75,14 @@ namespace WizardLizard
                 }
                 if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
                 {
-                    translation.Y -= 10f;
-                    velocity.Y = -10f;
+                    translation.Y -= 5f;
+                    velocity.Y = -5f;
                     hasJumped = true;
                 }
                 if (hasJumped == true)
                 {
                     float i = 5;
-                    velocity.Y += 0.15f * i;
+                    velocity.Y += 0.05f * i;
                 }
 
                 if (hasJumped == false)
@@ -117,13 +104,23 @@ namespace WizardLizard
                     translation += new Vector2(0, 1);
                     bo = 1;
                 }
-                if (keyState.IsKeyDown(Keys.F) && bo == 1)
+            if (keyState.IsKeyUp(Keys.F))
                 {
-                    Morph.HasMorphed = false;
+                 HasMorphed = false;
+                }
+            if (keyState.IsKeyDown(Keys.F) && HasMorphed == false)
+                {
+                HasMorphed = true;
                     bo = 0;
+                director = new Director(new PlayerBuilder());
+                GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
+
+                director = new Director(new PetBuilder());
+                GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
+                GameWorld.Instance.RemoveGameObject(this.GameObject);
                 }
 
-            }
+            transform.Translate(translation * GameWorld.DeltaTime * speed);
         }
     }
 }
