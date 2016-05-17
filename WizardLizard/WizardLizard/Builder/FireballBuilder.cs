@@ -14,7 +14,7 @@ namespace WizardLizard
         public void BuildGameObject(Vector2 position)
         {
             GameObject gameObject = new GameObject();
-            gameObject.AddComponent(new SpriteRenderer(gameObject, "Fireball.png", 1f));
+            gameObject.AddComponent(new SpriteRenderer(gameObject, "Fireball", 1f));
             gameObject.Transform.Position = position;
             //gameObject.AddComponent(new Collider(gameObject));
             gameObject.AddComponent(new Fireball(gameObject));

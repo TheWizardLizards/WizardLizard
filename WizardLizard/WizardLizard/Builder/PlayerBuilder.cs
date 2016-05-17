@@ -13,7 +13,7 @@ namespace WizardLizard
         public void BuildGameObject(Vector2 position)
         {
             GameObject gameObject = new GameObject();
-            gameObject.AddComponent(new SpriteRenderer(gameObject, "Hero.png", 1f));
+            gameObject.AddComponent(new SpriteRenderer(gameObject, "Hero", 1f));
             //gameObject.AddComponent(new Collider(gameObject));
             gameObject.Transform.Position = new Vector2(50, 50);
             gameObject.AddComponent(new Player(gameObject));
