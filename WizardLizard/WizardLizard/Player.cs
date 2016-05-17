@@ -111,7 +111,7 @@ namespace WizardLizard
                 {
                     director = new Director(new FireballBuilder());
                     //Opdater fireball spawn punkt.
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X +180, transform.Position.Y+98)));
                     fireball = false;
                 }
                 if (mouseState.RightButton == ButtonState.Released)
