@@ -96,7 +96,6 @@ namespace WizardLizard
 
                 if (keyState.IsKeyUp(Keys.F))
                 {
-<<<<<<< HEAD
                     director = new Director(new MorphBuilder());
                     GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(10, 10)));
 
@@ -137,37 +136,27 @@ namespace WizardLizard
                 }
 
 
-=======
-                    Morph.HasMorphed = false;
-                }
-                if (keyState.IsKeyDown(Keys.F) && Morph.HasMorphed == false)
+                Morph.HasMorphed = false;
+            }
+            if (keyState.IsKeyDown(Keys.F) && Morph.HasMorphed == false)
+            {
+                Morph.HasMorphed = true;
+                director = new Director(new MorphBuilder());
+                GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
+                Morph.HasMorphed = true;
+                GameWorld.Instance.RemoveGameObject(this.GameObject);
+                foreach (GameObject go in GameWorld.GameObjects)
                 {
-                    Morph.HasMorphed = true;
-                    director = new Director(new MorphBuilder());
-                    GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
-                    Morph.HasMorphed = true;
-                    GameWorld.Instance.RemoveGameObject(this.GameObject);
-                    foreach (GameObject go in GameWorld.GameObjects)
+                    if (go.GetComponent("Pet") != null)
                     {
-                        if (go.GetComponent("Pet") != null)
-                        {
-                            GameWorld.Instance.RemoveGameObject(go);
-                        }
+                        GameWorld.Instance.RemoveGameObject(go);
                     }
                 }
-                //if (mouseState.RightButton == ButtonState.Pressed)
-                //{
-                //    director = new Director(new FireballBuilder());
-                //    GameWorld.ToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
-                //}
-                //if (mouseState.RightButton == ButtonState.Released && fireballPower > 0)
-                //{
-                //}
->>>>>>> 0e5ce83244934ad2bd2a1598176cac14393a34d4
             }
-
             transform.Translate(translation * GameWorld.DeltaTime * speed);
         }
+
+
 
         public void OnAnimationDone(string animationName)
         {
