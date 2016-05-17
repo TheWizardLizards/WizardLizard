@@ -28,9 +28,9 @@ namespace WizardLizard
 
         public static List<GameObject> GameObjects
         {
-            get{ return gameObjects; }
+            get { return gameObjects; }
 
-            set{ gameObjects = value; }
+            set { gameObjects = value; }
         }
 
         public List<Collider> Colliders
@@ -62,7 +62,7 @@ namespace WizardLizard
 
         public static float DeltaTime
         {
-            get{ return deltaTime; }
+            get { return deltaTime; }
         }
 
         public static Vector2 PlayerPos
@@ -70,6 +70,32 @@ namespace WizardLizard
             get { return playerPos; }
 
             set { playerPos = value; }
+        }
+
+        public static List<GameObject> ObjectsToRemove
+        {
+            get
+            {
+                return objectsToRemove;
+            }
+
+            set
+            {
+                objectsToRemove = value;
+            }
+        }
+
+        public static List<GameObject> ObjectToAdd
+        {
+            get
+            {
+                return objectToAdd;
+            }
+
+            set
+            {
+                objectToAdd = value;
+            }
         }
 
         /// <summary>
@@ -81,6 +107,8 @@ namespace WizardLizard
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            director = new Director(new AimerBuilder());
+            gameObjects.Add(director.Construct(new Vector2(0, 0)));
             director = new Director(new PlayerBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
 
@@ -125,12 +153,12 @@ namespace WizardLizard
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             foreach (GameObject go in objectToAdd)
-            { 
-                GameObjects.Add(go);
+            {
                 go.LoadContent(Content);
             }
+            GameObjects.AddRange(ObjectToAdd);
             objectToAdd.Clear();
-            
+
             foreach (GameObject go in gameObjects)
             {
                 go.LoadContent(Content);
@@ -154,14 +182,14 @@ namespace WizardLizard
         }
 
 
-        public void AddGameObject (GameObject go)
-            {
-             objectToAdd.Add(go);
-            }
+        public void AddGameObject(GameObject go)
+        {
+            objectToAdd.Add(go);
+        }
         public void RemoveGameObject(GameObject go)
         {
             objectsToRemove.Add(go);
-            
+
         }
 
         /// <summary>

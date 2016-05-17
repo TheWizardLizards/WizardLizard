@@ -4,21 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class Fireball : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    class LightningStrike : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
         private Animator animator;
-        public Fireball(GameObject gameObject) : base (gameObject)
+        private float visible = 0;
+        public LightningStrike(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
-        }
-        public void Update()
-        {
         }
         public void LoadContent(ContentManager content)
         {
@@ -26,18 +25,29 @@ namespace WizardLizard
 
         public void OnAnimationDone(string animationName)
         {
-            throw new NotImplementedException();
         }
 
         public void OnCollisionEnter(Collider other)
         {
-            throw new NotImplementedException();
         }
 
         public void OnCollisionExit(Collider other)
         {
-            throw new NotImplementedException();
         }
-
+        public void Update()
+        {
+            foreach (GameObject go in GameWorld.GameObjects)
+            {
+                if (go.GetComponent("LightningStrike") != null)
+                {
+                    visible ++;
+                    if (visible >= 50)
+                    {
+                        GameWorld.ObjectsToRemove.Add(go);
+                        visible = 0;
+                    }
+                }
+            }
+        }
     }
 }
