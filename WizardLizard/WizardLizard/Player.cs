@@ -22,6 +22,7 @@ namespace WizardLizard
         private bool lightning = true;
         private bool shield = true;
         private Director director;
+        private bool canInteract = false;
 
         public Player(GameObject gameObject) : base(gameObject)
         {
@@ -133,6 +134,11 @@ namespace WizardLizard
                 {
                     shield = true;
                 }
+                if (keyState.IsKeyDown(Keys.E)&& canInteract == true)
+                {
+                    director = new Director(new FireballBuilder());
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                }
             }
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
@@ -145,12 +151,18 @@ namespace WizardLizard
 
         public void OnCollisionEnter(Collider other)
         {
-
+            if (other.GameObject.GetComponent("lever") != null)
+            {
+                canInteract = true;
+            }
         }
 
         public void OnCollisionExit(Collider other)
         {
-
+            if (other.GameObject.GetComponent("lever") != null)
+            {
+                canInteract = false;
+            }
         }
 
 

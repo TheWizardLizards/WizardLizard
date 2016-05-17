@@ -111,7 +111,8 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(0, 0)));
             director = new Director(new PlayerBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
-
+            director = new Director(new LeverBuilder());
+            gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new PetBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             base.Initialize();
