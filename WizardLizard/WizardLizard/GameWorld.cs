@@ -29,6 +29,7 @@ namespace WizardLizard
         public static List<GameObject> GameObjects
         {
             get { return gameObjects; }
+            set { gameObjects = value; }
         }
 
         public List<Collider> Colliders
@@ -157,6 +158,12 @@ namespace WizardLizard
             }
             GameObjects.AddRange(ObjectToAdd);
             objectToAdd.Clear();
+            foreach (GameObject go in objectsToRemove)
+            {
+                gameObjects.Remove(go);
+
+            }
+            objectsToRemove.Clear();
 
             foreach (GameObject go in gameObjects)
             {
@@ -170,12 +177,7 @@ namespace WizardLizard
                     PlayerPos = go.Transform.Position;
                 }
             }
-            foreach (GameObject go in objectsToRemove)
-            {
-                gameObjects.Remove(go);
 
-            }
-            objectsToRemove.Clear();
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
