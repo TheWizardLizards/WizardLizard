@@ -72,6 +72,32 @@ namespace WizardLizard
             set { playerPos = value; }
         }
 
+        public static List<GameObject> ObjectsToRemove
+        {
+            get
+            {
+                return objectsToRemove;
+            }
+
+            set
+            {
+                objectsToRemove = value;
+            }
+        }
+
+        public static List<GameObject> ObjectToAdd
+        {
+            get
+            {
+                return objectToAdd;
+            }
+
+            set
+            {
+                objectToAdd = value;
+            }
+        }
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic

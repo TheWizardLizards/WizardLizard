@@ -15,7 +15,6 @@ namespace WizardLizard
         private Transform transform;
         private Vector2 velocity;
         private Animator animator;
-        private int john;
         private bool canControle = true;
         private int speed = 200;
         private bool hasJumped;

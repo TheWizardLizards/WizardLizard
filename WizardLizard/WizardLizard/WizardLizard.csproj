@@ -38,11 +38,16 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Aimer.cs" />
+    <Compile Include="Builder\AimerBuilder.cs" />
     <Compile Include="Animation.cs" />
     <Compile Include="Animator.cs" />
+    <Compile Include="Builder\PetBuilder.cs" />
+    <Compile Include="Builder\PlayerBuilder.cs" />
     <Compile Include="Collider.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Director.cs" />
+    <Compile Include="Builder\FireballBuilder.cs" />
     <Compile Include="Fireball.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="GameObject.cs" />
@@ -55,12 +60,14 @@
     <Compile Include="IMoveAble.cs" />
     <Compile Include="IStrategy.cs" />
     <Compile Include="IUpdateable.cs" />
+    <Compile Include="LightningStrike.cs" />
+    <Compile Include="Builder\LightningStrikeBuilder.cs" />
     <Compile Include="Morph.cs" />
-    <Compile Include="MorphBuilder.cs" />
+    <Compile Include="Builder\MorphBuilder.cs" />
     <Compile Include="Pet.cs" />
-    <Compile Include="PetBuilder.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="PlayerBuilder.cs" />
+    <Compile Include="PlayerShield.cs" />
+    <Compile Include="Builder\PlayerShieldBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpriteRenderer.cs" />
@@ -74,6 +81,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Aim.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Fireball.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -87,6 +97,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
+    <Content Include="Content\LightningStrike.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\PlayerShield.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
