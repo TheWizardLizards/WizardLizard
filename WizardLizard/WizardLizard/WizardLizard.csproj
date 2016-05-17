@@ -54,6 +54,8 @@
     <Compile Include="IMoveAble.cs" />
     <Compile Include="IStrategy.cs" />
     <Compile Include="IUpdateable.cs" />
+    <Compile Include="Morph.cs" />
+    <Compile Include="MorphBuilder.cs" />
     <Compile Include="Pet.cs" />
     <Compile Include="PetBuilder.cs" />
     <Compile Include="Player.cs" />

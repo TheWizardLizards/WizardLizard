@@ -18,6 +18,7 @@ namespace WizardLizard
         private int john;
         private int speed = 200;
         private bool hasJumped;
+        private Director director;
 
         public Player(GameObject gameObject) : base(gameObject)
         {
@@ -46,14 +47,14 @@ namespace WizardLizard
                 }
                 if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
                 {
-                    translation.Y -= 10f;
-                    velocity.Y = -10f;
+                    translation.Y -= 5f;
+                    velocity.Y = -5f;
                     hasJumped = true;
                 }
                 if (hasJumped == true)
                 {
                     float i = 5;
-                    velocity.Y += 0.15f * i;
+                    velocity.Y += 0.05f * i;
                 }
 
                 if (hasJumped == false)
@@ -87,6 +88,12 @@ namespace WizardLizard
                 if (mouseState.LeftButton == ButtonState.Pressed)
                 {
                     //Attack
+                }
+                if (keyState.IsKeyDown(Keys.F))
+                {
+                   director = new Director(new MorphBuilder());
+                    GameWorld.GameObjects.Add(director.Construct(new Vector2(10, 10)));
+                   
                 }
                 //if (mouseState.RightButton == ButtonState.Pressed)
                 //{

@@ -16,7 +16,8 @@ namespace WizardLizard
         private static Vector2 playerPos;
         private static GameWorld instance;
         private static float deltaTime;
-        private static List<GameObject> goToAdd = new List<GameObject>();
+        private static List<GameObject> objectToAdd = new List<GameObject>();
+        private static List<GameObject> objectsToRemove = new List<GameObject>();
         private static List<GameObject> gameObjects = new List<GameObject>();
 
         public GameWorld()
@@ -25,17 +26,11 @@ namespace WizardLizard
             Content.RootDirectory = "Content";
         }
 
-        private static List<GameObject> GameObjects
+        public static List<GameObject> GameObjects
         {
-            get
-            {
-                return gameObjects;
-            }
+            get{ return gameObjects; }
 
-            set
-            {
-                gameObjects = value;
-            }
+            set{ gameObjects = value; }
         }
 
         public List<Collider> Colliders
@@ -67,23 +62,14 @@ namespace WizardLizard
 
         public static float DeltaTime
         {
-            get
-            {
-                return deltaTime;
-            }
+            get{ return deltaTime; }
         }
 
         public static Vector2 PlayerPos
         {
-            get
-            {
-                return playerPos;
-            }
+            get { return playerPos; }
 
-            set
-            {
-                playerPos = value;
-            }
+            set { playerPos = value; }
         }
 
         /// <summary>
@@ -97,7 +83,7 @@ namespace WizardLizard
             // TODO: Add your initialization logic here
             director = new Director(new PlayerBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
-            
+
             director = new Director(new PetBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             base.Initialize();
@@ -137,23 +123,45 @@ namespace WizardLizard
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            foreach (GameObject go in goToAdd)
-            {
+            foreach (GameObject go in objectToAdd)
+            { 
+                GameObjects.Add(go);
                 go.LoadContent(Content);
+                objectToAdd.Remove(go);
             }
+            objectToAdd.Clear();
+            
             foreach (GameObject go in gameObjects)
             {
+                go.LoadContent(Content);
                 go.Update();
             }
             foreach (GameObject go in GameObjects)
             {
-                if(go.GetComponent("Player") != null)
+                if (go.GetComponent("Player") != null)
                 {
                     PlayerPos = go.Transform.Position;
                 }
             }
+            foreach (GameObject go in objectsToRemove)
+            {
+                gameObjects.Remove(go);
+
+            }
+            objectsToRemove.Clear();
             // TODO: Add your update logic here
             base.Update(gameTime);
+        }
+
+
+        public void AddGameObject (GameObject go)
+            {
+             objectToAdd.Add(go);
+            }
+        public void RemoveGameObject(GameObject go)
+        {
+            objectsToRemove.Add(go);
+            
         }
 
         /// <summary>
