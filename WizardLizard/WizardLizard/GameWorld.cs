@@ -123,11 +123,11 @@ namespace WizardLizard
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             foreach (GameObject go in objectToAdd)
             { 
                 GameObjects.Add(go);
                 go.LoadContent(Content);
-                objectToAdd.Remove(go);
             }
             objectToAdd.Clear();
             

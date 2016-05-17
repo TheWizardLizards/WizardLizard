@@ -142,6 +142,7 @@ namespace WizardLizard
                 }
 
             }
+            
             transform.Translate(translation * GameWorld.DeltaTime * speed);
 
         }

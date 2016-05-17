@@ -28,15 +28,15 @@ namespace WizardLizard
 
             hasJumped = true;
         }
-
-
         public void LoadContent(ContentManager content)
         {
 
         }
         public void Update()
         {
+            
             KeyboardState keyState = Keyboard.GetState();
+            KeyboardState PastKey;
             MouseState mouseState = Mouse.GetState();
             Vector2 translation = Vector2.Zero;
             if (Pet.Petcontrol == false)
@@ -91,12 +91,27 @@ namespace WizardLizard
                 {
                     //Attack
                 }
-                if (keyState.IsKeyDown(Keys.F))
+
+                if (keyState.IsKeyUp(Keys.F))
                 {
-                   director = new Director(new MorphBuilder());
-                    GameWorld.GameObjects.Add(director.Construct(new Vector2(10, 10)));
-                   
+                    Morph.HasMorphed = false;
                 }
+                if (keyState.IsKeyDown(Keys.F) && Morph.HasMorphed == false)
+                {
+                    Morph.HasMorphed = true;
+                    director = new Director(new MorphBuilder());
+                    GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
+                    Morph.HasMorphed = true;
+                    GameWorld.Instance.RemoveGameObject(this.GameObject);
+                    foreach(GameObject go in GameWorld.GameObjects)
+                    {
+                        if (go.GetComponent("Pet") != null)
+                        {
+                            GameWorld.Instance.RemoveGameObject(go);
+                        } 
+                    }   
+                }
+                
                 //if (mouseState.RightButton == ButtonState.Pressed)
                 //{
                 //    director = new Director(new FireballBuilder());
