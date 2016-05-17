@@ -117,6 +117,7 @@ namespace WizardLizard
 
                 director = new Director(new PetBuilder());
                 GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
+
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
                 }
 

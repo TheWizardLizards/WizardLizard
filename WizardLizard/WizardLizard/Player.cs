@@ -94,12 +94,12 @@ namespace WizardLizard
                     //Attack
                 }
 
-                if (keyState.IsKeyUp(Keys.F))
-                {
-                    director = new Director(new MorphBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(10, 10)));
+                //if (keyState.IsKeyUp(Keys.F))
+                //{
+                //    director = new Director(new MorphBuilder());
+                //    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(10, 10)));
 
-                }
+                //}
                 //Shoots a fireball towards the moueses position
                 if (mouseState.RightButton == ButtonState.Pressed && fireball == true)
                 {
@@ -135,15 +135,17 @@ namespace WizardLizard
                     shield = true;
                 }
 
-
-                Morph.HasMorphed = false;
+                if (keyState.IsKeyUp(Keys.F))
+                {
+                  Morph.HasMorphed = false;
+                } 
             }
             if (keyState.IsKeyDown(Keys.F) && Morph.HasMorphed == false)
             {
                 Morph.HasMorphed = true;
                 director = new Director(new MorphBuilder());
                 GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
-                Morph.HasMorphed = true;
+           
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
                 foreach (GameObject go in GameWorld.GameObjects)
                 {
