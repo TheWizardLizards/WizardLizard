@@ -16,6 +16,7 @@ namespace WizardLizard
         private Vector2 velocity;
         private Animator animator;
         private int john;
+        private bool canControle = true;
         private int speed = 200;
         private bool hasJumped;
         private Director director;
@@ -66,24 +67,25 @@ namespace WizardLizard
                 if (keyState.IsKeyDown(Keys.D))
                 {
                     translation += new Vector2(1, 0);
-                    john = 1;
                 }
                 if (keyState.IsKeyDown(Keys.A))
                 {
                     translation += new Vector2(-1, 0);
-                    john = 1;
 
                 }
                 if (keyState.IsKeyDown(Keys.S))
                 {
                     translation += new Vector2(0, 1);
-                    john = 1;
 
                 }
-                if (keyState.IsKeyDown(Keys.Space) && john == 1)
+                if (keyState.IsKeyDown(Keys.Space) && canControle == true)
                 {
-                    john = 0;
                     Pet.Petcontrol = true;
+                    canControle = false;
+                }
+                if (keyState.IsKeyUp(Keys.Space))
+                {
+                    canControle = true;
                 }
                 if (mouseState.LeftButton == ButtonState.Pressed)
                 {

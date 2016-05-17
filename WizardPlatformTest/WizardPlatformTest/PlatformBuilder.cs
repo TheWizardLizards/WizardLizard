@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardPlatformTest
 {
-    class LevelBuilder : IBuilder
+    class PlatformBuilder : IBuilder
     {
         private GameObject gameObject;
 
@@ -15,8 +15,9 @@ namespace WizardPlatformTest
         {
             GameObject gameObject = new GameObject();
             gameObject.AddComponent(new SpriteRenderer(gameObject, "Pet", 1f));
-            gameObject.Transform.Position = new Vector2(50, 50);
-            gameObject.AddComponent(new Player(gameObject));
+            gameObject.Transform.Position = position;
+            gameObject.AddComponent(new SolidPlatform(gameObject));
+            gameObject.AddComponent(new Collider(gameObject));
             this.gameObject = gameObject;
         }
 

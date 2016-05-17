@@ -43,6 +43,7 @@
     <Compile Include="Collider.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Director.cs" />
+    <Compile Include="Fireball.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IAnimateable.cs" />
@@ -73,6 +74,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Fireball.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Hero.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
