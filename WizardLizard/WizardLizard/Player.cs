@@ -122,10 +122,16 @@ namespace WizardLizard
                 {
                     lightning = true;
                 }
-                if (keyState.IsKeyDown(Keys.Q))
+                //Creates a shield around the player
+                if (keyState.IsKeyDown(Keys.Q) && shield == true)
                 {
                     director = new Director(new PlayerShieldBuilder());
                     GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                    shield = false;
+                }
+                if (keyState.IsKeyUp(Keys.Q))
+                {
+                    shield = true;
                 }
             }
 
