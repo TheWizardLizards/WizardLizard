@@ -46,7 +46,6 @@ namespace WizardLizard
                 }
             }
             transform.Position = playerPos;
-            //transform.Translate(translation * GameWorld.DeltaTime * speed);
 
         }
         public void LoadContent(ContentManager content)
