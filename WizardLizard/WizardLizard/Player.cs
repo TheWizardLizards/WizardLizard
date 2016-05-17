@@ -99,10 +99,10 @@ namespace WizardLizard
                 {
                     director = new Director(new MorphBuilder());
                     GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(10, 10)));
-                //if (keyState.IsKeyUp(Keys.F))
-                //{
-                //    director = new Director(new MorphBuilder());
-                //    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(10, 10)));
+                    //if (keyState.IsKeyUp(Keys.F))
+                    //{
+                    //    director = new Director(new MorphBuilder());
+                    //    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(10, 10)));
 
                 }
                 //}
@@ -140,8 +140,8 @@ namespace WizardLizard
                 {
                     shield = true;
                 }
-<<<<<<< HEAD
-                if (keyState.IsKeyDown(Keys.E)&& canInteract == true && haveInteracted == true)
+
+                if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
                 {
                     director = new Director(new FireballBuilder());
                     GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
@@ -154,15 +154,13 @@ namespace WizardLizard
                 }
             }
 
+            Morph.HasMorphed = false;
+            if (keyState.IsKeyUp(Keys.F))
+            {
                 Morph.HasMorphed = false;
-=======
-
-                if (keyState.IsKeyUp(Keys.F))
-                {
-                  Morph.HasMorphed = false;
-                } 
->>>>>>> d9522f4ab778f29e22f1c2ee3b73f769d04c24d1
             }
+        
+    
             if (keyState.IsKeyDown(Keys.F) && Morph.HasMorphed == false)
             {
                 Morph.HasMorphed = true;
