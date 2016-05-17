@@ -14,7 +14,6 @@ namespace WizardLizard
         {
             GameObject gameObject = new GameObject();
             gameObject.AddComponent(new SpriteRenderer(gameObject, "Aim", 1f));
-            //gameObject.AddComponent(new Collider(gameObject));
             gameObject.Transform.Position = new Vector2();
             gameObject.AddComponent(new Aimer(gameObject));
             this.gameObject = gameObject;

@@ -36,12 +36,12 @@ namespace WizardLizard
         }
         public void Update()
         {
-            foreach (GameObject go in GameWorld.GameObjects)
+            visible++;
+            if (visible >= 50)
             {
-                if (go.GetComponent("LightningStrike") != null)
+                foreach (GameObject go in GameWorld.GameObjects)
                 {
-                    visible ++;
-                    if (visible >= 50)
+                    if (go.GetComponent("LightningStrike") != null)
                     {
                         GameWorld.ObjectsToRemove.Add(go);
                         visible = 0;

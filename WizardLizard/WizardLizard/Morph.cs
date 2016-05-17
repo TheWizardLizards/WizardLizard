@@ -111,7 +111,7 @@ namespace WizardLizard
             if (keyState.IsKeyDown(Keys.F) && HasMorphed == false)
                 {
                 HasMorphed = true;
-                    bo = 0;
+                   
                 director = new Director(new PlayerBuilder());
                 GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
 
