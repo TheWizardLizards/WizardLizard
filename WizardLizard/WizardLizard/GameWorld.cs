@@ -29,8 +29,6 @@ namespace WizardLizard
         public static List<GameObject> GameObjects
         {
             get { return gameObjects; }
-
-            set { gameObjects = value; }
         }
 
         public List<Collider> Colliders

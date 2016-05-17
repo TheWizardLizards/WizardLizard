@@ -15,7 +15,7 @@ namespace WizardLizard
             GameObject gameObject = new GameObject();
             gameObject.AddComponent(new SpriteRenderer(gameObject, "Hero", 1f));
             //gameObject.AddComponent(new Collider(gameObject));
-            gameObject.Transform.Position = new Vector2(50, 50);
+            gameObject.Transform.Position = position;
             gameObject.AddComponent(new Player(gameObject));
             this.gameObject = gameObject;
         }
