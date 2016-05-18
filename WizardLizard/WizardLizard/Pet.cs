@@ -65,19 +65,6 @@ namespace WizardLizard
             throw new NotImplementedException();
         }
 
-        public void OnCollisionEnter(Collider other)
-        {
-            if (other.GameObject.GetComponent("Lever") != null)
-            {
-                canInteract = true;
-            }
-        }
-
-        public void OnCollisionExit(Collider other)
-        {
-            
-        }
-
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
@@ -86,27 +73,14 @@ namespace WizardLizard
             if (Petcontrol == true)
             {
                 speed = 200;
-                translation += velocity;
-                if (transform.Position.Y >= 200)
-                {
-                    hasJumped = false;
-                }
                 if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
                 {
                     translation.Y -= 10f;
                     velocity.Y = -10f;
                     hasJumped = true;
                 }
-                if (hasJumped == true)
-                {
-                    float i = 5;
-                    velocity.Y += 0.15f * i;
-                }
-
-                if (hasJumped == false)
-                {
-                    velocity.Y = 0f;
-                }
+                float i = 5;
+                velocity.Y += 0.15f * i;
                 if (keyState.IsKeyDown(Keys.D))
                 {
                     translation += new Vector2(1, 0);
@@ -119,6 +93,7 @@ namespace WizardLizard
                 {
                     translation += new Vector2(0, 1);
                 }
+                translation += velocity;
                 if (keyState.IsKeyDown(Keys.Space) && canControle == true)
                 {
 
@@ -159,8 +134,59 @@ namespace WizardLizard
                 }
 
             }
-            
+
             transform.Translate(translation * GameWorld.DeltaTime * speed);
+
+        }
+
+        public void OnCollisionEnter(Collider other)
+        {
+            if (other.GameObject.GetComponent("Lever") != null)
+            {
+                canInteract = true;
+            }
+
+            if (Petcontrol == true)
+            {
+                if (other.GameObject.GetComponent("SolidPlatform") != null)
+                {
+                    Collider collider = (Collider)GameObject.GetComponent("Collider");
+                    if (collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.BottomLine))
+                    {
+                        if (collider.CollisionBox.Intersects(other.RightLine))
+                        {
+                            Vector2 position = GameObject.Transform.Position;
+                            position.Y = other.CollisionBox.X + other.CollisionBox.Width + 1;
+                            GameObject.Transform.Position = position;
+                        }
+                        if (collider.CollisionBox.Intersects(other.LeftLine))
+                        {
+                            Vector2 position = GameObject.Transform.Position;
+                            position.X = other.CollisionBox.X - collider.CollisionBox.Width - 1;
+                            GameObject.Transform.Position = position;
+                        }
+                    }
+                    else if (collider.CollisionBox.Intersects(other.TopLine))
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y - collider.CollisionBox.Height - 1;
+                        GameObject.Transform.Position = position;
+                        hasJumped = false;
+                        velocity.Y = 0;
+                    }
+                    if (collider.CollisionBox.Intersects(other.BottomLine))
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y + other.CollisionBox.Height + 1;
+                        GameObject.Transform.Position = position;
+                        velocity.Y = 0;
+                    }
+                }
+            }
+        }
+
+        public void OnCollisionExit(Collider other)
+        {
 
         }
     }
