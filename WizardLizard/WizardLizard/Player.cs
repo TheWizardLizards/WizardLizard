@@ -183,20 +183,20 @@ namespace WizardLizard
                     if (collider.CollisionBox.Intersects(other.RightLine))
                     {
                         Vector2 position = GameObject.Transform.Position;
-                        position.Y = other.CollisionBox.X + other.CollisionBox.Width + 1;
+                        position.Y = other.CollisionBox.X + other.CollisionBox.Width;
                         GameObject.Transform.Position = position;
                     }
                     if (collider.CollisionBox.Intersects(other.LeftLine))
                     {
                         Vector2 position = GameObject.Transform.Position;
-                        position.X = other.CollisionBox.X - collider.CollisionBox.Width - 1;
+                        position.X = other.CollisionBox.X - collider.CollisionBox.Width;
                         GameObject.Transform.Position = position;
                     }
                 }
                 else if (collider.CollisionBox.Intersects(other.TopLine))
                 {
                     Vector2 position = GameObject.Transform.Position;
-                    position.Y = other.CollisionBox.Y - collider.CollisionBox.Height - 1;
+                    position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
                     GameObject.Transform.Position = position;
                     hasJumped = false;
                     velocity.Y = 0;
@@ -204,7 +204,7 @@ namespace WizardLizard
                 if (collider.CollisionBox.Intersects(other.BottomLine))
                 {
                     Vector2 position = GameObject.Transform.Position;
-                    position.Y = other.CollisionBox.Y + other.CollisionBox.Height + 1;
+                    position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
                     GameObject.Transform.Position = position;
                     velocity.Y = 0;
                 }
