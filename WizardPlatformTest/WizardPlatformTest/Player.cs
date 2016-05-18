@@ -53,10 +53,6 @@ namespace WizardPlatformTest
                     translation += new Vector2(0, 1);
 
                 }
-                if (keyState.IsKeyDown(Keys.Space) && spaceHolding == false)
-                {
-                    Pet.Petcontrol = true;
-                }
                 translation += velocity;
                 if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
                 {
@@ -65,6 +61,10 @@ namespace WizardPlatformTest
                     hasJumped = true;
                 }
             }
+                if (keyState.IsKeyDown(Keys.Space) && spaceHolding == false)
+                {
+                    Pet.Petcontrol = true;
+                }
 
                 float i = 5;
                 velocity.Y += 0.15f * i;

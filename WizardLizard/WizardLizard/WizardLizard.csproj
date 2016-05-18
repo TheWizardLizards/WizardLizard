@@ -50,6 +50,8 @@
     <Compile Include="Director.cs" />
     <Compile Include="Builder\FireballBuilder.cs" />
     <Compile Include="Lever.cs" />
+    <Compile Include="PlatformBuilder.cs" />
+    <Compile Include="SolidPlatform.cs" />
     <Compile Include="Spells\Fireball.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="GameObject.cs" />
