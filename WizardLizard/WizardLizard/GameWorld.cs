@@ -24,6 +24,10 @@ namespace WizardLizard
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            //graphics.HardwareModeSwitch = true;
+            //graphics.PreferredBackBufferWidth = 1920;
+            //graphics.PreferredBackBufferHeight = 1080;
+            //graphics.IsFullScreen = true;
         }
 
         public static List<GameObject> GameObjects
