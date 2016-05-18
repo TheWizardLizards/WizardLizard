@@ -119,9 +119,14 @@ namespace WizardLizard
             director = new Director(new PetBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new PlatformBuilder());
-            GameObjects.Add(director.Construct(new Vector2(50, 400)));
-            GameObjects.Add(director.Construct(new Vector2(90, 400)));
-            GameObjects.Add(director.Construct(new Vector2(130, 400)));
+            GameObjects.Add(director.Construct(new Vector2(50, 450)));
+            GameObjects.Add(director.Construct(new Vector2(90, 450)));
+            GameObjects.Add(director.Construct(new Vector2(130, 450)));
+            GameObjects.Add(director.Construct(new Vector2(170, 450)));
+            GameObjects.Add(director.Construct(new Vector2(210, 450)));
+            GameObjects.Add(director.Construct(new Vector2(250, 450)));
+            GameObjects.Add(director.Construct(new Vector2(50, 410)));
+            GameObjects.Add(director.Construct(new Vector2(50, 370)));
             base.Initialize();
         }
 
