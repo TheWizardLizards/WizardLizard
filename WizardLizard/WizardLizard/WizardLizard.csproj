@@ -45,6 +45,8 @@
     <Compile Include="Builder\LeverBuilder.cs" />
     <Compile Include="Builder\PetBuilder.cs" />
     <Compile Include="Builder\PlayerBuilder.cs" />
+    <Compile Include="PlayerHealth.cs" />
+    <Compile Include="Builder\PlayerHealthBuilder.cs" />
     <Compile Include="Collider.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Director.cs" />

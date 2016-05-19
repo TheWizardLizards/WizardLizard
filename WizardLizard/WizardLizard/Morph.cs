@@ -38,7 +38,6 @@ namespace WizardLizard
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
             HasMorphed = true;
-          
         }
 
         public void LoadContent(ContentManager content)
@@ -73,12 +72,14 @@ namespace WizardLizard
                 {
                     hasJumped = false;
                 }
+
                 if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
                 {
                     translation.Y -= 5f;
                     velocity.Y = -5f;
                     hasJumped = true;
                 }
+
                 if (hasJumped == true)
                 {
                     float i = 5;
@@ -89,25 +90,30 @@ namespace WizardLizard
                 {
                     velocity.Y = 0f;
                 }
+
                 if (keyState.IsKeyDown(Keys.D))
                 {
                     translation += new Vector2(1, 0);
                     bo = 1;
                 }
+
                 if (keyState.IsKeyDown(Keys.A))
                 {
                     translation += new Vector2(-1, 0);
                     bo = 1;
                 }
+
                 if (keyState.IsKeyDown(Keys.S))
                 {
                     translation += new Vector2(0, 1);
                     bo = 1;
                 }
+
             if (keyState.IsKeyUp(Keys.F))
                 {
                  HasMorphed = false;
                 }
+
             if (keyState.IsKeyDown(Keys.F) && HasMorphed == false)
                 {
                 HasMorphed = true;
