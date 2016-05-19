@@ -24,6 +24,7 @@ namespace WizardLizard
         private Director director;
         private bool canInteract = false;
         private bool haveInteracted = true;
+ 
         public Player(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
@@ -37,19 +38,111 @@ namespace WizardLizard
         }
         public void Update()
         {
-
             KeyboardState keyState = Keyboard.GetState();
-            KeyboardState PastKey;
-            MouseState mouseState = Mouse.GetState();
+
             Vector2 translation = Vector2.Zero;
-            if (Pet.Petcontrol == false)
+
+            MouseState mouseState = Mouse.GetState();
+
+            PlayerController(keyState,translation,mouseState);
+        }
+
+        public void OnAnimationDone(string animationName)
+        {
+
+        }    
+        private void MeleeAttack( MouseState mouseState)
+        {
+            if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
+                //Attack
+            }
+        }
+        private void Interact( KeyboardState keyState)
+        {
+            //press E to interact
+            if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
+            {
+                director = new Director(new FireballBuilder());
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                haveInteracted = false;
+                canInteract = false;
+            }
+            if (keyState.IsKeyUp(Keys.E))
+            {
+                haveInteracted = true;
+            }
+
+        }
+        private void CreateShield(KeyboardState keyState)
+        {
+            //Creates a shield around the player
+            if (keyState.IsKeyDown(Keys.Q) && shield == true)
+            {
+                director = new Director(new PlayerShieldBuilder());
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                shield = false;
+            }
+            if (keyState.IsKeyUp(Keys.Q))
+            {
+                shield = true;
+            }
+
+        }
+        private void ShootLighting(KeyboardState keyState, MouseState mouseState)
+        {
+            //Shoots a lightningstrike from above towards the moueses position
+            if (keyState.IsKeyDown(Keys.R) && lightning == true)
+            {
+                director = new Director(new LightningStrikeBuilder());
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, mouseState.Y - 479)));
+                lightning = false;
+            }
+            if (keyState.IsKeyUp(Keys.R))
+            {
+                lightning = true;
+            }
+        }
+        private void ShootFireball( MouseState mouseState)
+        {
+            //Shoots a fireball towards the moueses position
+            if (mouseState.RightButton == ButtonState.Pressed && fireball == true)
+            {
+                director = new Director(new FireballBuilder());
+                //Opdater fireball spawn punkt.
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 180, transform.Position.Y + 98)));
+                fireball = false;
+            }
+            if (mouseState.RightButton == ButtonState.Released)
+            {
+                fireball = true;
+            }
+        }
+        private void ShiftToPet(KeyboardState keyState)
+        {
+            if (keyState.IsKeyDown(Keys.Space) && canControle == true)
+            {
+                Pet.Petcontrol = true;
+                canControle = false;
+            }
+            if (keyState.IsKeyUp(Keys.Space))
+            {
+                canControle = true;
+            }
+        }
+        private void Jump(KeyboardState keyState, Vector2 translation )
+        {
+          if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
                 {
                     translation.Y -= 5f;
                     velocity.Y = -5f;
                     hasJumped = true;
                 }
+        }
+        private void PlayerController(KeyboardState keyState, Vector2 translation, MouseState mouseState)
+        {  
+            if (Pet.Petcontrol == false)
+            {
 
                 if (keyState.IsKeyDown(Keys.D))
                 {
@@ -58,99 +151,58 @@ namespace WizardLizard
                 if (keyState.IsKeyDown(Keys.A))
                 {
                     translation += new Vector2(-1, 0);
-
                 }
                 if (keyState.IsKeyDown(Keys.S))
                 {
                     translation += new Vector2(0, 1);
-
-                }
-                if (keyState.IsKeyDown(Keys.Space) && canControle == true)
-                {
-                    Pet.Petcontrol = true;
-                    canControle = false;
-                }
-                if (keyState.IsKeyUp(Keys.Space))
-                {
-                    canControle = true;
-                }
-                if (mouseState.LeftButton == ButtonState.Pressed)
-                {
-                    //Attack
                 }
 
-               
-                //}
-                //Shoots a fireball towards the moueses position
-                if (mouseState.RightButton == ButtonState.Pressed && fireball == true)
-                {
-                    director = new Director(new FireballBuilder());
-                    //Opdater fireball spawn punkt.
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X +180, transform.Position.Y+98)));
-                    fireball = false;
-                }
-                if (mouseState.RightButton == ButtonState.Released)
-                {
-                    fireball = true;
-                }
-                //Shoots a lightningstrike from above towards the moueses position
-                if (keyState.IsKeyDown(Keys.R) && lightning == true)
-                {
-                    director = new Director(new LightningStrikeBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, mouseState.Y - 479)));
-                    lightning = false;
-                }
-                if (keyState.IsKeyUp(Keys.R))
-                {
-                    lightning = true;
-                }
-                //Creates a shield around the player
-                if (keyState.IsKeyDown(Keys.Q) && shield == true)
-                {
-                    director = new Director(new PlayerShieldBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
-                    shield = false;
-                }
-                if (keyState.IsKeyUp(Keys.Q))
-                {
-                    shield = true;
-                }
+                Jump(keyState, translation);
 
-                if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
-                {
-                    director = new Director(new FireballBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
-                    haveInteracted = false;
-                    canInteract = false;
-                }
-                if (keyState.IsKeyUp(Keys.E))
-                {
-                    haveInteracted = true;
-                }
+                ShiftToPet(keyState);
+
+                ShootFireball(mouseState);
+
+                ShootLighting(keyState,mouseState);
+
+                CreateShield(keyState);
+
+                Interact(keyState);
+
+                MeleeAttack(mouseState);  
             }
 
             float i = 5;
             velocity.Y += 0.05f * i;
             translation += velocity;
 
+            if (velocity.Y > 10)
+            {
+                velocity.Y = 10;
+            }
 
+            morph(keyState);
+
+            transform.Translate(translation * GameWorld.DeltaTime * speed);
+
+        }
+        private void morph(KeyboardState keyState)
+        {
+            
             if (keyState.IsKeyUp(Keys.F))
             {
                 Morph.HasMorphed = false;
             }
 
-            if (velocity.Y > 10)
-            {
-                velocity.Y = 10;
-            }
 
             if (keyState.IsKeyDown(Keys.F) && Morph.HasMorphed == false)
             {
                 Morph.HasMorphed = true;
                 director = new Director(new MorphBuilder());
                 GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
-           
+
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
+
                 foreach (GameObject go in GameWorld.GameObjects)
                 {
                     if (go.GetComponent("Pet") != null)
@@ -158,14 +210,8 @@ namespace WizardLizard
                         GameWorld.Instance.RemoveGameObject(go);
                     }
                 }
+
             }
-            transform.Translate(translation * GameWorld.DeltaTime * speed);
-        }
-
-
-
-        public void OnAnimationDone(string animationName)
-        {
 
         }
 
@@ -183,20 +229,20 @@ namespace WizardLizard
                     if (collider.CollisionBox.Intersects(other.RightLine))
                     {
                         Vector2 position = GameObject.Transform.Position;
-                        position.Y = other.CollisionBox.X + other.CollisionBox.Width + 1;
+                        position.Y = other.CollisionBox.X + other.CollisionBox.Width;
                         GameObject.Transform.Position = position;
                     }
                     if (collider.CollisionBox.Intersects(other.LeftLine))
                     {
                         Vector2 position = GameObject.Transform.Position;
-                        position.X = other.CollisionBox.X - collider.CollisionBox.Width - 1;
+                        position.X = other.CollisionBox.X - collider.CollisionBox.Width;
                         GameObject.Transform.Position = position;
                     }
                 }
                 else if (collider.CollisionBox.Intersects(other.TopLine))
                 {
                     Vector2 position = GameObject.Transform.Position;
-                    position.Y = other.CollisionBox.Y - collider.CollisionBox.Height - 1;
+                    position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
                     GameObject.Transform.Position = position;
                     hasJumped = false;
                     velocity.Y = 0;
@@ -204,18 +250,15 @@ namespace WizardLizard
                 if (collider.CollisionBox.Intersects(other.BottomLine))
                 {
                     Vector2 position = GameObject.Transform.Position;
-                    position.Y = other.CollisionBox.Y + other.CollisionBox.Height + 1;
+                    position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
                     GameObject.Transform.Position = position;
                     velocity.Y = 0;
                 }
             }
         }
-
         public void OnCollisionExit(Collider other)
         {
 
         }
-
-
     }
 }
