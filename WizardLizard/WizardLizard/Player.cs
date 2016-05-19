@@ -109,7 +109,7 @@ namespace WizardLizard
             if (keyState.IsKeyDown(Keys.R) && lightning == true)
             {
                 director = new Director(new LightningStrikeBuilder());
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, mouseState.Y - 479)));
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, mouseState.Y - 956)));
                 lightning = false;
             }
             if (keyState.IsKeyUp(Keys.R))
@@ -124,7 +124,7 @@ namespace WizardLizard
             {
                 director = new Director(new FireballBuilder());
                 //Opdater fireball spawn punkt.
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 180, transform.Position.Y + 98)));
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 40, transform.Position.Y + 40)));
                 fireball = false;
             }
             if (mouseState.RightButton == ButtonState.Released)
