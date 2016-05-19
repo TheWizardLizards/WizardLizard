@@ -49,6 +49,8 @@
     <Compile Include="Builder\LeverBuilder.cs" />
     <Compile Include="Builder\PetBuilder.cs" />
     <Compile Include="Builder\PlayerBuilder.cs" />
+    <Compile Include="Door.cs" />
+    <Compile Include="DoorBuilder.cs" />
     <Compile Include="PlayerHealth.cs" />
     <Compile Include="Builder\PlayerHealthBuilder.cs" />
     <Compile Include="Collider.cs" />
@@ -100,8 +102,8 @@
     <Content Include="Content\Fireball.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\goblin.png">	
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Content\goblin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Healthbar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

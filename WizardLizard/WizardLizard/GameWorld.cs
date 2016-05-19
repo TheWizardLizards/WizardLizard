@@ -120,7 +120,9 @@ namespace WizardLizard
             director = new Director(new PlayerHealthBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new LeverBuilder());
-            gameObjects.Add(director.Construct(new Vector2(10, 10)));
+            gameObjects.Add(director.Construct(new Vector2(50, 100), 1));
+            director = new Director(new DoorBuilder());
+            gameObjects.Add(director.Construct(new Vector2(500, 300), 1));
             director = new Director(new PetBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new ArcherBuilder());
