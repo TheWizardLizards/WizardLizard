@@ -36,6 +36,7 @@ namespace WizardLizard
             set { gameObjects = value; }
         }
 
+       
         public List<Collider> Colliders
         {
             get
@@ -67,6 +68,8 @@ namespace WizardLizard
         {
             get { return deltaTime; }
         }
+
+        
 
         public static Vector2 PlayerPos
         {
@@ -118,6 +121,8 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new PetBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
+            director = new Director(new ArcherBuilder());
+            gameObjects.Add(director.Construct(new Vector2(310, 10)));
             director = new Director(new PlatformBuilder());
             GameObjects.Add(director.Construct(new Vector2(50, 400)));
             GameObjects.Add(director.Construct(new Vector2(90, 400)));
