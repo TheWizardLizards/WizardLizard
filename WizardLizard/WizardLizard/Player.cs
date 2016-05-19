@@ -195,12 +195,12 @@ namespace WizardLizard
                 velocity.Y = 10;
             }
 
-            morph(keyState);
+            MorphPlayer(keyState);
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
 
         }
-        private void morph(KeyboardState keyState)
+        private void MorphPlayer(KeyboardState keyState)
         {
             
             if (keyState.IsKeyUp(Keys.F))

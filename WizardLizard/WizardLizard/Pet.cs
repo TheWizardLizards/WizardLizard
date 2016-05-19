@@ -64,78 +64,85 @@ namespace WizardLizard
         {
             throw new NotImplementedException();
         }
+        public void ControlePet(KeyboardState keyState, Vector2 translation)
+        {
+            speed = 200;
+            if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
+            {
+                translation.Y -= 10f;
+                velocity.Y = -10f;
+                hasJumped = true;
+            }
+            float i = 5;
+            velocity.Y += 0.15f * i;
+            if (keyState.IsKeyDown(Keys.D))
+            {
+                translation += new Vector2(1, 0);
+            }
+            if (keyState.IsKeyDown(Keys.A))
+            {
+                translation += new Vector2(-1, 0);
+            }
+            if (keyState.IsKeyDown(Keys.S))
+            {
+                translation += new Vector2(0, 1);
+            }
+            translation += velocity;
+            if (keyState.IsKeyDown(Keys.Space) && canControle == true)
+            {
+
+                Pet.Petcontrol = false;
+                canControle = false;
+            }
+            if (keyState.IsKeyUp(Keys.Space))
+            {
+                canControle = true;
+            }
+            if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
+            {
+                director = new Director(new FireballBuilder());
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                haveInteracted = false;
+                canInteract = false;
+            }
+            if (keyState.IsKeyUp(Keys.E))
+            {
+                haveInteracted = true;
+            }
+            transform.Translate(translation * GameWorld.DeltaTime * speed);
+        }
+        public void FollowPlayer()
+        {
+            speed = 5;
+            Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X - 25, GameWorld.PlayerPos.Y + 106);
+            Vector2 petPos = new Vector2(transform.Position.X, transform.Position.Y);
+            Vector2 direction = playerPos - petPos;
+            if (speed > direction.Length())
+            {
+                transform.Position = petPos;
+            }
+            else
+            {
+                direction.Normalize();
+                transform.Position += direction * speed;
+            }
+        }
 
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
+
             Vector2 translation = Vector2.Zero;
 
             if (Petcontrol == true)
             {
-                speed = 200;
-                if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
-                {
-                    translation.Y -= 10f;
-                    velocity.Y = -10f;
-                    hasJumped = true;
-                }
-                float i = 5;
-                velocity.Y += 0.15f * i;
-                if (keyState.IsKeyDown(Keys.D))
-                {
-                    translation += new Vector2(1, 0);
-                }
-                if (keyState.IsKeyDown(Keys.A))
-                {
-                    translation += new Vector2(-1, 0);
-                }
-                if (keyState.IsKeyDown(Keys.S))
-                {
-                    translation += new Vector2(0, 1);
-                }
-                translation += velocity;
-                if (keyState.IsKeyDown(Keys.Space) && canControle == true)
-                {
-
-                    Pet.Petcontrol = false;
-                    canControle = false;
-                }
-                if (keyState.IsKeyUp(Keys.Space))
-                {
-                    canControle = true;
-                }
-                if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
-                {
-                    director = new Director(new FireballBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
-                    haveInteracted = false;
-                    canInteract = false;
-                }
-                if (keyState.IsKeyUp(Keys.E))
-                {
-                    haveInteracted = true;
-                }
+                ControlePet(keyState, translation);
             }
             else
             {
-                speed = 5;
-                Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X + 98, GameWorld.PlayerPos.Y + 150);
-                Vector2 petPos = new Vector2(transform.Position.X, transform.Position.Y);
-                Vector2 direction = playerPos - petPos;
-                if (speed > direction.Length())
-                {
-                    transform.Position = petPos;
-                }
-                else
-                {
-                    direction.Normalize();
-                    transform.Position += direction * speed;
-
-                }
-
+                FollowPlayer();
             }
 
-            transform.Translate(translation * GameWorld.DeltaTime * speed);
 
         }
 
