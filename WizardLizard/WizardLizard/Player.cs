@@ -109,7 +109,7 @@ namespace WizardLizard
             if (keyState.IsKeyDown(Keys.R) && lightning == true)
             {
                 director = new Director(new LightningStrikeBuilder());
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, mouseState.Y - 956)));
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X, 0)));
                 lightning = false;
             }
             if (keyState.IsKeyUp(Keys.R))
@@ -171,48 +171,7 @@ namespace WizardLizard
                     translation += new Vector2(0, 1);
                 }
 
-
-               
-                //}
-                //Shoots a fireball towards the moueses position
-                if (mouseState.RightButton == ButtonState.Pressed && fireball == true)
-                {
-                    director = new Director(new FireballBuilder());
-                    //Opdater fireball spawn punkt.
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
-                    fireball = false;
-                }
-
-
-                if (mouseState.RightButton == ButtonState.Released)
-                {
-                    fireball = true;
-                }
-                //Shoots a lightningstrike from above towards the moueses position
-                if (keyState.IsKeyDown(Keys.R) && lightning == true)
-                {
-                    director = new Director(new LightningStrikeBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, mouseState.Y - 479)));
-                    lightning = false;
-                }
-                if (keyState.IsKeyUp(Keys.R))
-                {
-                    lightning = true;
-                }
-                //Creates a shield around the player
-                if (keyState.IsKeyDown(Keys.Q) && shield == true)
-                {
-                    director = new Director(new PlayerShieldBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
-                    shield = false;
-                }
-                if (keyState.IsKeyUp(Keys.Q))
-                {
-                    shield = true;
-                }
-
                 Jump(keyState, translation);
-
 
                 ShiftToPet(keyState);
 
