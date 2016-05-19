@@ -25,6 +25,7 @@ namespace WizardLizard
         private Director director;
         private bool canInteract = false;
         private bool haveInteracted = true;
+        private bool playerCanBeHit;
 
         public static int Health
         {
@@ -52,6 +53,8 @@ namespace WizardLizard
         }
         public void Update()
         {
+            playerCanBeHit = true;
+
             KeyboardState keyState = Keyboard.GetState();
 
             Vector2 translation = Vector2.Zero;
@@ -226,7 +229,15 @@ namespace WizardLizard
                 }
 
             }
+        }
 
+        public void playerhit()
+        {
+            if(playerCanBeHit == true)
+            {
+                Health = Health - 1;
+                playerCanBeHit = false;
+            }
         }
 
         public void OnCollisionEnter(Collider other)
@@ -312,6 +323,9 @@ namespace WizardLizard
                         GameObject.Transform.Position = position;
                     }
                 }
+
+                //                             Old Collision !!![PLEASE DONT REMOVE]!!!
+
 
                 //if (collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.BottomLine))
                 //{
