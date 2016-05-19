@@ -15,13 +15,11 @@ namespace WizardLizard
         private Animator animator;
         private Vector2 velocity;
         private bool hasJumped;
-        private static bool petcontrol = false;
-        private bool canControle = true;
-        private static bool derp = true;
-        private int speed = 1;
-        private int bo = 0;
-        private bool canInteract = false;
-        private bool haveInteracted = true;
+        private static bool petcontrol;
+        private bool canControle;
+        private int speed;
+        private bool canInteract;
+        private bool haveInteracted;
         private Director director;
 
         public static bool Petcontrol
@@ -37,23 +35,15 @@ namespace WizardLizard
             }
         }
 
-        public static bool Derp
-        {
-            get
-            {
-                return derp;
-            }
-
-            set
-            {
-                derp = value;
-            }
-        }
-
         public Pet(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
+            petcontrol = false;
+            canControle = true;
+            speed = 200;
+            canInteract = false;
+            haveInteracted = true;
         }
         public void LoadContent(ContentManager content)
         {
