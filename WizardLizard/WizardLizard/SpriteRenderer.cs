@@ -8,7 +8,7 @@ using System.Text;
 
 namespace WizardLizard
 {
-    class SpriteRenderer : Component, IDrawable, ILoadable 
+    class SpriteRenderer : Component, IDrawable, ILoadable
     {
         private Color color;
         private Rectangle rectangle;
@@ -68,7 +68,7 @@ namespace WizardLizard
             }
         }
 
-        public SpriteRenderer(GameObject gameObject, string spriteName, float layerDepth) : base (gameObject)
+        public SpriteRenderer(GameObject gameObject, string spriteName, float layerDepth) : base(gameObject)
         {
             this.spriteName = spriteName;
             this.layerDepth = layerDepth;
@@ -76,7 +76,7 @@ namespace WizardLizard
         public void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>(spriteName);
-            rectangle = new Rectangle(0,0,sprite.Width,sprite.Height);
+            rectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
             this.color = Color.White;
         }
         public void Draw(SpriteBatch spriteBatch)

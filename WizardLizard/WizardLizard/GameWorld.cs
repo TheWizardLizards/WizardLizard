@@ -25,8 +25,8 @@ namespace WizardLizard
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             //graphics.HardwareModeSwitch = true;
-            //graphics.PreferredBackBufferWidth = 1920;
-            //graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
             //graphics.IsFullScreen = true;
         }
 
@@ -36,6 +36,7 @@ namespace WizardLizard
             set { gameObjects = value; }
         }
 
+       
         public List<Collider> Colliders
         {
             get
@@ -67,6 +68,8 @@ namespace WizardLizard
         {
             get { return deltaTime; }
         }
+
+        
 
         public static Vector2 PlayerPos
         {
@@ -114,10 +117,14 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(0, 0)));
             director = new Director(new PlayerBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
+            director = new Director(new PlayerHealthBuilder());
+            gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new LeverBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new PetBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
+            director = new Director(new ArcherBuilder());
+            gameObjects.Add(director.Construct(new Vector2(310, 10)));
             director = new Director(new PlatformBuilder());
             GameObjects.Add(director.Construct(new Vector2(50, 450)));
             GameObjects.Add(director.Construct(new Vector2(90, 450)));
@@ -180,7 +187,6 @@ namespace WizardLizard
 
             foreach (GameObject go in gameObjects)
             {
-                go.LoadContent(Content);
                 go.Update();
             }
             foreach (GameObject go in GameObjects)

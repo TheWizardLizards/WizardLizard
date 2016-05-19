@@ -17,6 +17,7 @@ namespace WizardLizard
         private Animator animator;
         private bool canControle = true;
         private int speed = 200;
+        private static int health;
         private bool hasJumped;
         private bool fireball = true;
         private bool lightning = true;
@@ -24,12 +25,25 @@ namespace WizardLizard
         private Director director;
         private bool canInteract = false;
         private bool haveInteracted = true;
- 
+
+        public static int Health
+        {
+            get
+            {
+                return health;
+            }
+
+            set
+            {
+                health = value;
+            }
+        }
+
         public Player(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
-
+            health = 4;
             hasJumped = true;
         }
         public void LoadContent(ContentManager content)
@@ -95,7 +109,7 @@ namespace WizardLizard
             if (keyState.IsKeyDown(Keys.R) && lightning == true)
             {
                 director = new Director(new LightningStrikeBuilder());
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, mouseState.Y - 479)));
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X, 0)));
                 lightning = false;
             }
             if (keyState.IsKeyUp(Keys.R))
@@ -110,7 +124,7 @@ namespace WizardLizard
             {
                 director = new Director(new FireballBuilder());
                 //Opdater fireball spawn punkt.
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 180, transform.Position.Y + 98)));
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 40, transform.Position.Y + 40)));
                 fireball = false;
             }
             if (mouseState.RightButton == ButtonState.Released)
@@ -181,12 +195,12 @@ namespace WizardLizard
                 velocity.Y = 10;
             }
 
-            morph(keyState);
+            MorphPlayer(keyState);
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
 
         }
-        private void morph(KeyboardState keyState)
+        private void MorphPlayer(KeyboardState keyState)
         {
             
             if (keyState.IsKeyUp(Keys.F))
@@ -224,36 +238,111 @@ namespace WizardLizard
             if (other.GameObject.GetComponent("SolidPlatform") != null)
             {
                 Collider collider = (Collider)GameObject.GetComponent("Collider");
-                if (collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.BottomLine))
+
+                int top = Math.Max(collider.CollisionBox.Top, other.CollisionBox.Top);
+                int left = Math.Max(collider.CollisionBox.Left, other.CollisionBox.Left);
+                int width = Math.Min(collider.CollisionBox.Right, other.CollisionBox.Right) - left;
+                int height = Math.Min(collider.CollisionBox.Bottom, other.CollisionBox.Bottom) - top;
+
+                var intersectingRectangle = new Rectangle(left, top, width, height);
+
+                if(collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.RightLine))
                 {
-                    if (collider.CollisionBox.Intersects(other.RightLine))
+                    if(width > height)
                     {
                         Vector2 position = GameObject.Transform.Position;
-                        position.Y = other.CollisionBox.X + other.CollisionBox.Width;
+                        position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                        hasJumped = false;
+                        velocity.Y = 0;
+                    }
+                    else
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X + other.CollisionBox.Width;
                         GameObject.Transform.Position = position;
                     }
-                    if (collider.CollisionBox.Intersects(other.LeftLine))
+                }
+                else if(collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.LeftLine))
+                {
+                    if(width> height)
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                        hasJumped = false;
+                        velocity.Y = 0;
+                    }
+                    else
                     {
                         Vector2 position = GameObject.Transform.Position;
                         position.X = other.CollisionBox.X - collider.CollisionBox.Width;
                         GameObject.Transform.Position = position;
                     }
                 }
-                else if (collider.CollisionBox.Intersects(other.TopLine))
+                else if(collider.CollisionBox.Intersects(other.BottomLine) && collider.CollisionBox.Intersects(other.LeftLine))
                 {
-                    Vector2 position = GameObject.Transform.Position;
-                    position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
-                    GameObject.Transform.Position = position;
-                    hasJumped = false;
-                    velocity.Y = 0;
+                    if(width > height)
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                        velocity.Y = 0;
+                    }
+                    else
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X - collider.CollisionBox.Width;
+                        GameObject.Transform.Position = position;
+                    }
                 }
-                if (collider.CollisionBox.Intersects(other.BottomLine))
+                else if(collider.CollisionBox.Intersects(other.BottomLine) && collider.CollisionBox.Intersects(other.RightLine))
                 {
-                    Vector2 position = GameObject.Transform.Position;
-                    position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
-                    GameObject.Transform.Position = position;
-                    velocity.Y = 0;
+                    if(width > height)
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                        velocity.Y = 0;
+                    }
+                    else
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X + other.CollisionBox.Width;
+                        GameObject.Transform.Position = position;
+                    }
                 }
+
+                //if (collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.BottomLine))
+                //{
+                //    if (collider.CollisionBox.Intersects(other.RightLine))
+                //    {
+                //        Vector2 position = GameObject.Transform.Position;
+                //        position.Y = other.CollisionBox.X + other.CollisionBox.Width;
+                //        GameObject.Transform.Position = position;
+                //    }
+                //    if (collider.CollisionBox.Intersects(other.LeftLine))
+                //    {
+                //        Vector2 position = GameObject.Transform.Position;
+                //        position.X = other.CollisionBox.X - collider.CollisionBox.Width;
+                //        GameObject.Transform.Position = position;
+                //    }
+                //}
+                //else if (collider.CollisionBox.Intersects(other.TopLine))
+                //{
+                //    Vector2 position = GameObject.Transform.Position;
+                //    position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
+                //    GameObject.Transform.Position = position;
+                //    hasJumped = false;
+                //    velocity.Y = 0;
+                //}
+                //if (collider.CollisionBox.Intersects(other.BottomLine))
+                //{
+                //    Vector2 position = GameObject.Transform.Position;
+                //    position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
+                //    GameObject.Transform.Position = position;
+                //    velocity.Y = 0;
+                //}
             }
         }
         public void OnCollisionExit(Collider other)
