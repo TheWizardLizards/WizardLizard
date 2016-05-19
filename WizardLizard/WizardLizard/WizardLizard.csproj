@@ -102,7 +102,7 @@
     </Content>
     <Content Include="Content\goblin.png">	
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</content>	
+    </Content>
     <Content Include="Content\Healthbar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
