@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    class Animation 
+    class Animation
     {
         private float fps;
         private Vector2 offset;
@@ -36,7 +36,7 @@ namespace WizardLizard
                 return rectangles;
             }
         }
-        
+
         public Animation(int frames, int yPos, int xStratFrame, int widht, int height, float fps, Vector2 offset)
         {
             rectangles = new Rectangle[frames];
@@ -46,7 +46,7 @@ namespace WizardLizard
                 rectangles[i] = new Rectangle((i + xStratFrame) * widht, yPos, widht, height);
             }
 
-       
+
             this.fps = fps;
             this.offset = offset;
         }

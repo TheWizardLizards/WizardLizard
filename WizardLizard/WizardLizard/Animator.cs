@@ -14,10 +14,10 @@ namespace WizardLizard
         private float timeElapsed;
         private float fps;
         private string animationName;
-        private Dictionary<string,Animation> animations = new Dictionary<string, Animation>();
+        private Dictionary<string, Animation> animations = new Dictionary<string, Animation>();
         private Rectangle[] rectangles;
         private GameObject gameObject;
-        public Animator(GameObject gameObject) : base (gameObject)
+        public Animator(GameObject gameObject) : base(gameObject)
         {
             animations = new Dictionary<string, Animation>();
             fps = 8;
@@ -45,8 +45,7 @@ namespace WizardLizard
                 //Resets the animation
                 timeElapsed = 0;
                 currentIndex = 0;
-            }
-
+            }
         }
         public void Update()
         {
