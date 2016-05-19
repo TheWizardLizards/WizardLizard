@@ -14,6 +14,7 @@ namespace WizardLizard
         {
             GameObject gameObject = new GameObject();
             gameObject.AddComponent(new SpriteRenderer(gameObject, "Healthbar", 1f));
+            gameObject.AddComponent(new Animator(gameObject));
             gameObject.Transform.Position = new Vector2(10, 10);
             gameObject.AddComponent(new PlayerHealth(gameObject));
             this.gameObject = gameObject;

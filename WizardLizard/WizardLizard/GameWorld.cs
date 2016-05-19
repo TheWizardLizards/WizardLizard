@@ -114,6 +114,8 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(0, 0)));
             director = new Director(new PlayerBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
+            director = new Director(new PlayerHealthBuilder());
+            gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new LeverBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new PetBuilder());
@@ -180,7 +182,6 @@ namespace WizardLizard
 
             foreach (GameObject go in gameObjects)
             {
-                go.LoadContent(Content);
                 go.Update();
             }
             foreach (GameObject go in GameObjects)

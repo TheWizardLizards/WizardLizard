@@ -13,8 +13,7 @@ namespace WizardLizard
         private Animator animator;
         public PlayerHealth(GameObject gameObject) : base(gameObject)
         {
-            animator = new Animator(gameObject);
-            //animator = (Animator)GameObject.GetComponent("Animator");
+            animator = (Animator)GameObject.GetComponent("Animator");
 
         }
         public void LoadContent(ContentManager content)

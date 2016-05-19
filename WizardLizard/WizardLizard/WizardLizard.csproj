@@ -96,6 +96,9 @@
     <Content Include="Content\Fireball.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Healthbar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Hero.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

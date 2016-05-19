@@ -17,6 +17,7 @@ namespace WizardLizard
         private Animator animator;
         private bool canControle = true;
         private int speed = 200;
+        private static int health;
         private bool hasJumped;
         private bool fireball = true;
         private bool lightning = true;
@@ -24,12 +25,25 @@ namespace WizardLizard
         private Director director;
         private bool canInteract = false;
         private bool haveInteracted = true;
- 
+
+        public static int Health
+        {
+            get
+            {
+                return health;
+            }
+
+            set
+            {
+                health = value;
+            }
+        }
+
         public Player(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
-
+            health = 4;
             hasJumped = true;
         }
         public void LoadContent(ContentManager content)
