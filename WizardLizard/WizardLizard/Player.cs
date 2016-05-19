@@ -46,7 +46,7 @@ namespace WizardLizard
 
             PlayerController(keyState,translation,mouseState);
         }
-
+        
         public void OnAnimationDone(string animationName)
         {
 
@@ -260,5 +260,6 @@ namespace WizardLizard
         {
 
         }
+        
     }
 }
