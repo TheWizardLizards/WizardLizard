@@ -30,15 +30,8 @@ namespace WizardLizard
 
         public static int Health
         {
-            get
-            {
-                return health;
-            }
-
-            set
-            {
-                health = value;
-            }
+            get { return health; }
+            set { health = value; }
         }
 
         public Player(GameObject gameObject) : base(gameObject)

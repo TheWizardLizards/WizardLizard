@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
@@ -13,7 +8,7 @@ namespace WizardLizard
         public void BuildGameObject(Vector2 position)
         {
             GameObject gameObject = new GameObject();
-            gameObject.AddComponent(new SpriteRenderer(gameObject, "goblin", 1));
+            gameObject.AddComponent(new SpriteRenderer(gameObject, "archer", 1));
             gameObject.Transform.Position = position;
             gameObject.AddComponent(new Archer(gameObject));
             this.gameObject = gameObject;
@@ -21,7 +16,7 @@ namespace WizardLizard
 
         public void BuildGameObject(Vector2 position, int frequency)
         {
-            throw new NotImplementedException();
+            
         }
 
         public GameObject GetResult()

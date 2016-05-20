@@ -46,9 +46,13 @@
     <Compile Include="Animator.cs" />
     <Compile Include="Builder\ArcherBuilder.cs" />
     <Compile Include="Builder\ArrowBuilder.cs" />
+    <Compile Include="Builder\GoblinBuilder.cs" />
     <Compile Include="Builder\LeverBuilder.cs" />
+    <Compile Include="Builder\OrcBuilder.cs" />
     <Compile Include="Builder\PetBuilder.cs" />
     <Compile Include="Builder\PlayerBuilder.cs" />
+    <Compile Include="Goblin.cs" />
+    <Compile Include="Orc.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="DoorBuilder.cs" />
     <Compile Include="PlayerHealth.cs" />
@@ -96,6 +100,9 @@
     <Content Include="Content\Aim.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\archer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\CollisionTexture.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -115,6 +122,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\MoveableBox.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\orc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Pet.png">
