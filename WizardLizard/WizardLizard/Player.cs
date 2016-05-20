@@ -19,25 +19,19 @@ namespace WizardLizard
         private int speed = 200;
         private static int health;
         private bool hasJumped;
-       
         private bool fireball = true;
         private bool lightning = true;
         private bool shield = true;
         private Director director;
         private bool canInteract = false;
         private bool haveInteracted = true;
+        private bool playerCanBeHit;
+        private Lever lastknownLever;
 
         public static int Health
         {
-            get
-            {
-                return health;
-            }
-
-            set
-            {
-                health = value;
-            }
+            get { return health; }
+            set { health = value; }
         }
 
         public Player(GameObject gameObject) : base(gameObject)
@@ -53,6 +47,8 @@ namespace WizardLizard
         }
         public void Update()
         {
+            playerCanBeHit = true;
+
             KeyboardState keyState = Keyboard.GetState();
 
             Vector2 translation = Vector2.Zero;
@@ -78,8 +74,7 @@ namespace WizardLizard
             //press E to interact
             if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
             {
-                director = new Director(new FireballBuilder());
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                lastknownLever.interaction();
                 haveInteracted = false;
                 canInteract = false;
             }
@@ -133,11 +128,11 @@ namespace WizardLizard
                 fireball = true;
             }
         }
-        private void ShiftToPet(KeyboardState keyState)
+        private void ShiftToCompanion(KeyboardState keyState)
         {
             if (keyState.IsKeyDown(Keys.Space) && canControle == true)
             {
-                Pet.Petcontrol = true;
+                Companion.Petcontrol = true;
                 canControle = false;
             }
             if (keyState.IsKeyUp(Keys.Space))
@@ -156,7 +151,7 @@ namespace WizardLizard
         }
         private void PlayerController(KeyboardState keyState, Vector2 translation, MouseState mouseState)
         {  
-            if (Pet.Petcontrol == false)
+            if (Companion.Petcontrol == false)
             {
 
                 if (keyState.IsKeyDown(Keys.D))
@@ -174,7 +169,7 @@ namespace WizardLizard
 
                 Jump(keyState, translation);
 
-                ShiftToPet(keyState);
+                ShiftToCompanion(keyState);
 
                 ShootFireball(mouseState);
 
@@ -227,20 +222,19 @@ namespace WizardLizard
                 }
 
             }
+        }
 
+        public void playerhit()
+        {
+            if(playerCanBeHit == true)
+            {
+                Health = Health - 1;
+                playerCanBeHit = false;
+            }
         }
 
         public void OnCollisionEnter(Collider other)
         {
-            if(other.GameObject.GetComponent("Arrow") !=null)
-            {
-                health -= 1;
-            }
-            
-            if (other.GameObject.GetComponent("Lever") != null)
-            {
-                canInteract = true;
-            }
             if (other.GameObject.GetComponent("SolidPlatform") != null)
             {
                 Collider collider = (Collider)GameObject.GetComponent("Collider");
@@ -319,6 +313,9 @@ namespace WizardLizard
                     }
                 }
 
+                //                             Old Collision !!![PLEASE DONT REMOVE]!!!
+
+
                 //if (collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.BottomLine))
                 //{
                 //    if (collider.CollisionBox.Intersects(other.RightLine))
@@ -350,10 +347,18 @@ namespace WizardLizard
                 //    velocity.Y = 0;
                 //}
             }
+            if(other.GameObject.GetComponent("Lever") != null)
+            {
+                canInteract = true;
+                lastknownLever = (Lever)other.GameObject.GetComponent("Lever");
+            }
         }
         public void OnCollisionExit(Collider other)
         {
-
+            if(other.GameObject.GetComponent("Lever") != null)
+            {
+                canInteract = false;
+            }
         }
         
     }

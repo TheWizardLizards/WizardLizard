@@ -24,10 +24,10 @@ namespace WizardLizard
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            //graphics.HardwareModeSwitch = true;
+            graphics.HardwareModeSwitch = true;
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
-            //graphics.IsFullScreen = true;
+           // graphics.IsFullScreen = true;
         }
 
         public static List<GameObject> GameObjects
@@ -120,20 +120,45 @@ namespace WizardLizard
             director = new Director(new PlayerHealthBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new LeverBuilder());
-            gameObjects.Add(director.Construct(new Vector2(10, 10)));
-            director = new Director(new PetBuilder());
+            gameObjects.Add(director.Construct(new Vector2(50, 100), 1));
+            director = new Director(new DoorBuilder());
+            gameObjects.Add(director.Construct(new Vector2(500, 300), 1));
+            director = new Director(new CompanionBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new ArcherBuilder());
             gameObjects.Add(director.Construct(new Vector2(310, 10)));
+            director = new Director(new GoblinBuilder());
+            gameObjects.Add(director.Construct(new Vector2(480, 250)));
+            director = new Director(new OrcBuilder());
+            gameObjects.Add(director.Construct(new Vector2(900, 10)));
             director = new Director(new PlatformBuilder());
             GameObjects.Add(director.Construct(new Vector2(50, 450)));
+            GameObjects.Add(director.Construct(new Vector2(50, 410)));
+            GameObjects.Add(director.Construct(new Vector2(50, 370)));
+            GameObjects.Add(director.Construct(new Vector2(50, 330)));
+            GameObjects.Add(director.Construct(new Vector2(530, 450)));
             GameObjects.Add(director.Construct(new Vector2(90, 450)));
             GameObjects.Add(director.Construct(new Vector2(130, 450)));
             GameObjects.Add(director.Construct(new Vector2(170, 450)));
             GameObjects.Add(director.Construct(new Vector2(210, 450)));
             GameObjects.Add(director.Construct(new Vector2(250, 450)));
-            GameObjects.Add(director.Construct(new Vector2(50, 410)));
-            GameObjects.Add(director.Construct(new Vector2(50, 370)));
+            GameObjects.Add(director.Construct(new Vector2(290, 450)));
+            GameObjects.Add(director.Construct(new Vector2(330, 450)));
+            GameObjects.Add(director.Construct(new Vector2(370, 450)));
+            GameObjects.Add(director.Construct(new Vector2(410, 450)));
+            GameObjects.Add(director.Construct(new Vector2(450, 450)));
+            GameObjects.Add(director.Construct(new Vector2(490, 450)));
+            GameObjects.Add(director.Construct(new Vector2(530, 450)));
+            GameObjects.Add(director.Construct(new Vector2(570, 450)));
+            GameObjects.Add(director.Construct(new Vector2(610, 450)));
+            GameObjects.Add(director.Construct(new Vector2(650, 450)));
+            GameObjects.Add(director.Construct(new Vector2(690, 450)));
+            GameObjects.Add(director.Construct(new Vector2(730, 450)));
+            GameObjects.Add(director.Construct(new Vector2(770, 450)));
+            GameObjects.Add(director.Construct(new Vector2(810, 450)));
+            GameObjects.Add(director.Construct(new Vector2(850, 450)));
+            GameObjects.Add(director.Construct(new Vector2(890, 450)));
+            GameObjects.Add(director.Construct(new Vector2(930, 450)));
             base.Initialize();
         }
 
