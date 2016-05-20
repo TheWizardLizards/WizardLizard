@@ -215,7 +215,7 @@ namespace WizardLizard
 
                 foreach (GameObject go in GameWorld.GameObjects)
                 {
-                    if (go.GetComponent("Pet") != null)
+                    if (go.GetComponent("Companion") != null)
                     {
                         GameWorld.Instance.RemoveGameObject(go);
                     }

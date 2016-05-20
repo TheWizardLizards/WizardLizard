@@ -114,7 +114,7 @@ namespace WizardLizard
         {
             // TODO: Add your initialization logic here
             GameObject background = new GameObject();
-            background.AddComponent(new SpriteRenderer(background, "Level01", 1f));
+            background.AddComponent(new SpriteRenderer(background, "Level01Opdate", 1f));
             background.Transform.Position = new Vector2(0, 0);
             GameObjects.Add(background);
             director = new Director(new AimerBuilder());
@@ -136,11 +136,34 @@ namespace WizardLizard
             director = new Director(new OrcBuilder());
             gameObjects.Add(director.Construct(new Vector2(900, 10)));
             director = new Director(new PlatformBuilder());
+            //højre side bund
             gameObjects.Add(director.Construct(new Vector2(0, 850),386,100));
-            gameObjects.Add(director.Construct(new Vector2(483, 850), 1014, 100));
-            gameObjects.Add(director.Construct(new Vector2(0, 75), 48, 775));
+            //venstre side bund
+            gameObjects.Add(director.Construct(new Vector2(483, 850), 1117, 100));
+            //venstre væg
+            gameObjects.Add(director.Construct(new Vector2(0, 75), 60, 775));
+            //første platform over hulen
             gameObjects.Add(director.Construct(new Vector2(966, 608), 386, 48));
+            //højeste platform over hulen
             gameObjects.Add(director.Construct(new Vector2(1352, 560), 194, 48));
+            //højre væg
+            gameObjects.Add(director.Construct(new Vector2(1498, 240), 48, 480));
+            //venstre stenplatform
+            gameObjects.Add(director.Construct(new Vector2(190, 488), 196, 48));
+
+
+            //To be: non-solidplatforms
+            //midterste gren
+            gameObjects.Add(director.Construct(new Vector2(1350, 240), 148, 40));
+            //øverste gren
+            gameObjects.Add(director.Construct(new Vector2(1150, 195), 200, 45));
+            //nederste gren
+            gameObjects.Add(director.Construct(new Vector2(1360, 395), 138, 30));
+            //venstre gren
+            gameObjects.Add(director.Construct(new Vector2(60, 320), 178, 30));
+
+
+
 
             base.Initialize();
         }
