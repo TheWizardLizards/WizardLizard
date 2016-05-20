@@ -121,7 +121,7 @@ namespace WizardLizard
                 director = new Director(new PlayerBuilder());
                 GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
 
-                director = new Director(new PetBuilder());
+                director = new Director(new CompanionBuilder());
                 GameWorld.Instance.AddGameObject(director.Construct(this.transform.Position));
 
                 GameWorld.Instance.RemoveGameObject(this.GameObject);

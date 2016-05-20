@@ -132,7 +132,7 @@ namespace WizardLizard
         {
             if (keyState.IsKeyDown(Keys.Space) && canControle == true)
             {
-                Pet.Petcontrol = true;
+                Companion.Petcontrol = true;
                 canControle = false;
             }
             if (keyState.IsKeyUp(Keys.Space))
@@ -151,7 +151,7 @@ namespace WizardLizard
         }
         private void PlayerController(KeyboardState keyState, Vector2 translation, MouseState mouseState)
         {  
-            if (Pet.Petcontrol == false)
+            if (Companion.Petcontrol == false)
             {
 
                 if (keyState.IsKeyDown(Keys.D))

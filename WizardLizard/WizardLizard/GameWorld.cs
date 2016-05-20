@@ -123,7 +123,7 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(50, 100), 1));
             director = new Director(new DoorBuilder());
             gameObjects.Add(director.Construct(new Vector2(500, 300), 1));
-            director = new Director(new PetBuilder());
+            director = new Director(new CompanionBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new ArcherBuilder());
             gameObjects.Add(director.Construct(new Vector2(310, 10)));
