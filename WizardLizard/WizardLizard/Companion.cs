@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WizardLizard
 {
-    class Pet : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    class Companion : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
         private Animator animator;
@@ -35,7 +35,7 @@ namespace WizardLizard
             }
         }
 
-        public Pet(GameObject gameObject) : base(gameObject)
+        public Companion(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
@@ -81,7 +81,7 @@ namespace WizardLizard
             if (keyState.IsKeyDown(Keys.Space) && canControle == true)
             {
 
-                Pet.Petcontrol = false;
+                Companion.Petcontrol = false;
                 canControle = false;
             }
             if (keyState.IsKeyUp(Keys.Space))

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class PetBuilder : IBuilder
+    class CompanionBuilder : IBuilder
     {
         private GameObject gameObject;
         public void BuildGameObject(Vector2 position)
@@ -18,7 +18,7 @@ namespace WizardLizard
             gameObject.AddComponent(new Collider(gameObject));
             gameObject.Transform.Position = new Vector2(10, 10);
             gameObject.Transform.Position = position;
-            gameObject.AddComponent(new Pet(gameObject));
+            gameObject.AddComponent(new Companion(gameObject));
             this.gameObject = gameObject;
         }
 

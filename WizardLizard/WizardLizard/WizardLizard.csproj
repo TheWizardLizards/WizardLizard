@@ -49,7 +49,7 @@
     <Compile Include="Builder\GoblinBuilder.cs" />
     <Compile Include="Builder\LeverBuilder.cs" />
     <Compile Include="Builder\OrcBuilder.cs" />
-    <Compile Include="Builder\PetBuilder.cs" />
+    <Compile Include="Builder\CompanionBuilder.cs" />
     <Compile Include="Builder\PlayerBuilder.cs" />
     <Compile Include="Goblin.cs" />
     <Compile Include="Orc.cs" />
@@ -80,7 +80,7 @@
     <Compile Include="Builder\LightningStrikeBuilder.cs" />
     <Compile Include="Morph.cs" />
     <Compile Include="Builder\MorphBuilder.cs" />
-    <Compile Include="Pet.cs" />
+    <Compile Include="Companion.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Spells\PlayerShield.cs" />
     <Compile Include="Builder\PlayerShieldBuilder.cs" />
