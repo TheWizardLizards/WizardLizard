@@ -24,12 +24,8 @@ namespace WizardLizard
             transform = gameObject.Transform;
         }
 
-        public void LoadContent(ContentManager content) { }
-        public void OnAnimationDone(string animationName) { }
-        public void OnCollisionEnter(Collider other) { }
-        public void OnCollisionExit(Collider other) { }
 
-        public void Update()
+        public void Update() { }
 
         public void LoadContent(ContentManager content)
         {
