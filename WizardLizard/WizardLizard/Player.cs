@@ -128,7 +128,7 @@ namespace WizardLizard
                 fireball = true;
             }
         }
-        private void ShiftToPet(KeyboardState keyState)
+        private void ShiftToCompanion(KeyboardState keyState)
         {
             if (keyState.IsKeyDown(Keys.Space) && canControle == true)
             {
@@ -169,7 +169,7 @@ namespace WizardLizard
 
                 Jump(keyState, translation);
 
-                ShiftToPet(keyState);
+                ShiftToCompanion(keyState);
 
                 ShootFireball(mouseState);
 
