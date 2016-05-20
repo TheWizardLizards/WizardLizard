@@ -52,6 +52,8 @@
     <Compile Include="Builder\CompanionBuilder.cs" />
     <Compile Include="Builder\PlayerBuilder.cs" />
     <Compile Include="Goblin.cs" />
+    <Compile Include="MiniGoblin.cs" />
+    <Compile Include="MiniGoblinBuilder.cs" />
     <Compile Include="Orc.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="DoorBuilder.cs" />

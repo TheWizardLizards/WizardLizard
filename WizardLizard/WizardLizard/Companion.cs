@@ -16,6 +16,7 @@ namespace WizardLizard
         private Vector2 velocity;
         private bool hasJumped;
         private static bool petcontrol;
+        private static bool roar;
         private bool canControle;
         private int speed;
         private bool canInteract;
@@ -35,6 +36,19 @@ namespace WizardLizard
             }
         }
 
+        public static bool Roar
+        {
+            get
+            {
+                return roar;
+            }
+
+            set
+            {
+                roar = value;
+            }
+        }
+
         public Companion(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
@@ -44,6 +58,7 @@ namespace WizardLizard
             speed = 200;
             canInteract = false;
             haveInteracted = true;
+            roar = false;
         }
         public void LoadContent(ContentManager content)
         {
@@ -76,6 +91,14 @@ namespace WizardLizard
             if (keyState.IsKeyDown(Keys.S))
             {
                 translation += new Vector2(0, 1);
+            }
+            if (keyState.IsKeyDown(Keys.R) && roar == false)
+            {
+                roar = true;
+            }
+            if (keyState.IsKeyUp(Keys.R) && roar == true)
+            {
+                roar = false;
             }
             translation += velocity;
             if (keyState.IsKeyDown(Keys.Space) && canControle == true)
@@ -117,7 +140,6 @@ namespace WizardLizard
                 transform.Position += direction * speed;
             }
         }
-
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
