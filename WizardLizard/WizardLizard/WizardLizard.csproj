@@ -111,6 +111,9 @@
     <Content Include="Content\Hero.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Level01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\MoveableBox.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
