@@ -19,6 +19,7 @@ namespace WizardLizard
         private int speed = 200;
         private static int health;
         private bool hasJumped;
+       
         private bool fireball = true;
         private bool lightning = true;
         private bool shield = true;
@@ -231,6 +232,11 @@ namespace WizardLizard
 
         public void OnCollisionEnter(Collider other)
         {
+            if(other.GameObject.GetComponent("Arrow") !=null)
+            {
+                health -= 1;
+            }
+            
             if (other.GameObject.GetComponent("Lever") != null)
             {
                 canInteract = true;
