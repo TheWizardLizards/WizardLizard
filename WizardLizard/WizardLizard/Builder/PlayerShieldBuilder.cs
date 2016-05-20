@@ -20,6 +20,11 @@ namespace WizardLizard
             this.gameObject = gameObject;
         }
 
+        public void BuildGameObject(Vector2 position, int frequency)
+        {
+            throw new NotImplementedException();
+        }
+
         public GameObject GetResult()
         {
             return gameObject;

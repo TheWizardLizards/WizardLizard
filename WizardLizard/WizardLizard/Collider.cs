@@ -138,7 +138,6 @@ namespace WizardLizard
                             {
                                 otherColliders.Add(this);
                                 GameObject.OnCollisionEnter(other);
-                                other.GameObject.OnCollisionEnter(this);
                             }
                         }
                     }

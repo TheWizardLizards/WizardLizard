@@ -53,6 +53,8 @@
     <Compile Include="Builder\PlayerBuilder.cs" />
     <Compile Include="Goblin.cs" />
     <Compile Include="Orc.cs" />
+    <Compile Include="Door.cs" />
+    <Compile Include="DoorBuilder.cs" />
     <Compile Include="PlayerHealth.cs" />
     <Compile Include="Builder\PlayerHealthBuilder.cs" />
     <Compile Include="Collider.cs" />
