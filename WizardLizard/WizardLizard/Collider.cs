@@ -19,22 +19,37 @@ namespace WizardLizard
         private Rectangle bottomLine;
         private Rectangle rightLine;
         private Rectangle leftLine;
+        private int width;
+        private int height;
 
         public Collider(GameObject gameObject) : base(gameObject)
         {
             GameWorld.Instance.Colliders.Add(this);
         }
+        public Collider(GameObject gameObject, int width, int height) : base(gameObject)
+        {
+            GameWorld.Instance.Colliders.Add(this);
+            this.width = width;
+            this.height = height;
+        }
         public Rectangle CollisionBox
         {
             get
             {
-                return new Rectangle
-                    (
-                    (int)(GameObject.Transform.Position.X - spriterenderer.Offset.X),
-                    (int)(GameObject.Transform.Position.Y - spriterenderer.Offset.Y),
-                    spriterenderer.Rectangle.Width,
-                    spriterenderer.Rectangle.Height
-                    );
+                if(spriterenderer != null)
+                {
+                    return new Rectangle
+                        (
+                        (int)(GameObject.Transform.Position.X - spriterenderer.Offset.X),
+                        (int)(GameObject.Transform.Position.Y - spriterenderer.Offset.Y),
+                        spriterenderer.Rectangle.Width,
+                        spriterenderer.Rectangle.Height
+                        );
+                }else
+                {
+                    return new Rectangle((int)GameObject.Transform.Position.X, (int)GameObject.Transform.Position.Y, width, height);
+                }
+
             }
         }
 
@@ -100,7 +115,10 @@ namespace WizardLizard
 
         public void LoadContent(ContentManager content)
         {
-            spriterenderer = (SpriteRenderer)GameObject.GetComponent("SpriteRenderer");
+            if(GameObject.GetComponent("SpriteRenderer") != null)
+            {
+                spriterenderer = (SpriteRenderer)GameObject.GetComponent("SpriteRenderer");
+            }
             texture2D = content.Load<Texture2D>("CollisionTexture");
 
         }

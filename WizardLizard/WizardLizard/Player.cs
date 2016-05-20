@@ -215,7 +215,7 @@ namespace WizardLizard
 
                 foreach (GameObject go in GameWorld.GameObjects)
                 {
-                    if (go.GetComponent("Pet") != null)
+                    if (go.GetComponent("Companion") != null)
                     {
                         GameWorld.Instance.RemoveGameObject(go);
                     }
@@ -306,6 +306,36 @@ namespace WizardLizard
                         velocity.Y = 0;
                     }
                     else
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X + other.CollisionBox.Width;
+                        GameObject.Transform.Position = position;
+                    }
+                }
+                else
+                {
+                    if (collider.CollisionBox.Intersects(other.TopLine))
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                        hasJumped = false;
+                        velocity.Y = 0;
+                    }
+                    else if (collider.CollisionBox.Intersects(other.BottomLine))
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                        velocity.Y = 0;
+                    }
+                    else if (collider.CollisionBox.Intersects(other.LeftLine))
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X - collider.CollisionBox.Width;
+                        GameObject.Transform.Position = position;
+                    }
+                    else if (collider.CollisionBox.Intersects(other.RightLine))
                     {
                         Vector2 position = GameObject.Transform.Position;
                         position.X = other.CollisionBox.X + other.CollisionBox.Width;

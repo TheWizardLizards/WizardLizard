@@ -113,6 +113,10 @@ namespace WizardLizard
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            GameObject background = new GameObject();
+            background.AddComponent(new SpriteRenderer(background, "Level01Opdate", 1f));
+            background.Transform.Position = new Vector2(0, 0);
+            GameObjects.Add(background);
             director = new Director(new AimerBuilder());
             gameObjects.Add(director.Construct(new Vector2(0, 0)));
             director = new Director(new PlayerBuilder());
@@ -132,33 +136,35 @@ namespace WizardLizard
             director = new Director(new OrcBuilder());
             gameObjects.Add(director.Construct(new Vector2(900, 10)));
             director = new Director(new PlatformBuilder());
-            GameObjects.Add(director.Construct(new Vector2(50, 450)));
-            GameObjects.Add(director.Construct(new Vector2(50, 410)));
-            GameObjects.Add(director.Construct(new Vector2(50, 370)));
-            GameObjects.Add(director.Construct(new Vector2(50, 330)));
-            GameObjects.Add(director.Construct(new Vector2(530, 450)));
-            GameObjects.Add(director.Construct(new Vector2(90, 450)));
-            GameObjects.Add(director.Construct(new Vector2(130, 450)));
-            GameObjects.Add(director.Construct(new Vector2(170, 450)));
-            GameObjects.Add(director.Construct(new Vector2(210, 450)));
-            GameObjects.Add(director.Construct(new Vector2(250, 450)));
-            GameObjects.Add(director.Construct(new Vector2(290, 450)));
-            GameObjects.Add(director.Construct(new Vector2(330, 450)));
-            GameObjects.Add(director.Construct(new Vector2(370, 450)));
-            GameObjects.Add(director.Construct(new Vector2(410, 450)));
-            GameObjects.Add(director.Construct(new Vector2(450, 450)));
-            GameObjects.Add(director.Construct(new Vector2(490, 450)));
-            GameObjects.Add(director.Construct(new Vector2(530, 450)));
-            GameObjects.Add(director.Construct(new Vector2(570, 450)));
-            GameObjects.Add(director.Construct(new Vector2(610, 450)));
-            GameObjects.Add(director.Construct(new Vector2(650, 450)));
-            GameObjects.Add(director.Construct(new Vector2(690, 450)));
-            GameObjects.Add(director.Construct(new Vector2(730, 450)));
-            GameObjects.Add(director.Construct(new Vector2(770, 450)));
-            GameObjects.Add(director.Construct(new Vector2(810, 450)));
-            GameObjects.Add(director.Construct(new Vector2(850, 450)));
-            GameObjects.Add(director.Construct(new Vector2(890, 450)));
-            GameObjects.Add(director.Construct(new Vector2(930, 450)));
+            //højre side bund
+            gameObjects.Add(director.Construct(new Vector2(0, 850),386,100));
+            //venstre side bund
+            gameObjects.Add(director.Construct(new Vector2(483, 850), 1117, 100));
+            //venstre væg
+            gameObjects.Add(director.Construct(new Vector2(0, 75), 60, 775));
+            //første platform over hulen
+            gameObjects.Add(director.Construct(new Vector2(966, 608), 386, 48));
+            //højeste platform over hulen
+            gameObjects.Add(director.Construct(new Vector2(1352, 560), 194, 48));
+            //højre væg
+            gameObjects.Add(director.Construct(new Vector2(1498, 240), 48, 480));
+            //venstre stenplatform
+            gameObjects.Add(director.Construct(new Vector2(190, 488), 196, 48));
+
+
+            //To be: non-solidplatforms
+            //midterste gren
+            gameObjects.Add(director.Construct(new Vector2(1350, 240), 148, 40));
+            //øverste gren
+            gameObjects.Add(director.Construct(new Vector2(1150, 195), 200, 45));
+            //nederste gren
+            gameObjects.Add(director.Construct(new Vector2(1360, 395), 138, 30));
+            //venstre gren
+            gameObjects.Add(director.Construct(new Vector2(60, 320), 178, 30));
+
+
+
+
             base.Initialize();
         }
 

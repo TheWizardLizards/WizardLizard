@@ -13,7 +13,7 @@ namespace WizardLizard
         public void BuildGameObject(Vector2 position)
         {
             GameObject gameObject = new GameObject();
-            gameObject.AddComponent(new SpriteRenderer(gameObject, "Hero", 1f));
+            gameObject.AddComponent(new SpriteRenderer(gameObject, "AniMainChar_idel", 1f));
             gameObject.AddComponent(new Collider(gameObject));
             gameObject.Transform.Position = position;
             gameObject.AddComponent(new Player(gameObject));
@@ -21,6 +21,11 @@ namespace WizardLizard
         }
 
         public void BuildGameObject(Vector2 position, int frequency)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BuildGameObject(Vector2 position, int width, int height)
         {
             throw new NotImplementedException();
         }

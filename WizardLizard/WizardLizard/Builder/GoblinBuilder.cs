@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
@@ -18,6 +19,11 @@ namespace WizardLizard
         public void BuildGameObject(Vector2 position, int frequency)
         {
 
+        }
+
+        public void BuildGameObject(Vector2 position, int width, int height)
+        {
+            throw new NotImplementedException();
         }
 
         public GameObject GetResult()

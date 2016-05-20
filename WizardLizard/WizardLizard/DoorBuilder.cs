@@ -28,6 +28,11 @@ namespace WizardLizard
             this.gameObject = gameObject;
         }
 
+        public void BuildGameObject(Vector2 position, int width, int height)
+        {
+            throw new NotImplementedException();
+        }
+
         public GameObject GetResult()
         {
             return gameObject;
