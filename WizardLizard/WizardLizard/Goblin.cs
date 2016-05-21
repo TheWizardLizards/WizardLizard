@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace WizardLizard
 {
@@ -8,7 +9,8 @@ namespace WizardLizard
         private Transform transform;
         private Animator animator;
         private Vector2 goblinPos;
-        private float speed;
+        private float speed = 200;
+        private Vector2 velocity;
 
 
         public Goblin(GameObject gameObject) : base(gameObject)
@@ -20,52 +22,179 @@ namespace WizardLizard
         public void Update()
         {
             goblinPos = new Vector2(transform.Position.X, transform.Position.Y);
-            var range = goblinPos.X - GameWorld.PlayerPos.X;
-            if (range >= 300)
+            var range = Math.Sqrt(((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X)) + ((goblinPos.Y - GameWorld.PlayerPos.Y)) * (goblinPos.Y - GameWorld.PlayerPos.Y));
+            var xdistance = Math.Sqrt((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X));
+            if (range >= 400)
                 Idle();
 
-            if (range < 300)
-                Chase();
+            if (range < 400)
+                Chase(xdistance);
 
             if (range < 10)
                 Attack();
-            
+
         }
-        
+
         //Idle behaviour
-        public void Idle() { }
-        
+        public void Idle()
+        {
+            Vector2 translation = new Vector2(0, 0);
+            float i = 5;
+            velocity.Y += 0.05f * i;
+            if (velocity.Y > 10)
+            {
+                velocity.Y = 10;
+            }
+            translation += velocity;
+
+            transform.Translate(translation * GameWorld.DeltaTime * speed);
+        }
+
         //Attacks the player when close enough
         public void Attack() { }
 
 
-        public void Chase()
+        public void Chase(double xdistance)
         {
-            speed = 2;
-            Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X, GameWorld.PlayerPos.Y - 30);
+            Vector2 translation = new Vector2(0, 0);
             Vector2 goblinPos = new Vector2(transform.Position.X, transform.Position.Y);
-            Vector2 direction = playerPos - goblinPos;
-            foreach(GameObject go in GameWorld.GameObjects)
+            if (xdistance > 2)
             {
-                if (go.GetComponent("Morph") != null)
-                    playerPos = go.Transform.Position;
+                if (GameWorld.PlayerPos.X > goblinPos.X)
+                {
+                    translation.X++;
+                }
+                if (GameWorld.PlayerPos.X < goblinPos.X)
+                {
+                    translation.X--;
+                }
             }
-            
 
-            if (speed > direction.Length())
+            float i = 5;
+            velocity.Y += 0.05f * i;
+            if (velocity.Y > 10)
             {
-                transform.Position = goblinPos;
+                velocity.Y = 10;
             }
-            else
-            {
-                direction.Normalize();
-                transform.Position += direction * speed;
-            }
+            translation += velocity;
+
+            transform.Translate(translation * GameWorld.DeltaTime * speed);
+
+
+
         }
 
         public void LoadContent(ContentManager content) { }
         public void OnAnimationDone(string animationName) { }
-        public void OnCollisionEnter(Collider other) { }
+
+        public void OnCollisionEnter(Collider other)
+        {
+            if (other.GameObject.GetComponent("SolidPlatform") != null)
+            {
+                Collider collider = (Collider)GameObject.GetComponent("Collider");
+
+                int top = Math.Max(collider.CollisionBox.Top, other.CollisionBox.Top);
+                int left = Math.Max(collider.CollisionBox.Left, other.CollisionBox.Left);
+                int width = Math.Min(collider.CollisionBox.Right, other.CollisionBox.Right) - left;
+                int height = Math.Min(collider.CollisionBox.Bottom, other.CollisionBox.Bottom) - top;
+
+                var intersectingRectangle = new Rectangle(left, top, width, height);
+
+                if (collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.RightLine))
+                {
+                    if (width > height)
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                        velocity.Y = 0;
+                    }
+                    else
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X + other.CollisionBox.Width;
+                        GameObject.Transform.Position = position;
+                    }
+                }
+                else if (collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.LeftLine))
+                {
+                    if (width > height)
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                        velocity.Y = 0;
+                    }
+                    else
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X - collider.CollisionBox.Width;
+                        GameObject.Transform.Position = position;
+                    }
+                }
+                else if (collider.CollisionBox.Intersects(other.BottomLine) && collider.CollisionBox.Intersects(other.LeftLine))
+                {
+                    if (width > height)
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                            velocity.Y = 0;
+                    }
+                    else
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X - collider.CollisionBox.Width;
+                        GameObject.Transform.Position = position;
+                    }
+                }
+                else if (collider.CollisionBox.Intersects(other.BottomLine) && collider.CollisionBox.Intersects(other.RightLine))
+                {
+                    if (width > height)
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                            velocity.Y = 0;
+                    }
+                    else
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X + other.CollisionBox.Width;
+                        GameObject.Transform.Position = position;
+                    }
+                }
+                else
+                {
+                    if (collider.CollisionBox.Intersects(other.TopLine))
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                        velocity.Y = 0;
+                    }
+                    else if (collider.CollisionBox.Intersects(other.BottomLine))
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
+                        GameObject.Transform.Position = position;
+                            velocity.Y = 0;
+                    }
+                    else if (collider.CollisionBox.Intersects(other.LeftLine))
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X - collider.CollisionBox.Width;
+                        GameObject.Transform.Position = position;
+                    }
+                    else if (collider.CollisionBox.Intersects(other.RightLine))
+                    {
+                        Vector2 position = GameObject.Transform.Position;
+                        position.X = other.CollisionBox.X + other.CollisionBox.Width;
+                        GameObject.Transform.Position = position;
+                    }
+                }
+            }
+        }
         public void OnCollisionExit(Collider other) { }
     }
 }

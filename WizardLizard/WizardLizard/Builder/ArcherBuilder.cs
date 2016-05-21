@@ -10,6 +10,7 @@ namespace WizardLizard
         {
             GameObject gameObject = new GameObject();
             gameObject.AddComponent(new SpriteRenderer(gameObject, "archer", 1));
+            gameObject.AddComponent(new Collider(gameObject));
             gameObject.Transform.Position = position;
             gameObject.AddComponent(new Archer(gameObject));
             this.gameObject = gameObject;

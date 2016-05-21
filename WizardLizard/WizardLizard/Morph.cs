@@ -19,7 +19,6 @@ namespace WizardLizard
         private static bool hasMorphed = false;
         private static bool derp = true;
         private int speed = 1;
-        private int bo = 0;
 
         public static bool HasMorphed
         {
@@ -94,19 +93,16 @@ namespace WizardLizard
                 if (keyState.IsKeyDown(Keys.D))
                 {
                     translation += new Vector2(1, 0);
-                    bo = 1;
                 }
 
                 if (keyState.IsKeyDown(Keys.A))
                 {
                     translation += new Vector2(-1, 0);
-                    bo = 1;
                 }
 
                 if (keyState.IsKeyDown(Keys.S))
                 {
                     translation += new Vector2(0, 1);
-                    bo = 1;
                 }
 
             if (keyState.IsKeyUp(Keys.F))
@@ -128,6 +124,7 @@ namespace WizardLizard
                 }
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
+            GameWorld.PlayerPos = transform.Position;
         }
     }
 }

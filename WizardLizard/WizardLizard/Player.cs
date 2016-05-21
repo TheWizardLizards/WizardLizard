@@ -27,6 +27,9 @@ namespace WizardLizard
         private bool haveInteracted = true;
         private bool playerCanBeHit;
         private Lever lastknownLever;
+        private const float delay = 3; // seconds
+        private float countdown = delay;
+        public float Delay { get; set; }
 
         public static int Health
         {
@@ -55,21 +58,22 @@ namespace WizardLizard
 
             MouseState mouseState = Mouse.GetState();
 
-            PlayerController(keyState,translation,mouseState);
+            PlayerController(keyState, translation, mouseState);
+            GameWorld.PlayerPos = transform.Position;
         }
-        
+
         public void OnAnimationDone(string animationName)
         {
 
-        }    
-        private void MeleeAttack( MouseState mouseState)
+        }
+        private void MeleeAttack(MouseState mouseState)
         {
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
                 //Attack
             }
         }
-        private void Interact( KeyboardState keyState)
+        private void Interact(KeyboardState keyState)
         {
             //press E to interact
             if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
@@ -113,19 +117,29 @@ namespace WizardLizard
                 lightning = true;
             }
         }
-        private void ShootFireball( MouseState mouseState)
+        private void ShootFireball(MouseState mouseState)
         {
-            //Shoots a fireball towards the moueses position
-            if (mouseState.RightButton == ButtonState.Pressed && fireball == true)
+            if (countdown > 0)
             {
-                director = new Director(new FireballBuilder());
-                //Opdater fireball spawn punkt.
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 40, transform.Position.Y + 40)));
-                fireball = false;
+                countdown -= GameWorld.DeltaTime;
             }
-            if (mouseState.RightButton == ButtonState.Released)
+
+            if (countdown <= 0)
             {
-                fireball = true;
+                countdown = 0;
+                //Shoots a fireball towards the moueses position
+                if (mouseState.RightButton == ButtonState.Pressed && fireball == true)
+                {
+                    director = new Director(new FireballBuilder());
+                    //Opdater fireball spawn punkt.
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 40, transform.Position.Y + 40)));
+                    fireball = false;
+                    countdown = delay;
+                }
+                if (mouseState.RightButton == ButtonState.Released)
+                {
+                    fireball = true;
+                }
             }
         }
         private void ShiftToCompanion(KeyboardState keyState)
@@ -140,17 +154,17 @@ namespace WizardLizard
                 canControle = true;
             }
         }
-        private void Jump(KeyboardState keyState, Vector2 translation )
+        private void Jump(KeyboardState keyState, Vector2 translation)
         {
-          if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
-                {
-                    translation.Y -= 5f;
-                    velocity.Y = -5f;
-                    hasJumped = true;
-                }
+            if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
+            {
+                translation.Y -= 5f;
+                velocity.Y = -5f;
+                hasJumped = true;
+            }
         }
         private void PlayerController(KeyboardState keyState, Vector2 translation, MouseState mouseState)
-        {  
+        {
             if (Companion.Petcontrol == false)
             {
 
@@ -173,13 +187,13 @@ namespace WizardLizard
 
                 ShootFireball(mouseState);
 
-                ShootLighting(keyState,mouseState);
+                ShootLighting(keyState, mouseState);
 
                 CreateShield(keyState);
 
                 Interact(keyState);
 
-                MeleeAttack(mouseState);  
+                MeleeAttack(mouseState);
             }
 
             float i = 5;
@@ -198,7 +212,7 @@ namespace WizardLizard
         }
         private void MorphPlayer(KeyboardState keyState)
         {
-            
+
             if (keyState.IsKeyUp(Keys.F))
             {
                 Morph.HasMorphed = false;
@@ -226,7 +240,7 @@ namespace WizardLizard
 
         public void playerhit()
         {
-            if(playerCanBeHit == true)
+            if (playerCanBeHit == true)
             {
                 Health = Health - 1;
                 playerCanBeHit = false;
@@ -246,15 +260,16 @@ namespace WizardLizard
 
                 var intersectingRectangle = new Rectangle(left, top, width, height);
 
-                if(collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.RightLine))
+                if (collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.RightLine))
                 {
-                    if(width > height)
+                    if (width > height)
                     {
                         Vector2 position = GameObject.Transform.Position;
                         position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
                         GameObject.Transform.Position = position;
                         hasJumped = false;
-                        velocity.Y = 0;
+                        if (velocity.Y > 0)
+                            velocity.Y = 0;
                     }
                     else
                     {
@@ -263,15 +278,16 @@ namespace WizardLizard
                         GameObject.Transform.Position = position;
                     }
                 }
-                else if(collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.LeftLine))
+                else if (collider.CollisionBox.Intersects(other.TopLine) && collider.CollisionBox.Intersects(other.LeftLine))
                 {
-                    if(width> height)
+                    if (width > height)
                     {
                         Vector2 position = GameObject.Transform.Position;
                         position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
                         GameObject.Transform.Position = position;
                         hasJumped = false;
-                        velocity.Y = 0;
+                        if (velocity.Y > 0)
+                            velocity.Y = 0;
                     }
                     else
                     {
@@ -280,9 +296,9 @@ namespace WizardLizard
                         GameObject.Transform.Position = position;
                     }
                 }
-                else if(collider.CollisionBox.Intersects(other.BottomLine) && collider.CollisionBox.Intersects(other.LeftLine))
+                else if (collider.CollisionBox.Intersects(other.BottomLine) && collider.CollisionBox.Intersects(other.LeftLine))
                 {
-                    if(width > height)
+                    if (width > height)
                     {
                         Vector2 position = GameObject.Transform.Position;
                         position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
@@ -296,9 +312,9 @@ namespace WizardLizard
                         GameObject.Transform.Position = position;
                     }
                 }
-                else if(collider.CollisionBox.Intersects(other.BottomLine) && collider.CollisionBox.Intersects(other.RightLine))
+                else if (collider.CollisionBox.Intersects(other.BottomLine) && collider.CollisionBox.Intersects(other.RightLine))
                 {
-                    if(width > height)
+                    if (width > height)
                     {
                         Vector2 position = GameObject.Transform.Position;
                         position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
@@ -377,7 +393,7 @@ namespace WizardLizard
                 //    velocity.Y = 0;
                 //}
             }
-            if(other.GameObject.GetComponent("Lever") != null)
+            if (other.GameObject.GetComponent("Lever") != null)
             {
                 canInteract = true;
                 lastknownLever = (Lever)other.GameObject.GetComponent("Lever");
@@ -385,11 +401,11 @@ namespace WizardLizard
         }
         public void OnCollisionExit(Collider other)
         {
-            if(other.GameObject.GetComponent("Lever") != null)
+            if (other.GameObject.GetComponent("Lever") != null)
             {
                 canInteract = false;
             }
         }
-        
+
     }
 }

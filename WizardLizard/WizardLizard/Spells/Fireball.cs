@@ -15,7 +15,6 @@ namespace WizardLizard
         private Transform transform;
         private Animator animator;
         private int speed = 400;
-        private bool fireaway = true;
         Vector2 mousePosition;
         MouseState mouseState = Mouse.GetState();
         Vector2 fireballPos;
@@ -27,7 +26,15 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
+            foreach (GameObject go in GameWorld.GameObjects)
+            {
+                if (go.GetComponent("Aimer") != null)
+                {
+                    mousePosition = go.Transform.Position;
+                }
 
+            }
+            fireballPos = new Vector2(transform.Position.X, transform.Position.Y);
         }
 
         public void OnAnimationDone(string animationName)
@@ -37,7 +44,10 @@ namespace WizardLizard
 
         public void OnCollisionEnter(Collider other)
         {
-
+            if (other.GameObject.GetComponent("SolidPlatform") != null)
+            {
+                GameWorld.ObjectsToRemove.Add(this.GameObject);
+            }
         }
 
         public void OnCollisionExit(Collider other)
@@ -48,30 +58,16 @@ namespace WizardLizard
         public void Update()
         {
             Vector2 translation = Vector2.Zero;
-            if (fireaway == true)
-            {
-                fireballPos = new Vector2(transform.Position.X, transform.Position.Y);
-                foreach (GameObject go in GameWorld.GameObjects)
-                {
-                    if (go.GetComponent("Aimer") != null)
-                    {
-                        mousePosition = go.Transform.Position;
-                    }
-
-                }
-
-
-                fireaway = false;
-            }
             translation = mousePosition - fireballPos;
 
             translation.Normalize();
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
-            
-        }
-        public void ShootFireball(int speed)
-        {
+
+            if (transform.Position.X > 1600 || transform.Position.X < 0 || transform.Position.Y > 900 || transform.Position.Y < 0)
+            {
+                GameWorld.ObjectsToRemove.Add(this.GameObject);
+            }
         }
         
     }

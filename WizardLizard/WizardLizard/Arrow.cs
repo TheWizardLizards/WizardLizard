@@ -13,9 +13,7 @@ namespace WizardLizard
         private float speed = 1216;
         Transform transform;
         Animator animator;
-        private bool shot = true;
         Vector2 arrowPos;
-        Vector2 playerPos;
         Vector2 translation;
 
         public Arrow(GameObject gameObject) : base(gameObject)
@@ -25,21 +23,21 @@ namespace WizardLizard
         }
 
 
-        public void Update() { }
+        public void Update()
+        {
+            translation.Normalize();
+            transform.Translate(translation * GameWorld.DeltaTime * speed);
+            if(transform.Position.X > 1600 || transform.Position.X < 0 || transform.Position.Y > 900 || transform.Position.Y < 0)
+            {
+                GameWorld.ObjectsToRemove.Add(this.GameObject);
+            }
+        }
 
         public void LoadContent(ContentManager content)
         {
 
             arrowPos = new Vector2(transform.Position.X, transform.Position.Y);
-
-            foreach (GameObject go in GameWorld.GameObjects)
-            {
-                if (go.GetComponent("Player") != null)
-                {
-                    playerPos = go.Transform.Position;
-                    translation = playerPos - arrowPos;
-                }
-            }
+            translation = GameWorld.PlayerPos - arrowPos;
         }
 
         public void OnAnimationDone(string animationName)
@@ -54,32 +52,15 @@ namespace WizardLizard
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
                 player.playerhit();
             }
+            if (other.GameObject.GetComponent("SolidPlatform") != null)
+            {
+                GameWorld.ObjectsToRemove.Add(this.GameObject);
+            }
         }
 
         public void OnCollisionExit(Collider other)
         {
-            ArrowPath();
-        }
 
-        public void ArrowPath()
-        {
-            Vector2 translation = Vector2.Zero;
-            if (shot == true)
-            {
-                arrowPos = new Vector2(transform.Position.X, transform.Position.Y);
-                foreach (GameObject go in GameWorld.GameObjects)
-                {
-                    if (go.GetComponent("Player") != null)
-                        playerPos = go.Transform.Position;
-                    if (go.GetComponent("Morph") != null)
-                        playerPos = go.Transform.Position;
-                }
-                shot = false;
-            }
-
-            translation = playerPos - arrowPos;
-            translation.Normalize();
-            transform.Translate(translation * GameWorld.DeltaTime * speed);
         }
 
     }

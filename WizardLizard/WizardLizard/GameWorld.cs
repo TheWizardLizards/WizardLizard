@@ -126,7 +126,7 @@ namespace WizardLizard
             director = new Director(new LeverBuilder());
             gameObjects.Add(director.Construct(new Vector2(50, 100), 1));
             director = new Director(new DoorBuilder());
-            gameObjects.Add(director.Construct(new Vector2(500, 300), 1));
+            gameObjects.Add(director.Construct(new Vector2(900, 300), 1));
             director = new Director(new CompanionBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new ArcherBuilder());
@@ -219,13 +219,6 @@ namespace WizardLizard
             foreach (GameObject go in gameObjects)
             {
                 go.Update();
-            }
-            foreach (GameObject go in GameObjects)
-            {
-                if (go.GetComponent("Player") != null)
-                {
-                    PlayerPos = go.Transform.Position;
-                }
             }
 
             // TODO: Add your update logic here

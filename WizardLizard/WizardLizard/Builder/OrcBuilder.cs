@@ -13,8 +13,8 @@ namespace WizardLizard
         {
             GameObject gameObject = new GameObject();
             gameObject.AddComponent(new SpriteRenderer(gameObject, "orc", 1));
-            gameObject.Transform.Position = position;
             gameObject.AddComponent(new Collider(gameObject));
+            gameObject.Transform.Position = position;
             gameObject.AddComponent(new Orc(gameObject));
             this.gameObject = gameObject;
         }
