@@ -16,6 +16,7 @@ namespace WizardLizard
         private static Vector2 playerPos;
         private static GameWorld instance;
         private static float deltaTime;
+        public static Dictionary<int, GameObject> spawnList = new Dictionary<int, GameObject>();
         private static List<GameObject> objectToAdd = new List<GameObject>();
         private static List<GameObject> objectsToRemove = new List<GameObject>();
         private static List<GameObject> gameObjects = new List<GameObject>();
@@ -125,6 +126,7 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new LeverBuilder());
             gameObjects.Add(director.Construct(new Vector2(50, 100), 1));
+            gameObjects.Add(director.Construct(new Vector2(200, 800), 51));
             director = new Director(new DoorBuilder());
             gameObjects.Add(director.Construct(new Vector2(900, 300), 1));
             director = new Director(new CompanionBuilder());
@@ -135,6 +137,8 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(480, 250)));
             director = new Director(new OrcBuilder());
             gameObjects.Add(director.Construct(new Vector2(900, 10)));
+            director = new Director(new MoveableBoxBuilder());
+            gameObjects.Add(director.Construct(new Vector2(600,0)));
             director = new Director(new PlatformBuilder());
             //højre side bund
             gameObjects.Add(director.Construct(new Vector2(0, 850),386,100));
@@ -162,7 +166,7 @@ namespace WizardLizard
             //venstre gren
             gameObjects.Add(director.Construct(new Vector2(60, 320), 178, 30));
 
-
+            spawnList.Add(51,director.Construct(new Vector2(482, 535), 338, 48));
 
 
             base.Initialize();
@@ -224,7 +228,7 @@ namespace WizardLizard
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
-
+        
 
         public void AddGameObject(GameObject go)
         {

@@ -78,7 +78,10 @@ namespace WizardLizard
             //press E to interact
             if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
             {
-                lastknownLever.interaction();
+                if(lastknownLever != null)
+                {
+                    lastknownLever.interaction(this);
+                }
                 haveInteracted = false;
                 canInteract = false;
             }
@@ -401,10 +404,7 @@ namespace WizardLizard
         }
         public void OnCollisionExit(Collider other)
         {
-            if (other.GameObject.GetComponent("Lever") != null)
-            {
-                canInteract = false;
-            }
+
         }
 
     }

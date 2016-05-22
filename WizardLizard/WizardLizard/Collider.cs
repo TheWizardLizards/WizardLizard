@@ -158,13 +158,13 @@ namespace WizardLizard
                                 GameObject.OnCollisionEnter(other);
                             }
                         }
-                    }
-                    else
-                    {
-                        if (otherColliders.Contains(this))
+                        else
                         {
-                            otherColliders.Remove(this);
-                            GameObject.OnCollisionExit(this);
+                            if (otherColliders.Contains(this))
+                            {
+                                otherColliders.Remove(this);
+                                GameObject.OnCollisionExit(other);
+                            }
                         }
                     }
                 }

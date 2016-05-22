@@ -54,6 +54,8 @@
     <Compile Include="Goblin.cs" />
     <Compile Include="MiniGoblin.cs" />
     <Compile Include="MiniGoblinBuilder.cs" />
+    <Compile Include="MoveableBox.cs" />
+    <Compile Include="MoveableBoxBuilder.cs" />
     <Compile Include="Orc.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="DoorBuilder.cs" />
@@ -109,6 +111,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\CollisionTexture.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Crate01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Fireball.png">

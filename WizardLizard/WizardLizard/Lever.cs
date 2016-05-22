@@ -42,22 +42,31 @@ namespace WizardLizard
 
         }
 
-        public void interaction()
+        public void interaction(Player player)
         {
-            if(frequency > 50)
+            Collider other = (Collider)player.GameObject.GetComponent("Collider");
+            Collider me = (Collider)this.GameObject.GetComponent("Collider");
+            if (me.CollisionBox.Intersects(other.CollisionBox))
             {
-                throw new NotImplementedException();
-            }
-            else
-            {
-                foreach (GameObject go in GameWorld.GameObjects)
+                if (frequency > 50)
                 {
-                    if(go.GetComponent("Door") != null)
+                    if (GameWorld.spawnList.ContainsKey(frequency))
                     {
-                        Door door = (Door)go.GetComponent("Door");
-                        if(door.Frequency == Frequency)
+                        GameWorld.ObjectToAdd.Add(GameWorld.spawnList[frequency]);
+                        GameWorld.spawnList.Remove(frequency);
+                    }
+                }
+                else
+                {
+                    foreach (GameObject go in GameWorld.GameObjects)
+                    {
+                        if (go.GetComponent("Door") != null)
                         {
-                            GameWorld.ObjectsToRemove.Add(go);
+                            Door door = (Door)go.GetComponent("Door");
+                            if (door.Frequency == Frequency)
+                            {
+                                GameWorld.ObjectsToRemove.Add(go);
+                            }
                         }
                     }
                 }
@@ -76,7 +85,7 @@ namespace WizardLizard
 
         public void OnCollisionExit(Collider other)
         {
-            
+
         }
 
     }
