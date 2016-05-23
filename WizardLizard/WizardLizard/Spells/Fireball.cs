@@ -26,6 +26,7 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
+            CreateAnimations();
             foreach (GameObject go in GameWorld.GameObjects)
             {
                 if (go.GetComponent("Aimer") != null)
@@ -75,6 +76,7 @@ namespace WizardLizard
 
         public void Update()
         {
+            animator.PlayAnimation("FireballYo");
             Vector2 translation = Vector2.Zero;
             translation = mousePosition - fireballPos;
 
@@ -86,6 +88,11 @@ namespace WizardLizard
             {
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
             }
+        }
+        public void CreateAnimations()
+        {
+            animator.CreateAnimation("FireballYo", new Animation(4, 0, 0, 50, 50, 32, Vector2.Zero));
+            animator.PlayAnimation("FireballYo");
         }
         
     }
