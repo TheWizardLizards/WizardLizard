@@ -50,7 +50,7 @@ namespace WizardLizard
             {
                 Player player = (Player)other.GameObject.GetComponent("Player");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                player.playerhit();
+                player.PlayerHit();
             }
             if (other.GameObject.GetComponent("SolidPlatform") != null)
             {

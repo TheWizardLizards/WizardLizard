@@ -241,7 +241,7 @@ namespace WizardLizard
             }
         }
 
-        public void playerhit()
+        public void PlayerHit()
         {
             if (playerCanBeHit == true)
             {

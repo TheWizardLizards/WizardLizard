@@ -41,11 +41,11 @@ namespace WizardLizard
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
             }
         }
-        public void OrcFireballHit()
+        public void TakeDamage(int dmg)
         {
             if (orcCanBeHit == true)
             {
-                health = health - 1;
+                health = health - dmg;
                 orcCanBeHit = false;
             }
         }

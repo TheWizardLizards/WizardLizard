@@ -147,11 +147,11 @@ namespace WizardLizard
         {
 
         }
-        public void ArcherFireballHit()
+        public void TakeDamage(int dmg)
         {
             if (archerCanBeHit == true)
             {
-                health = health - 1;
+                health = health - dmg;
                 archerCanBeHit = false;
             }
         }

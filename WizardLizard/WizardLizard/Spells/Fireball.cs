@@ -48,19 +48,19 @@ namespace WizardLizard
             {
                 Goblin goblin = (Goblin)other.GameObject.GetComponent("Goblin");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                goblin.GoblinFireballHit();
+                goblin.TakeDamage(1);
             }
             if (other.GameObject.GetComponent("Orc") != null)
             {
                 Orc orc = (Orc)other.GameObject.GetComponent("Orc");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                orc.OrcFireballHit();
+                orc.TakeDamage(1);
             }
             if (other.GameObject.GetComponent("Archer") != null)
             {
                 Archer archer = (Archer)other.GameObject.GetComponent("Archer");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                archer.ArcherFireballHit();
+                archer.TakeDamage(1);
             }
             if (other.GameObject.GetComponent("SolidPlatform") != null)
             {

@@ -90,11 +90,11 @@ namespace WizardLizard
 
 
         }
-        public void GoblinFireballHit()
+        public void TakeDamage(int dmg)
         {
             if (goblinCanBeHit == true)
             {
-                health = health - 1;
+                health = health - dmg;
                 goblinCanBeHit = false;
             }
         }
