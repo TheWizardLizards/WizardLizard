@@ -17,13 +17,13 @@ namespace WizardLizard
         private bool hasJumped;
         private static bool petcontrol;
         private static bool roar;
-        private bool canControle;
+        private bool shiftControle;
         private int speed;
         private bool canInteract;
         private bool haveInteracted;
         private Director director;
 
-        public static bool Petcontrol
+        public static bool companionControle
         {
             get
             {
@@ -54,7 +54,7 @@ namespace WizardLizard
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
             petcontrol = false;
-            canControle = true;
+            shiftControle = true;
             speed = 200;
             canInteract = false;
             haveInteracted = true;
@@ -101,15 +101,14 @@ namespace WizardLizard
                 roar = false;
             }
             translation += velocity;
-            if (keyState.IsKeyDown(Keys.Space) && canControle == true)
-            {
-
-                Companion.Petcontrol = false;
-                canControle = false;
-            }
             if (keyState.IsKeyUp(Keys.Space))
             {
-                canControle = true;
+                shiftControle = true;
+            }
+            if (keyState.IsKeyDown(Keys.Space) && shiftControle == true)
+            {
+                Companion.companionControle = false;
+                shiftControle = false;
             }
             if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
             {
@@ -146,7 +145,7 @@ namespace WizardLizard
 
             Vector2 translation = Vector2.Zero;
 
-            if (Petcontrol == true)
+            if (companionControle == true)
             {
                 ControlePet(keyState, translation);
             }
@@ -165,7 +164,7 @@ namespace WizardLizard
                 canInteract = true;
             }
 
-            if (Petcontrol == true)
+            if (companionControle == true)
             {
                 if (other.GameObject.GetComponent("SolidPlatform") != null)
                 {

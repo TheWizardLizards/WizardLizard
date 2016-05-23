@@ -15,7 +15,7 @@ namespace WizardLizard
         private Transform transform;
         private Vector2 velocity;
         private Animator animator;
-        private bool canControle = true;
+        private bool shiftControle;
         private int speed = 200;
         private static int health;
         private bool hasJumped;
@@ -43,6 +43,7 @@ namespace WizardLizard
             transform = gameObject.Transform;
             health = 4;
             hasJumped = true;
+            shiftControle = true;
         }
         public void LoadContent(ContentManager content)
         {
@@ -147,14 +148,14 @@ namespace WizardLizard
         }
         private void ShiftToCompanion(KeyboardState keyState)
         {
-            if (keyState.IsKeyDown(Keys.Space) && canControle == true)
-            {
-                Companion.Petcontrol = true;
-                canControle = false;
-            }
             if (keyState.IsKeyUp(Keys.Space))
             {
-                canControle = true;
+                shiftControle = true;
+            }
+            if (keyState.IsKeyDown(Keys.Space) && shiftControle == true)
+            {
+                Companion.companionControle = true;
+                shiftControle = false;
             }
         }
         private void Jump(KeyboardState keyState, Vector2 translation)
@@ -168,7 +169,7 @@ namespace WizardLizard
         }
         private void PlayerController(KeyboardState keyState, Vector2 translation, MouseState mouseState)
         {
-            if (Companion.Petcontrol == false)
+            if (Companion.companionControle == false)
             {
 
                 if (keyState.IsKeyDown(Keys.D))
