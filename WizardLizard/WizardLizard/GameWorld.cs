@@ -155,8 +155,11 @@ namespace WizardLizard
             //venstre stenplatform
             gameObjects.Add(director.Construct(new Vector2(190, 488), 196, 48));
 
+            spawnList.Add(51, director.Construct(new Vector2(482, 535), "MagicPlatform"));
+
 
             //To be: non-solidplatforms
+            director = new Director(new NonSolidPlatformBuilder());
             //midterste gren
             gameObjects.Add(director.Construct(new Vector2(1350, 240), 148, 40));
             //øverste gren
@@ -166,7 +169,6 @@ namespace WizardLizard
             //venstre gren
             gameObjects.Add(director.Construct(new Vector2(60, 320), 178, 30));
 
-            spawnList.Add(51,director.Construct(new Vector2(482, 535),"MagicPlatform"));
 
 
             base.Initialize();

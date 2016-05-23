@@ -59,6 +59,8 @@
     <Compile Include="Enemies\Orc.cs" />
     <Compile Include="Level Objects\Door.cs" />
     <Compile Include="Builder\DoorBuilder.cs" />
+    <Compile Include="NonSolidPlatform.cs" />
+    <Compile Include="NonSolidPlatformBuilder.cs" />
     <Compile Include="Player Related\PlayerHealth.cs" />
     <Compile Include="Builder\PlayerHealthBuilder.cs" />
     <Compile Include="General Components\Collider.cs" />
