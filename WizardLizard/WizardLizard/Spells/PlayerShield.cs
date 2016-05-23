@@ -12,7 +12,8 @@ namespace WizardLizard
     {
         private Animator animator;
         private Transform transform;
-        private int visible = 0;
+        private const float visible = 10;
+        private float countdown = visible;
         public PlayerShield(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
@@ -21,24 +22,26 @@ namespace WizardLizard
         public void Update()
         {
             Vector2 translation = Vector2.Zero;
-            visible++;
             Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X - 36, GameWorld.PlayerPos.Y - 50);
+            if (countdown > 0)
+            {
+                countdown -= GameWorld.DeltaTime;
+            }
+            if (countdown <= 0)
+            {
+                countdown = 0;
+                GameWorld.Instance.RemoveGameObject(this.GameObject);
+                countdown = visible;
+            }
 
-            //if (visible >= 100)
-            //{
-            //    foreach (GameObject go in GameWorld.GameObjects)
-            //    {
-            //        if (go.GetComponent("PlayerShield") != null)
-            //        {
-            //            visible++;
-            //            if (visible >= 50)
-            //            {
-            //                GameWorld.ObjectsToRemove.Add(go);
-            //                visible = 0;
-            //            }
-            //        }
-            //    }
-            //}
+
+            foreach (GameObject go in GameWorld.GameObjects)
+            {
+                if (go.GetComponent("Morph") != null)
+                {
+                    GameWorld.Instance.RemoveGameObject(this.GameObject);
+                }
+            }
             transform.Position = playerPos;
         }
         public void LoadContent(ContentManager content)
