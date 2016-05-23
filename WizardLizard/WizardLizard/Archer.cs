@@ -16,12 +16,15 @@ namespace WizardLizard
         public float Delay { get; set; }
         private Vector2 velocity;
         private int speed = 100;
+        private bool archerCanBeHit;
+        private int health;
 
 
         public Archer(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
+            health = 1;
         }
 
         public void LoadContent(ContentManager content)
@@ -144,11 +147,19 @@ namespace WizardLizard
         {
 
         }
+        public void ArcherFireballHit()
+        {
+            if (archerCanBeHit == true)
+            {
+                health = health - 1;
+                archerCanBeHit = false;
+            }
+        }
 
-            
 
         public void Update()
         {
+            archerCanBeHit = true;
             Vector2 translation = new Vector2(0, 0);
             float i = 5;
             velocity.Y += 0.05f * i;
@@ -165,7 +176,10 @@ namespace WizardLizard
             {
                 Timer();
             }
-            
+            if (health <= 0)
+            {
+                GameWorld.Instance.RemoveGameObject(this.GameObject);
+            }
         }
         public void shoot()
         {

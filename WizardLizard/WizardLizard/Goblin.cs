@@ -11,16 +11,20 @@ namespace WizardLizard
         private Vector2 goblinPos;
         private float speed = 200;
         private Vector2 velocity;
+        private bool goblinCanBeHit;
+        private int health;
 
 
         public Goblin(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = GameObject.Transform;
+            health = 1;
         }
 
         public void Update()
         {
+            goblinCanBeHit = true;
             goblinPos = new Vector2(transform.Position.X, transform.Position.Y);
             var range = Math.Sqrt(((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X)) + ((goblinPos.Y - GameWorld.PlayerPos.Y)) * (goblinPos.Y - GameWorld.PlayerPos.Y));
             var xdistance = Math.Sqrt((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X));
@@ -32,7 +36,10 @@ namespace WizardLizard
 
             if (range < 10)
                 Attack();
-
+            if (health <= 0)
+            {
+                GameWorld.Instance.RemoveGameObject(this.GameObject);
+            }
         }
 
         //Idle behaviour
@@ -82,6 +89,14 @@ namespace WizardLizard
 
 
 
+        }
+        public void GoblinFireballHit()
+        {
+            if (goblinCanBeHit == true)
+            {
+                health = health - 1;
+                goblinCanBeHit = false;
+            }
         }
 
         public void LoadContent(ContentManager content) { }

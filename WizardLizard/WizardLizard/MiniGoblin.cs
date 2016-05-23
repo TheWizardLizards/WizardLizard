@@ -49,17 +49,13 @@ namespace WizardLizard
                 {
                     if (companionPos.X > transform.Position.X)
                     {
-                        for (int i = 0; i < 50; i++)
-                        {
                             translation = new Vector2(-1, 0);
-                        }
+                        
                     }
                     else if (companionPos.X < transform.Position.X)
                     {
-                        for (int i = 0; i < 50; i++)
-                        {
                             translation = new Vector2(1, 0);
-                        }
+                        
                     }
                 }
             }

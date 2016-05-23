@@ -11,17 +11,20 @@ namespace WizardLizard
         private float speed = 200;
         private Vector2 orcPos;
         private Vector2 velocity;
-
+        private bool orcCanBeHit;
+        private int health;
 
 
         public Orc(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = GameObject.Transform;
+            health = 1;
         }
 
         public void Update()
         {
+            orcCanBeHit = true;
             orcPos = new Vector2(transform.Position.X, transform.Position.Y);
             var range = Math.Sqrt(((orcPos.X - GameWorld.PlayerPos.X) * (orcPos.X - GameWorld.PlayerPos.X)) + ((orcPos.Y - GameWorld.PlayerPos.Y)) * (orcPos.Y - GameWorld.PlayerPos.Y));
             var xdistance = Math.Sqrt((orcPos.X - GameWorld.PlayerPos.X) * (orcPos.X - GameWorld.PlayerPos.X));
@@ -33,7 +36,18 @@ namespace WizardLizard
             {
                 Idle();
             }
-
+            if (health <= 0)
+            {
+                GameWorld.Instance.RemoveGameObject(this.GameObject);
+            }
+        }
+        public void OrcFireballHit()
+        {
+            if (orcCanBeHit == true)
+            {
+                health = health - 1;
+                orcCanBeHit = false;
+            }
         }
         public void Idle()
         {

@@ -44,6 +44,24 @@ namespace WizardLizard
 
         public void OnCollisionEnter(Collider other)
         {
+            if (other.GameObject.GetComponent("Goblin") != null)
+            {
+                Goblin goblin = (Goblin)other.GameObject.GetComponent("Goblin");
+                GameWorld.ObjectsToRemove.Add(this.GameObject);
+                goblin.GoblinFireballHit();
+            }
+            if (other.GameObject.GetComponent("Orc") != null)
+            {
+                Orc orc = (Orc)other.GameObject.GetComponent("Orc");
+                GameWorld.ObjectsToRemove.Add(this.GameObject);
+                orc.OrcFireballHit();
+            }
+            if (other.GameObject.GetComponent("Archer") != null)
+            {
+                Archer archer = (Archer)other.GameObject.GetComponent("Archer");
+                GameWorld.ObjectsToRemove.Add(this.GameObject);
+                archer.ArcherFireballHit();
+            }
             if (other.GameObject.GetComponent("SolidPlatform") != null)
             {
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
