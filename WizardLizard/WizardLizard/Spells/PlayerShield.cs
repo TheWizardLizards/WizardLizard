@@ -33,6 +33,15 @@ namespace WizardLizard
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
                 countdown = visible;
             }
+
+
+            foreach (GameObject go in GameWorld.GameObjects)
+            {
+                if (go.GetComponent("Morph") != null)
+                {
+                    GameWorld.Instance.RemoveGameObject(this.GameObject);
+                }
+            }
             transform.Position = playerPos;
         }
         public void LoadContent(ContentManager content)
