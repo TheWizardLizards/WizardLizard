@@ -28,5 +28,10 @@ namespace WizardLizard
             builder.BuildGameObject(position, width, height);
             return builder.GetResult();
         }
+        public GameObject Construct(Vector2 position, string spriteName)
+        {
+            builder.BuildGameObject(position, spriteName);
+            return builder.GetResult();
+        }
     }
 }

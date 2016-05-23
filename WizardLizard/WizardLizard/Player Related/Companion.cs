@@ -22,6 +22,7 @@ namespace WizardLizard
         private bool canInteract;
         private bool haveInteracted;
         private Director director;
+        private Lever lastknownLever;
 
         public static bool Petcontrol
         {
@@ -113,8 +114,10 @@ namespace WizardLizard
             }
             if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
             {
-                director = new Director(new FireballBuilder());
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                if (lastknownLever != null)
+                {
+                    lastknownLever.interaction(this.GameObject);
+                }
                 haveInteracted = false;
                 canInteract = false;
             }
@@ -277,6 +280,12 @@ namespace WizardLizard
                         }
                     }
                 }
+            }
+
+            if (other.GameObject.GetComponent("Lever") != null)
+            {
+                canInteract = true;
+                lastknownLever = (Lever)other.GameObject.GetComponent("Lever");
             }
         }
 

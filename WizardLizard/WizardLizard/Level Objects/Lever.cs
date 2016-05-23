@@ -42,9 +42,9 @@ namespace WizardLizard
 
         }
 
-        public void interaction(Player player)
+        public void interaction(GameObject target)
         {
-            Collider other = (Collider)player.GameObject.GetComponent("Collider");
+            Collider other = (Collider)target.GetComponent("Collider");
             Collider me = (Collider)this.GameObject.GetComponent("Collider");
             if (me.CollisionBox.Intersects(other.CollisionBox))
             {

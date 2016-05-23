@@ -115,7 +115,7 @@ namespace WizardLizard
         {
             // TODO: Add your initialization logic here
             GameObject background = new GameObject();
-            background.AddComponent(new SpriteRenderer(background, "Level01Opdate", 1f));
+            background.AddComponent(new SpriteRenderer(background, "Level01", 1f));
             background.Transform.Position = new Vector2(0, 0);
             GameObjects.Add(background);
             director = new Director(new AimerBuilder());
@@ -128,7 +128,7 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(50, 100), 1));
             gameObjects.Add(director.Construct(new Vector2(200, 800), 51));
             director = new Director(new DoorBuilder());
-            gameObjects.Add(director.Construct(new Vector2(900, 300), 1));
+            gameObjects.Add(director.Construct(new Vector2(970, 655), 1));
             director = new Director(new CompanionBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new ArcherBuilder());
@@ -166,7 +166,7 @@ namespace WizardLizard
             //venstre gren
             gameObjects.Add(director.Construct(new Vector2(60, 320), 178, 30));
 
-            spawnList.Add(51,director.Construct(new Vector2(482, 535), 338, 48));
+            spawnList.Add(51,director.Construct(new Vector2(482, 535),"MagicPlatform"));
 
 
             base.Initialize();

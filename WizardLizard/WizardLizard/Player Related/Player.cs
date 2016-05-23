@@ -80,7 +80,7 @@ namespace WizardLizard
             {
                 if(lastknownLever != null)
                 {
-                    lastknownLever.interaction(this);
+                    lastknownLever.interaction(this.GameObject);
                 }
                 haveInteracted = false;
                 canInteract = false;

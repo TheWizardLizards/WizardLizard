@@ -16,6 +16,16 @@ namespace WizardLizard
 
         }
 
+        public void BuildGameObject(Vector2 position, string spriteName)
+        {
+            GameObject gameObject = new GameObject();
+            gameObject.AddComponent(new SpriteRenderer(gameObject, spriteName, 1f));
+            gameObject.Transform.Position = position;
+            gameObject.AddComponent(new SolidPlatform(gameObject));
+            gameObject.AddComponent(new Collider(gameObject));
+            this.gameObject = gameObject;
+        }
+
         public void BuildGameObject(Vector2 position, int frequency)
         {
             throw new NotImplementedException();
