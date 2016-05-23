@@ -12,19 +12,14 @@ namespace WizardLizard
     {
         private Animator animator;
         private Transform transform;
-        Vector2 playerPos;
         private int visible = 0;
-        private bool shieldCanBeHit;
-        private int shieldHealth;
         public PlayerShield(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
-            shieldHealth = 1;
         }
         public void Update()
         {
-            shieldCanBeHit = true;
             Vector2 translation = Vector2.Zero;
             visible++;
             Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X - 36, GameWorld.PlayerPos.Y - 50);
@@ -45,11 +40,6 @@ namespace WizardLizard
             //    }
             //}
             transform.Position = playerPos;
-
-            if (shieldHealth <= 0)
-            {
-                GameWorld.Instance.RemoveGameObject(this.GameObject);
-            }
         }
         public void LoadContent(ContentManager content)
         {
@@ -63,7 +53,7 @@ namespace WizardLizard
         {
             if (other.GameObject.GetComponent("Arrow") != null)
             {
-                shieldHealth -= 1;
+                GameWorld.Instance.RemoveGameObject(this.GameObject);
             }
         }
 

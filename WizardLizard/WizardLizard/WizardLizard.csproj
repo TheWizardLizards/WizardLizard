@@ -38,12 +38,12 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Aimer.cs" />
+    <Compile Include="Level Objects\Aimer.cs" />
     <Compile Include="Enemies\Archer.cs" />
-    <Compile Include="Arrow.cs" />
+    <Compile Include="Enemies\Arrow.cs" />
     <Compile Include="Builder\AimerBuilder.cs" />
     <Compile Include="Animation.cs" />
-    <Compile Include="Animator.cs" />
+    <Compile Include="General Components\Animator.cs" />
     <Compile Include="Builder\ArcherBuilder.cs" />
     <Compile Include="Builder\ArrowBuilder.cs" />
     <Compile Include="Builder\GoblinBuilder.cs" />
@@ -54,23 +54,23 @@
     <Compile Include="Enemies\Goblin.cs" />
     <Compile Include="Enemies\MiniGoblin.cs" />
     <Compile Include="Builder\MiniGoblinBuilder.cs" />
-    <Compile Include="MoveableBox.cs" />
+    <Compile Include="Level Objects\MoveableBox.cs" />
     <Compile Include="Builder\MoveableBoxBuilder.cs" />
     <Compile Include="Enemies\Orc.cs" />
-    <Compile Include="Door.cs" />
-    <Compile Include="DoorBuilder.cs" />
-    <Compile Include="PlayerHealth.cs" />
+    <Compile Include="Level Objects\Door.cs" />
+    <Compile Include="Builder\DoorBuilder.cs" />
+    <Compile Include="Player Related\PlayerHealth.cs" />
     <Compile Include="Builder\PlayerHealthBuilder.cs" />
-    <Compile Include="Collider.cs" />
-    <Compile Include="Component.cs" />
-    <Compile Include="Director.cs" />
+    <Compile Include="General Components\Collider.cs" />
+    <Compile Include="General Components\Component.cs" />
+    <Compile Include="Builder\Director.cs" />
     <Compile Include="Builder\FireballBuilder.cs" />
-    <Compile Include="Lever.cs" />
+    <Compile Include="Level Objects\Lever.cs" />
     <Compile Include="Builder\PlatformBuilder.cs" />
-    <Compile Include="SolidPlatform.cs" />
+    <Compile Include="Level Objects\SolidPlatform.cs" />
     <Compile Include="Spells\Fireball.cs" />
     <Compile Include="GameWorld.cs" />
-    <Compile Include="GameObject.cs" />
+    <Compile Include="General Components\GameObject.cs" />
     <Compile Include="Interfaces\IAnimateable.cs" />
     <Compile Include="Interfaces\IBuilder.cs" />
     <Compile Include="Interfaces\ICollisionEnter.cs" />
@@ -82,16 +82,16 @@
     <Compile Include="Interfaces\IUpdateable.cs" />
     <Compile Include="Spells\LightningStrike.cs" />
     <Compile Include="Builder\LightningStrikeBuilder.cs" />
-    <Compile Include="Morph.cs" />
+    <Compile Include="Player Related\Morph.cs" />
     <Compile Include="Builder\MorphBuilder.cs" />
-    <Compile Include="Companion.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Player Related\Companion.cs" />
+    <Compile Include="Player Related\Player.cs" />
     <Compile Include="Spells\PlayerShield.cs" />
     <Compile Include="Builder\PlayerShieldBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpriteRenderer.cs" />
-    <Compile Include="Transform.cs" />
+    <Compile Include="General Components\SpriteRenderer.cs" />
+    <Compile Include="General Components\Transform.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
