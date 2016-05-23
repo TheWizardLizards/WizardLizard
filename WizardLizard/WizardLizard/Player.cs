@@ -112,7 +112,7 @@ namespace WizardLizard
             if (keyState.IsKeyDown(Keys.R) && lightning == true)
             {
                 director = new Director(new LightningStrikeBuilder());
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X, 0)));
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, -956)));
                 lightning = false;
             }
             if (keyState.IsKeyUp(Keys.R))

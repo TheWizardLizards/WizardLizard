@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Aimer.cs" />
-    <Compile Include="Archer.cs" />
+    <Compile Include="Enemies\Archer.cs" />
     <Compile Include="Arrow.cs" />
     <Compile Include="Builder\AimerBuilder.cs" />
     <Compile Include="Animation.cs" />
@@ -51,12 +51,12 @@
     <Compile Include="Builder\OrcBuilder.cs" />
     <Compile Include="Builder\CompanionBuilder.cs" />
     <Compile Include="Builder\PlayerBuilder.cs" />
-    <Compile Include="Goblin.cs" />
-    <Compile Include="MiniGoblin.cs" />
-    <Compile Include="MiniGoblinBuilder.cs" />
+    <Compile Include="Enemies\Goblin.cs" />
+    <Compile Include="Enemies\MiniGoblin.cs" />
+    <Compile Include="Builder\MiniGoblinBuilder.cs" />
     <Compile Include="MoveableBox.cs" />
-    <Compile Include="MoveableBoxBuilder.cs" />
-    <Compile Include="Orc.cs" />
+    <Compile Include="Builder\MoveableBoxBuilder.cs" />
+    <Compile Include="Enemies\Orc.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="DoorBuilder.cs" />
     <Compile Include="PlayerHealth.cs" />
@@ -66,20 +66,20 @@
     <Compile Include="Director.cs" />
     <Compile Include="Builder\FireballBuilder.cs" />
     <Compile Include="Lever.cs" />
-    <Compile Include="PlatformBuilder.cs" />
+    <Compile Include="Builder\PlatformBuilder.cs" />
     <Compile Include="SolidPlatform.cs" />
     <Compile Include="Spells\Fireball.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="IAnimateable.cs" />
-    <Compile Include="IBuilder.cs" />
-    <Compile Include="ICollisionEnter.cs" />
-    <Compile Include="ICollisionExit.cs" />
-    <Compile Include="IDrawable.cs" />
-    <Compile Include="ILoadable.cs" />
-    <Compile Include="IMoveAble.cs" />
-    <Compile Include="IStrategy.cs" />
-    <Compile Include="IUpdateable.cs" />
+    <Compile Include="Interfaces\IAnimateable.cs" />
+    <Compile Include="Interfaces\IBuilder.cs" />
+    <Compile Include="Interfaces\ICollisionEnter.cs" />
+    <Compile Include="Interfaces\ICollisionExit.cs" />
+    <Compile Include="Interfaces\IDrawable.cs" />
+    <Compile Include="Interfaces\ILoadable.cs" />
+    <Compile Include="Interfaces\IMoveAble.cs" />
+    <Compile Include="Interfaces\IStrategy.cs" />
+    <Compile Include="Interfaces\IUpdateable.cs" />
     <Compile Include="Spells\LightningStrike.cs" />
     <Compile Include="Builder\LightningStrikeBuilder.cs" />
     <Compile Include="Morph.cs" />

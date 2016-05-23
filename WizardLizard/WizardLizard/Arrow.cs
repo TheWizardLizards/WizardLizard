@@ -52,6 +52,10 @@ namespace WizardLizard
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
                 player.PlayerHit();
             }
+            if (other.GameObject.GetComponent("PlayerShield") != null)
+            {
+                GameWorld.ObjectsToRemove.Add(this.GameObject);
+            }
             if (other.GameObject.GetComponent("SolidPlatform") != null)
             {
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
