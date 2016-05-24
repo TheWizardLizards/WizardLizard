@@ -416,11 +416,14 @@ namespace WizardLizard
                         int height = Math.Min(collider.CollisionBox.Bottom, other.CollisionBox.Bottom) - top;
                         if (width > height)
                         {
-                            Vector2 position = GameObject.Transform.Position;
-                            position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
-                            GameObject.Transform.Position = position;
-                            hasJumped = false;
-                            velocity.Y = 0;
+                            if (collider.CollisionBox.Y + collider.CollisionBox.Height - 20 < other.TopLine.Y)
+                            {
+                                Vector2 position = GameObject.Transform.Position;
+                                position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
+                                GameObject.Transform.Position = position;
+                                hasJumped = false;
+                                velocity.Y = 0;
+                            }
                         }
                     }
                 }

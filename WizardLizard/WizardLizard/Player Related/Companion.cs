@@ -18,7 +18,7 @@ namespace WizardLizard
         private static bool petcontrol;
         private static bool roar;
         private bool shiftControle;
-        private int speed;
+        private int speed = 200;
         private bool canInteract;
         private bool haveInteracted;
         private Director director;
@@ -56,7 +56,6 @@ namespace WizardLizard
             transform = gameObject.Transform;
             petcontrol = false;
             shiftControle = true;
-            speed = 200;
             canInteract = false;
             haveInteracted = true;
             roar = false;
@@ -72,7 +71,6 @@ namespace WizardLizard
         }
         public void ControlePet(KeyboardState keyState, Vector2 translation)
         {
-            speed = 200;
             if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
             {
                 translation.Y -= 10f;
