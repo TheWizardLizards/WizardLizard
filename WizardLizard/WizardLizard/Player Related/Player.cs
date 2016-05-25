@@ -81,7 +81,7 @@ namespace WizardLizard
             {
                 if(lastknownLever != null)
                 {
-                    lastknownLever.interaction(this.GameObject);
+                    lastknownLever.Interaction(this.GameObject);
                 }
                 haveInteracted = false;
                 canInteract = false;

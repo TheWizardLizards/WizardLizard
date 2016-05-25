@@ -136,6 +136,9 @@
     <Content Include="Content\Level01Opdate.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\LeverSpriteSheet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\MagicDoor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

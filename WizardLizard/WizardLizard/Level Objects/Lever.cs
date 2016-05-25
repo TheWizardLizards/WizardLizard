@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,14 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
+            CreateAnimations();
+        }
 
+        public void CreateAnimations()
+        {
+            animator.CreateAnimation("Idle", new Animation(1, 0, 0, 150, 52, 1, Vector2.Zero));
+            animator.CreateAnimation("Activated", new Animation(4, 0, 0, 150, 52, 1, Vector2.Zero));
+            animator.PlayAnimation("Idle");
         }
 
         public void Update()
@@ -42,7 +50,7 @@ namespace WizardLizard
 
         }
 
-        public void interaction(GameObject target)
+        public void Interaction(GameObject target)
         {
             Collider other = (Collider)target.GetComponent("Collider");
             Collider me = (Collider)this.GameObject.GetComponent("Collider");
@@ -52,6 +60,7 @@ namespace WizardLizard
                 {
                     if (GameWorld.spawnList.ContainsKey(frequency))
                     {
+                        animator.PlayAnimation("Activated");
                         GameWorld.ObjectToAdd.Add(GameWorld.spawnList[frequency]);
                         GameWorld.spawnList.Remove(frequency);
                     }
@@ -65,6 +74,7 @@ namespace WizardLizard
                             Door door = (Door)go.GetComponent("Door");
                             if (door.Frequency == Frequency)
                             {
+                                animator.PlayAnimation("Activated");
                                 GameWorld.ObjectsToRemove.Add(go);
                             }
                         }
@@ -75,7 +85,7 @@ namespace WizardLizard
 
         public void OnAnimationDone(string animationName)
         {
-            throw new NotImplementedException();
+            animator.PlayAnimation("Idle");
         }
 
         public void OnCollisionEnter(Collider other)

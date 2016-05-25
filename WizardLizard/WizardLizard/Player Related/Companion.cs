@@ -71,6 +71,7 @@ namespace WizardLizard
         }
         public void ControlePet(KeyboardState keyState, Vector2 translation)
         {
+            speed = 100;
             if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
             {
                 translation.Y -= 10f;
@@ -113,7 +114,7 @@ namespace WizardLizard
             {
                 if (lastknownLever != null)
                 {
-                    lastknownLever.interaction(this.GameObject);
+                    lastknownLever.Interaction(this.GameObject);
                 }
                 haveInteracted = false;
                 canInteract = false;

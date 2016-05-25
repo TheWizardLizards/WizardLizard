@@ -19,6 +19,7 @@ namespace WizardLizard
         private GameObject gameObject;
         public Animator(GameObject gameObject) : base(gameObject)
         {
+            this.gameObject = gameObject;
             animations = new Dictionary<string, Animation>();
             fps = 8;
             this.spriteRenderer = (SpriteRenderer)gameObject.GetComponent("SpriteRenderer");
