@@ -89,8 +89,21 @@ namespace WizardLizard
             transform.Translate(translation * GameWorld.DeltaTime * speed);
         }
 
-        public void LoadContent(ContentManager content) { }
-        public void OnAnimationDone(string animationName) { }
+        public void LoadContent(ContentManager content)
+        {
+            CreateAnimations();
+        }
+
+        public void CreateAnimations()
+        {
+            animator.CreateAnimation("Idle", new Animation(8,0,0,145,150,1,Vector2.Zero));
+            animator.PlayAnimation("Idle");
+        }
+
+        public void OnAnimationDone(string animationName)
+        {
+            animator.PlayAnimation("Idle");
+        }
         public void OnCollisionEnter(Collider other)
         {
             if (other.GameObject.GetComponent("SolidPlatform") != null)

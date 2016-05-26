@@ -148,6 +148,12 @@
     <Content Include="Content\MoveableBox.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\OgreSpriteSheetIdle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OgreSpriteSheetIdle2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\orc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
