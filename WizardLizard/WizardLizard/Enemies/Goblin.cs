@@ -6,6 +6,7 @@ namespace WizardLizard
 {
     class Goblin : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
+        private Director director;
         private Transform transform;
         private Animator animator;
         private Vector2 goblinPos;
@@ -13,6 +14,7 @@ namespace WizardLizard
         private Vector2 velocity;
         private bool goblinCanBeHit;
         private int health;
+        private int chanceToSpawnHealth = 50; //i procent
 
 
         public Goblin(GameObject gameObject) : base(gameObject)
@@ -39,6 +41,12 @@ namespace WizardLizard
             if (health <= 0)
             {
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
+                Random rnd = new Random();
+                if (rnd.Next(0, 101) <= chanceToSpawnHealth)
+                {
+                    director = new Director(new HealthGlobeBuilder());
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                }
             }
         }
 
@@ -154,7 +162,7 @@ namespace WizardLizard
                         Vector2 position = GameObject.Transform.Position;
                         position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
                         GameObject.Transform.Position = position;
-                            velocity.Y = 0;
+                        velocity.Y = 0;
                     }
                     else
                     {
@@ -170,7 +178,7 @@ namespace WizardLizard
                         Vector2 position = GameObject.Transform.Position;
                         position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
                         GameObject.Transform.Position = position;
-                            velocity.Y = 0;
+                        velocity.Y = 0;
                     }
                     else
                     {
@@ -193,7 +201,7 @@ namespace WizardLizard
                         Vector2 position = GameObject.Transform.Position;
                         position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
                         GameObject.Transform.Position = position;
-                            velocity.Y = 0;
+                        velocity.Y = 0;
                     }
                     else if (collider.CollisionBox.Intersects(other.LeftLine))
                     {

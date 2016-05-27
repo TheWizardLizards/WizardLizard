@@ -18,6 +18,7 @@ namespace WizardLizard
         private int speed = 100;
         private bool archerCanBeHit;
         private int health;
+        private int chanceToSpawnHealth = 50; //I procent
 
 
         public Archer(GameObject gameObject) : base(gameObject)
@@ -179,6 +180,12 @@ namespace WizardLizard
             if (health <= 0)
             {
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
+                Random rnd = new Random();
+                if (rnd.Next(0, 101) <= chanceToSpawnHealth)
+                {
+                    director = new Director(new HealthGlobeBuilder());
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                }
             }
         }
         public void shoot()

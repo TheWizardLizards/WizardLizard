@@ -12,8 +12,8 @@ namespace WizardLizard
 {
     class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
-        private Transform transform;
         private Vector2 velocity;
+        private Transform transform;
         private Animator animator;
         private bool shiftControle;
         private int speed = 200;
@@ -41,7 +41,7 @@ namespace WizardLizard
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
-            health = 4;
+            health = 6;
             hasJumped = true;
             shiftControle = true;
         }

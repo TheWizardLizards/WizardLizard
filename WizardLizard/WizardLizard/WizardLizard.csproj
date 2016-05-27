@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="HealthGlobe.cs" />
+    <Compile Include="HealthGlobeBuilder.cs" />
     <Compile Include="Level Objects\Aimer.cs" />
     <Compile Include="Enemies\Archer.cs" />
     <Compile Include="Enemies\Arrow.cs" />
