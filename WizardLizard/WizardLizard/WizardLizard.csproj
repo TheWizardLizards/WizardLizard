@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="HealthGlobe.cs" />
     <Compile Include="Level Objects\Aimer.cs" />
     <Compile Include="Enemies\Archer.cs" />
     <Compile Include="Enemies\Arrow.cs" />
@@ -124,7 +125,10 @@
     <Content Include="Content\goblin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Healthbar.png">
+    <Content Include="Content\HealthGlobe.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\HealthSheet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Hero.png">
