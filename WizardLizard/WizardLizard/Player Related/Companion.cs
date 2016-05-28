@@ -15,7 +15,7 @@ namespace WizardLizard
         private Animator animator;
         private Vector2 velocity;
         private bool hasJumped;
-        private static bool petcontrol;
+        private static bool companionControle;
         private static bool roar;
         private bool shiftControle;
         private int speed = 200;
@@ -24,16 +24,16 @@ namespace WizardLizard
         private Director director;
         private Lever lastknownLever;
 
-        public static bool companionControle
+        public static bool CompanionControle
         {
             get
             {
-                return petcontrol;
+                return companionControle;
             }
 
             set
             {
-                petcontrol = value;
+                companionControle = value;
             }
         }
 
@@ -54,7 +54,7 @@ namespace WizardLizard
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
-            petcontrol = false;
+            companionControle = false;
             shiftControle = true;
             canInteract = false;
             haveInteracted = true;

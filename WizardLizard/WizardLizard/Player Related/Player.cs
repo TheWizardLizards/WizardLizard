@@ -192,14 +192,14 @@ namespace WizardLizard
 
         private void ShiftToCompanion(KeyboardState keyState)
         {
+            if (keyState.IsKeyDown(Keys.Space) && shiftControle == true)
+            {
+                Companion.CompanionControle = true;
+                shiftControle = false;
+            }
             if (keyState.IsKeyUp(Keys.Space))
             {
                 shiftControle = true;
-            }
-            if (keyState.IsKeyDown(Keys.Space) && shiftControle == true)
-            {
-                Companion.companionControle = true;
-                shiftControle = false;
             }
         }
         private void Jump(KeyboardState keyState, Vector2 translation)
@@ -213,7 +213,7 @@ namespace WizardLizard
         }
         private void PlayerController(KeyboardState keyState, Vector2 translation, MouseState mouseState)
         {
-            if (Companion.companionControle == false)
+            if (Companion.CompanionControle == false)
             {
 
                 if (keyState.IsKeyDown(Keys.D))
