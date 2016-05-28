@@ -125,21 +125,41 @@ namespace WizardLizard
             }
             transform.Translate(translation * GameWorld.DeltaTime * speed);
         }
-        public void FollowPlayer()
+        public void FollowPlayer(Vector2 translation)
         {
-            speed = 5;
+            speed = 200;
             Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X - 20, GameWorld.PlayerPos.Y + 50);
             Vector2 petPos = new Vector2(transform.Position.X, transform.Position.Y);
             Vector2 direction = playerPos - petPos;
-            if (speed > direction.Length())
+            //if (speed > direction.Length())
+            //{
+            //    transform.Position = petPos;
+            //}
+            //else
+            //{
+            //direction.Normalize();
+            //transform.Position += direction * speed;
+            //}
+            if (direction.Length() < 5)
             {
                 transform.Position = petPos;
             }
-            else
+            else if (petPos.X < playerPos.X)
             {
-                direction.Normalize();
-                transform.Position += direction * speed;
+                translation = new Vector2(1, 0);
             }
+            else if (petPos.X > playerPos.X)
+            {
+                translation = new Vector2(-1, 0);
+            }
+            //translation = new Vector2(0, 1);
+            //if (Player.HasJumped == true && hasJumped == false)
+            //{
+                //translation.Y += 10f;
+                //velocity.Y = +10f;
+                //hasJumped = false;
+            //}
+            transform.Translate(translation * GameWorld.DeltaTime * speed);
         }
         public void Update()
         {
@@ -153,7 +173,7 @@ namespace WizardLizard
             }
             else
             {
-                FollowPlayer();
+                FollowPlayer(translation);
             }
 
 
@@ -166,8 +186,8 @@ namespace WizardLizard
                 canInteract = true;
             }
 
-            if (companionControle == true)
-            {
+            //if (companionControle == true)
+            //{
                 if (other.GameObject.GetComponent("SolidPlatform") != null)
                 {
                     Collider collider = (Collider)GameObject.GetComponent("Collider");
@@ -278,7 +298,7 @@ namespace WizardLizard
                         }
                     }
                 }
-            }
+            //}
 
             if (other.GameObject.GetComponent("Lever") != null)
             {

@@ -18,7 +18,7 @@ namespace WizardLizard
         private bool shiftControle;
         private int speed = 200;
         private static int health;
-        private bool hasJumped;
+        private static bool hasJumped;
         private bool fireball = true;
         private bool lightning = true;
         private bool shield = true;
@@ -35,6 +35,19 @@ namespace WizardLizard
         {
             get { return health; }
             set { health = value; }
+        }
+
+        public static bool HasJumped
+        {
+            get
+            {
+                return hasJumped;
+            }
+
+            set
+            {
+                hasJumped = value;
+            }
         }
 
         public Player(GameObject gameObject) : base(gameObject)
