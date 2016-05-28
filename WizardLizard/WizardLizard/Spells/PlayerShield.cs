@@ -24,6 +24,17 @@ namespace WizardLizard
             animator.PlayAnimation("ShieldAnimation");
             Vector2 translation = Vector2.Zero;
             Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X - 36, GameWorld.PlayerPos.Y - 50);
+            transform.Position = playerPos;
+
+
+            foreach (GameObject go in GameWorld.GameObjects)
+            {
+                if (go.GetComponent("Morph") != null)
+                {
+                    GameWorld.Instance.RemoveGameObject(this.GameObject);
+                }
+            }
+
             if (countdown > 0)
             {
                 countdown -= GameWorld.DeltaTime;
@@ -34,16 +45,6 @@ namespace WizardLizard
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
                 countdown = visible;
             }
-
-
-            foreach (GameObject go in GameWorld.GameObjects)
-            {
-                if (go.GetComponent("Morph") != null)
-                {
-                    GameWorld.Instance.RemoveGameObject(this.GameObject);
-                }
-            }
-            transform.Position = playerPos;
         }
         public void LoadContent(ContentManager content)
         {
