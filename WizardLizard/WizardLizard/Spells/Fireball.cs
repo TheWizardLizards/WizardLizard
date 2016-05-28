@@ -13,6 +13,7 @@ namespace WizardLizard
     class Fireball : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
+        private int dmg = 1;
         private Animator animator;
         private int speed = 400;
         Vector2 mousePosition;
@@ -49,21 +50,25 @@ namespace WizardLizard
             {
                 Goblin goblin = (Goblin)other.GameObject.GetComponent("Goblin");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                goblin.TakeDamage(1);
+                goblin.TakeDamage(dmg);
             }
             if (other.GameObject.GetComponent("Orc") != null)
             {
                 Orc orc = (Orc)other.GameObject.GetComponent("Orc");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                orc.TakeDamage(1);
+                orc.TakeDamage(dmg);
             }
             if (other.GameObject.GetComponent("Archer") != null)
             {
                 Archer archer = (Archer)other.GameObject.GetComponent("Archer");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                archer.TakeDamage(1);
+                archer.TakeDamage(dmg);
             }
-            if (other.GameObject.GetComponent("SolidPlatform") != null)
+            if (other.GameObject.GetComponent("SolidPlatform") != null
+                || other.GameObject.GetComponent("Door") != null 
+                || other.GameObject.GetComponent("Lever") != null 
+                || other.GameObject.GetComponent("MoveableBox") != null
+                || other.GameObject.GetComponent("NonSolidPlatform") != null)
             {
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
             }
