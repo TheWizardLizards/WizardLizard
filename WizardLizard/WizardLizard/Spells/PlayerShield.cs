@@ -21,6 +21,7 @@ namespace WizardLizard
         }
         public void Update()
         {
+            animator.PlayAnimation("ShieldAnimation");
             Vector2 translation = Vector2.Zero;
             Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X - 36, GameWorld.PlayerPos.Y - 50);
             if (countdown > 0)
@@ -46,6 +47,7 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
+            CreateAnimations();
         }
 
         public void OnAnimationDone(string animationName)
@@ -59,10 +61,13 @@ namespace WizardLizard
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
             }
         }
-
         public void OnCollisionExit(Collider other)
         {
         }
-        
+        public void CreateAnimations()
+        {
+            animator.CreateAnimation("ShieldAnimation", new Animation(3, 0, 0, 144, 200, 6, Vector2.Zero));
+            animator.PlayAnimation("ShieldAnimation");
+        }
     }
 }

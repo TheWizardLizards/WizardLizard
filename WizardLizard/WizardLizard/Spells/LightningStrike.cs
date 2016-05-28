@@ -12,15 +12,12 @@ namespace WizardLizard
     class LightningStrike : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
-        private int speed;
+        private int speed = 2000;
         private Animator animator;
-        private float visible;
         public LightningStrike(GameObject gameObject) : base(gameObject)
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
-            visible = 0;
-            speed = 2000;
         }
         public void LoadContent(ContentManager content)
         {
@@ -50,9 +47,13 @@ namespace WizardLizard
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
                 archer.TakeDamage(1);
             }
-            if (other.GameObject.GetComponent("SolidPlatform") != null)
+            if (other.GameObject.GetComponent("SolidPlatform") != null
+                || other.GameObject.GetComponent("Door") != null
+                || other.GameObject.GetComponent("Lever") != null
+                || other.GameObject.GetComponent("MoveableBox") != null
+                || other.GameObject.GetComponent("NonSolidPlatform") != null)
             {
-                GameWorld.Instance.RemoveGameObject(this.GameObject);
+                GameWorld.ObjectsToRemove.Add(this.GameObject);
             }
         }
 
@@ -62,20 +63,7 @@ namespace WizardLizard
         public void Update()
         {
             Vector2 translation = new Vector2(0, 1);
-            //visible++;
-            //if (visible >= 50)
-            //{
-            //    foreach (GameObject go in GameWorld.GameObjects)
-            //    {
-            //        if (go.GetComponent("LightningStrike") != null)
-            //        {
-            //            GameWorld.ObjectsToRemove.Add(go);
-            //            visible = 0;
-            //        }
-            //    }
-            //}
             transform.Translate(translation * GameWorld.DeltaTime * speed);
-
         }
     }
 }

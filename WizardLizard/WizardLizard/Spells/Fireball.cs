@@ -81,7 +81,7 @@ namespace WizardLizard
 
         public void Update()
         {
-            animator.PlayAnimation("FireballYo");
+            animator.PlayAnimation("Fireball");
             Vector2 translation = Vector2.Zero;
             translation = mousePosition - fireballPos;
 
@@ -96,8 +96,8 @@ namespace WizardLizard
         }
         public void CreateAnimations()
         {
-            animator.CreateAnimation("FireballYo", new Animation(4, 0, 0, 50, 50, 32, Vector2.Zero));
-            animator.PlayAnimation("FireballYo");
+            animator.CreateAnimation("Fireball", new Animation(4, 0, 0, 50, 50, 32, Vector2.Zero));
+            animator.PlayAnimation("Fireball");
         }
         
     }

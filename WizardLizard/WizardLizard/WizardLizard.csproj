@@ -163,6 +163,9 @@
     <Content Include="Content\Paused.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\PlayerShieldAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\PlayOff.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
