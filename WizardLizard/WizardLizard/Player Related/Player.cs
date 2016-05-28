@@ -27,8 +27,10 @@ namespace WizardLizard
         private bool haveInteracted = true;
         private bool playerCanBeHit;
         private Lever lastknownLever;
-        private const float delay = 3; // seconds
-        private float countdown = delay;
+        private const float fireballCooldown = 3; // seconds
+        private float fireballCountdown = fireballCooldown;
+        private const float lightningstrikCooldown = 3; // seconds
+        private float lightningstrikeCountdown = fireballCooldown;
         public float Delay { get; set; }
 
         public static int Health
@@ -122,36 +124,46 @@ namespace WizardLizard
         }
         private void ShootLighting(KeyboardState keyState, MouseState mouseState)
         {
-            //Shoots a lightningstrike from above towards the moueses position
-            if (keyState.IsKeyDown(Keys.R) && lightning == true)
+            if (lightningstrikeCountdown > 0)
             {
-                director = new Director(new LightningStrikeBuilder());
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, -956)));
-                lightning = false;
-            }
-            if (keyState.IsKeyUp(Keys.R))
-            {
-                lightning = true;
-            }
-        }
-        private void ShootFireball(MouseState mouseState)
-        {
-            if (countdown > 0)
-            {
-                countdown -= GameWorld.DeltaTime;
+                lightningstrikeCountdown -= GameWorld.DeltaTime;
             }
 
-            if (countdown <= 0)
+            if (lightningstrikeCountdown <= 0)
             {
-                countdown = 0;
-                //Shoots a fireball towards the moueses position
+                lightningstrikeCountdown = 0;
+                //Shoots a lightningstrike from above towards the moueses position
+                if (keyState.IsKeyDown(Keys.R) && lightning == true)
+                {
+                    director = new Director(new LightningStrikeBuilder());
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, -956)));
+                    lightning = false;
+                }
+                if (keyState.IsKeyUp(Keys.R))
+                {
+                    lightning = true;
+                }
+            }
+        }
+
+        private void ShootFireball(MouseState mouseState)
+        {
+            if (fireballCountdown > 0)
+            {
+                fireballCountdown -= GameWorld.DeltaTime;
+            }
+
+            if (fireballCountdown <= 0)
+            {
+                fireballCountdown = 0;
+                //Shoots a fireball towards the moueses position at the given time the button has been pressed
                 if (mouseState.RightButton == ButtonState.Pressed && fireball == true)
                 {
                     director = new Director(new FireballBuilder());
-                    //Opdater fireball spawn punkt.
+                    //Updates the fireballs spawn position
                     GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 40, transform.Position.Y + 40)));
                     fireball = false;
-                    countdown = delay;
+                    fireballCountdown = fireballCooldown;
                 }
                 if (mouseState.RightButton == ButtonState.Released)
                 {
@@ -159,6 +171,7 @@ namespace WizardLizard
                 }
             }
         }
+
         private void ShiftToCompanion(KeyboardState keyState)
         {
             if (keyState.IsKeyUp(Keys.Space))
