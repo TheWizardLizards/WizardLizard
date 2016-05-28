@@ -128,19 +128,10 @@ namespace WizardLizard
         public void FollowPlayer(Vector2 translation)
         {
             speed = 200;
-            Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X - 20, GameWorld.PlayerPos.Y + 50);
+            Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X + 20, GameWorld.PlayerPos.Y + 50);
             Vector2 petPos = new Vector2(transform.Position.X, transform.Position.Y);
-            Vector2 direction = playerPos - petPos;
-            //if (speed > direction.Length())
-            //{
-            //    transform.Position = petPos;
-            //}
-            //else
-            //{
-            //direction.Normalize();
-            //transform.Position += direction * speed;
-            //}
-            if (direction.Length() < 5)
+            Vector2 distance = new Vector2(petPos.X - playerPos.X);
+            if (distance.Length() > speed)
             {
                 transform.Position = petPos;
             }
@@ -152,13 +143,21 @@ namespace WizardLizard
             {
                 translation = new Vector2(-1, 0);
             }
-            //translation = new Vector2(0, 1);
-            //if (Player.HasJumped == true && hasJumped == false)
-            //{
-                //translation.Y += 10f;
-                //velocity.Y = +10f;
-                //hasJumped = false;
-            //}
+            float i = 5;
+            velocity.Y += 0.05f * i;
+            translation += velocity;
+            if (Player.HasJumped == true && hasJumped == false)
+            {
+                translation.Y -= 5f;
+                velocity.Y = -5f;
+                hasJumped = true;
+            }
+            else if (playerPos.Y +50< petPos.Y && hasJumped == false)
+            {
+                translation.Y -= 5f;
+                velocity.Y = -5f;
+                hasJumped = true;
+            }
             transform.Translate(translation * GameWorld.DeltaTime * speed);
         }
         public void Update()
