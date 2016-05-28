@@ -30,7 +30,9 @@ namespace WizardLizard
         private const float fireballCooldown = 3; // seconds
         private float fireballCountdown = fireballCooldown;
         private const float lightningstrikCooldown = 3; // seconds
-        private float lightningstrikeCountdown = fireballCooldown;
+        private float lightningstrikeCountdown = lightningstrikCooldown;
+        private const float shieldCooldown = 10; // seconds
+        private float shieldCountdown = shieldCooldown;
         public float Delay { get; set; }
 
         public static int Health
@@ -109,16 +111,31 @@ namespace WizardLizard
         }
         private void CreateShield(KeyboardState keyState)
         {
-            //Creates a shield around the player
-            if (keyState.IsKeyDown(Keys.Q) && shield == true)
+            foreach (GameObject go in GameWorld.GameObjects)
             {
-                director = new Director(new PlayerShieldBuilder());
-                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
-                shield = false;
+                if (go.GetComponent("PlayerShield") != null)
+                {
+                    shieldCountdown = shieldCooldown;
+                }
             }
-            if (keyState.IsKeyUp(Keys.Q))
+            //Creates a shield around the player
+            if (shieldCountdown > 0)
             {
-                shield = true;
+                shieldCountdown -= GameWorld.DeltaTime;
+            }
+
+            if (shieldCountdown <= 0)
+            {
+                if (keyState.IsKeyDown(Keys.Q) && shield == true)
+                {
+                    director = new Director(new PlayerShieldBuilder());
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                    shield = false;
+                }
+                if (keyState.IsKeyUp(Keys.Q))
+                {
+                    shield = true;
+                }
             }
 
         }
@@ -138,6 +155,7 @@ namespace WizardLizard
                     director = new Director(new LightningStrikeBuilder());
                     GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, -956)));
                     lightning = false;
+                    lightningstrikeCountdown = lightningstrikCooldown;
                 }
                 if (keyState.IsKeyUp(Keys.R))
                 {
