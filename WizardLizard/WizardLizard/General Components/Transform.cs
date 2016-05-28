@@ -10,7 +10,6 @@ namespace WizardLizard
     {
 
         private Vector2 position;
-        private Transform GetTransform;
         public Vector2 Position
         {
             get

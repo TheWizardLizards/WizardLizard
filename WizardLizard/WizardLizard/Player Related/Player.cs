@@ -193,10 +193,6 @@ namespace WizardLizard
                 {
                     translation += new Vector2(-1, 0);
                 }
-                if (keyState.IsKeyDown(Keys.S))
-                {
-                    translation += new Vector2(0, 1);
-                }
 
                 Jump(keyState, translation);
 
