@@ -26,6 +26,7 @@ namespace WizardLizard
 
         public void Update()
         {
+            
             goblinCanBeHit = true;
             goblinPos = new Vector2(transform.Position.X, transform.Position.Y);
             var range = Math.Sqrt(((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X)) + ((goblinPos.Y - GameWorld.PlayerPos.Y)) * (goblinPos.Y - GameWorld.PlayerPos.Y));
@@ -107,8 +108,15 @@ namespace WizardLizard
             }
         }
 
-        public void LoadContent(ContentManager content) { }
-        public void OnAnimationDone(string animationName) { }
+        public void LoadContent(ContentManager content)
+        {
+            animator.CreateAnimation("Idle",new Animation(5,44,17,25,43,5,Vector2.Zero));
+            animator.PlayAnimation("Idle");
+        }
+        public void OnAnimationDone(string animationName)
+        {
+            animator.PlayAnimation("Idle");
+        }
 
         public void OnCollisionEnter(Collider other)
         {

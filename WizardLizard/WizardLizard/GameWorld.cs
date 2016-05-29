@@ -151,7 +151,7 @@ namespace WizardLizard
                 gameObjects.Add(director.Construct(new Vector2(310, 10)));
                 director = new Director(new GoblinBuilder());
                 gameObjects.Add(director.Construct(new Vector2(480, 250)));
-                gameObjects.Add(director.Construct(new Vector2(580, 250)));
+                gameObjects.Add(director.Construct(new Vector2(680, 100)));
 
                 director = new Director(new OrcBuilder());
                 gameObjects.Add(director.Construct(new Vector2(900, 10)));
