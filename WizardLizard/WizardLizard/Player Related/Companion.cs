@@ -23,7 +23,7 @@ namespace WizardLizard
         private bool haveInteracted;
         private Director director;
         private Lever lastknownLever;
-
+        private bool fly = false;
         public static bool CompanionControle
         {
             get
@@ -131,6 +131,8 @@ namespace WizardLizard
             Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X + 20, GameWorld.PlayerPos.Y + 50);
             Vector2 petPos = new Vector2(transform.Position.X, transform.Position.Y);
             Vector2 distance = new Vector2(petPos.X - playerPos.X);
+            Vector2 distanceTwo = new Vector2();
+            distanceTwo = GameWorld.PlayerPos - petPos;
             if (distance.Length() > speed)
             {
                 transform.Position = petPos;
@@ -143,20 +145,33 @@ namespace WizardLizard
             {
                 translation = new Vector2(-1, 0);
             }
-            float i = 5;
-            velocity.Y += 0.05f * i;
-            translation += velocity;
             if (Player.HasJumped == true && hasJumped == false)
             {
                 translation.Y -= 5f;
                 velocity.Y = -5f;
                 hasJumped = true;
             }
-            else if (playerPos.Y +50< petPos.Y && hasJumped == false)
+            else if (playerPos.Y + 50 < petPos.Y && hasJumped == false)
             {
                 translation.Y -= 5f;
                 velocity.Y = -5f;
                 hasJumped = true;
+            }
+            if (fly == false)
+            {
+                float i = 5;
+                velocity.Y += 0.05f * i;
+                translation += velocity;
+            }
+            if (distanceTwo.Length() > 100)
+            {
+                fly = true;
+                distanceTwo.Normalize();
+                translation += distanceTwo;
+            }
+            else if(distanceTwo.Length() > 20)
+            {
+                fly = false;
             }
             transform.Translate(translation * GameWorld.DeltaTime * speed);
         }
@@ -185,8 +200,8 @@ namespace WizardLizard
                 canInteract = true;
             }
 
-            //if (companionControle == true)
-            //{
+            if (fly == false)
+            {
                 if (other.GameObject.GetComponent("SolidPlatform") != null)
                 {
                     Collider collider = (Collider)GameObject.GetComponent("Collider");
@@ -297,7 +312,7 @@ namespace WizardLizard
                         }
                     }
                 }
-            //}
+            }
 
             if (other.GameObject.GetComponent("Lever") != null)
             {

@@ -30,6 +30,7 @@ namespace WizardLizard
 
         public void Update()
         {
+            canHeal = true;
         }
     }
 }
