@@ -30,7 +30,7 @@ namespace WizardLizard
 
         public void LoadContent(ContentManager content)
         {
-            animator.CreateAnimation("Idle", new Animation(5, 86, 17, 38, 43,5, Vector2.Zero));
+            animator.CreateAnimation("Idle", new Animation(5, 86, 0, 38, 43,5, Vector2.Zero));
             animator.PlayAnimation("Idle");
         }
         public void OnAnimationDone(string animationName)

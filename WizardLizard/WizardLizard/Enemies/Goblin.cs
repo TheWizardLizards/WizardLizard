@@ -39,6 +39,7 @@ namespace WizardLizard
 
             if (range < 10)
                 Attack();
+            
             if (health <= 0)
             {
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
@@ -54,6 +55,7 @@ namespace WizardLizard
         //Idle behaviour
         public void Idle()
         {
+            animator.PlayAnimation("Idle");
             Vector2 translation = new Vector2(0, 0);
             float i = 5;
             velocity.Y += 0.05f * i;
@@ -83,6 +85,7 @@ namespace WizardLizard
                 if (GameWorld.PlayerPos.X < goblinPos.X)
                 {
                     translation.X--;
+                    animator.PlayAnimation("RunLeft");
                 }
             }
 
@@ -95,6 +98,10 @@ namespace WizardLizard
             translation += velocity;
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
+            if(translation.X == 0)
+            {
+                animator.PlayAnimation("Idle");
+            }
 
 
 
@@ -110,12 +117,13 @@ namespace WizardLizard
 
         public void LoadContent(ContentManager content)
         {
-            animator.CreateAnimation("Idle",new Animation(5,44,17,25,43,5,Vector2.Zero));
+            animator.CreateAnimation("Idle",new Animation(5,44,0,25,43,5,Vector2.Zero));
+            animator.CreateAnimation("RunLeft", new Animation(14,1,0,28,43,14,Vector2.Zero));
             animator.PlayAnimation("Idle");
         }
         public void OnAnimationDone(string animationName)
         {
-            animator.PlayAnimation("Idle");
+
         }
 
         public void OnCollisionEnter(Collider other)
