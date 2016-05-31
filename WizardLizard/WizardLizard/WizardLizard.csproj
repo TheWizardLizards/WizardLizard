@@ -62,6 +62,7 @@
     <Compile Include="Enemies\Orc.cs" />
     <Compile Include="Level Objects\Door.cs" />
     <Compile Include="Builder\DoorBuilder.cs" />
+    <Compile Include="LevelBuilder.cs" />
     <Compile Include="NonSolidPlatform.cs" />
     <Compile Include="NonSolidPlatformBuilder.cs" />
     <Compile Include="Player Related\PlayerHealth.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Level Objects\Lever.cs" />
     <Compile Include="Builder\PlatformBuilder.cs" />
     <Compile Include="Level Objects\SolidPlatform.cs" />
+    <Compile Include="SmallMoveableBoxBuilder.cs" />
     <Compile Include="Spells\Fireball.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="General Components\GameObject.cs" />
@@ -121,6 +123,9 @@
     <Content Include="Content\Crate01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Crate02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Fireball.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -145,10 +150,19 @@
     <Content Include="Content\Level01Opdate.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\level02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\LeverSpriteSheet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\MagicDoor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\MagicDoor30x150.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\MagicDoor30x50.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\MagicPlatform.png">

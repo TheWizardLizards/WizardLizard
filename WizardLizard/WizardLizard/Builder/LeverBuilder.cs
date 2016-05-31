@@ -31,6 +31,11 @@ namespace WizardLizard
             this.gameObject = gameObject;
         }
 
+        public void BuildGameObject(Vector2 position, int frequency, string spriteName)
+        {
+            throw new NotImplementedException();
+        }
+
         public void BuildGameObject(Vector2 position, int width, int height)
         {
 

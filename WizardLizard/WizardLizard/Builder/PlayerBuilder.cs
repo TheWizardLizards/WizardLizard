@@ -30,6 +30,11 @@ namespace WizardLizard
             throw new NotImplementedException();
         }
 
+        public void BuildGameObject(Vector2 position, int frequency, string spriteName)
+        {
+            throw new NotImplementedException();
+        }
+
         public void BuildGameObject(Vector2 position, int width, int height)
         {
             throw new NotImplementedException();

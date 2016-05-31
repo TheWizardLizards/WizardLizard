@@ -71,7 +71,7 @@ namespace WizardLizard
         }
         public void ControlePet(KeyboardState keyState, Vector2 translation)
         {
-            speed = 100;
+            speed = 200;
             if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
             {
                 translation.Y -= 10f;

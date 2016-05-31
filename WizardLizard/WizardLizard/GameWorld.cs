@@ -22,8 +22,9 @@ namespace WizardLizard
         Button btnStartGame;
         Button btnPlay;
         Button btnExit;
-
-        Director director;
+        LevelBuilder levelBuilder = new LevelBuilder();
+        private string level = "level01";
+        private bool isCompleted = false;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private static Vector2 playerPos;
@@ -129,65 +130,17 @@ namespace WizardLizard
             // TODO: Add your initialization logic here
             if (currentGameState == GameState.Playing)
             {
-
-                GameObject background = new GameObject();
-                background.AddComponent(new SpriteRenderer(background, "Level01", 1f));
-                background.Transform.Position = new Vector2(0, 0);
-                GameObjects.Add(background);
-                director = new Director(new AimerBuilder());
-                gameObjects.Add(director.Construct(new Vector2(0, 0)));
-                director = new Director(new PlayerBuilder());
-                gameObjects.Add(director.Construct(new Vector2(100, 700)));
-                director = new Director(new PlayerHealthBuilder());
-                gameObjects.Add(director.Construct(new Vector2(10, 10)));
-                director = new Director(new LeverBuilder());
-                gameObjects.Add(director.Construct(new Vector2(70, 270), 1));
-                gameObjects.Add(director.Construct(new Vector2(1160, 143), 51));
-                director = new Director(new DoorBuilder());
-                gameObjects.Add(director.Construct(new Vector2(970, 655), 1));
-                director = new Director(new CompanionBuilder());
-                gameObjects.Add(director.Construct(new Vector2(100, 700)));
-                director = new Director(new ArcherBuilder());
-                gameObjects.Add(director.Construct(new Vector2(310, 10)));
-                director = new Director(new GoblinBuilder());
-                gameObjects.Add(director.Construct(new Vector2(480, 250)));
-                gameObjects.Add(director.Construct(new Vector2(680, 100)));
-
-                director = new Director(new OrcBuilder());
-                gameObjects.Add(director.Construct(new Vector2(900, 10)));
-                gameObjects.Add(director.Construct(new Vector2(1000, 10)));
-
-                director = new Director(new MoveableBoxBuilder());
-                gameObjects.Add(director.Construct(new Vector2(600, 0)));
-                director = new Director(new PlatformBuilder());
-                //højre side bund
-                gameObjects.Add(director.Construct(new Vector2(0, 850), 386, 100));
-                //venstre side bund
-                gameObjects.Add(director.Construct(new Vector2(483, 850), 1117, 100));
-                //venstre væg
-                gameObjects.Add(director.Construct(new Vector2(0, 75), 60, 775));
-                //første platform over hulen
-                gameObjects.Add(director.Construct(new Vector2(966, 608), 386, 48));
-                //højeste platform over hulen
-                gameObjects.Add(director.Construct(new Vector2(1352, 560), 194, 48));
-                //højre væg
-                gameObjects.Add(director.Construct(new Vector2(1498, 240), 48, 480));
-                //venstre stenplatform
-                gameObjects.Add(director.Construct(new Vector2(190, 488), 196, 48));
-
-                spawnList.Add(51, director.Construct(new Vector2(482, 535), "MagicPlatform"));
-
-
-                //To be: non-solidplatforms
-                director = new Director(new NonSolidPlatformBuilder());
-                //midterste gren
-                gameObjects.Add(director.Construct(new Vector2(1350, 240), 148, 40));
-                //øverste gren
-                gameObjects.Add(director.Construct(new Vector2(1150, 195), 200, 45));
-                //nederste gren
-                gameObjects.Add(director.Construct(new Vector2(1360, 395), 138, 30));
-                //venstre gren
-                gameObjects.Add(director.Construct(new Vector2(60, 320), 178, 30));
+                if (level == "level01")
+                {
+                    isCompleted = false;
+                    levelBuilder.LevelOne();
+                }
+                if (level == "level02" && isCompleted == true)
+                {
+                    isCompleted = false;
+                    levelBuilder.LevelTwo();
+                }
+                IsMouseVisible = false;
             }
 
 
@@ -253,6 +206,7 @@ namespace WizardLizard
                 case GameState.Playing:
                     if (!paused)
                     {
+                        IsMouseVisible = false;
                         if (keyState.IsKeyDown(Keys.Escape) || keyState.IsKeyDown(Keys.P))
                         {
                             paused = true;
@@ -279,9 +233,16 @@ namespace WizardLizard
                             Initialize();
                             canInitialize = false;
                         }
+                        //if (playerPos.X > 1550 && playerPos.Y > 750)
+                        //{
+                        //    level = "level02";
+                        //    isCompleted = true;
+                        //    Initialize();
+                        //}
                     }
                     if (paused)
                     {
+                        IsMouseVisible = true;
                         btnPlay = new Button(Content.Load<Texture2D>("PlayOff"), new Vector2(700, 300), "PlayOff", "PlayOn");
                         btnExit = new Button(Content.Load<Texture2D>("ExitOff"), new Vector2(700, 400), "ExitOff", "ExitOn");
                         btnPlay.Update(Content, mouse);
