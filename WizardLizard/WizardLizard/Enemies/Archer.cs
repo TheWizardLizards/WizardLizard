@@ -52,7 +52,7 @@ namespace WizardLizard
             {
                 animator.PlayAnimation("IdleRight");
             }
-            if (animationName.Contains("Die"))
+            if (animationName =="DieLeft" || animationName == "DieRight")
             {
                 GameWorld.ObjectsToRemove.Add(GameObject);
             }
