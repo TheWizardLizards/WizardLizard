@@ -14,6 +14,9 @@ namespace WizardLizard
         private Vector2 velocity;
         private bool goblinCanBeHit;
         private int health;
+        private string direction;
+        private bool dying = false;
+        private bool attacking = false;
         private int chanceToSpawnHealth = 50; //i procent
 
 
@@ -22,32 +25,47 @@ namespace WizardLizard
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = GameObject.Transform;
             health = 1;
+            direction = "Left";
         }
 
         public void Update()
         {
             
-            goblinCanBeHit = true;
-            goblinPos = new Vector2(transform.Position.X, transform.Position.Y);
-            var range = Math.Sqrt(((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X)) + ((goblinPos.Y - GameWorld.PlayerPos.Y)) * (goblinPos.Y - GameWorld.PlayerPos.Y));
-            var xdistance = Math.Sqrt((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X));
-            if (range >= 400)
-                Idle();
-
-            if (range < 400)
-                Chase(xdistance);
-
-            if (range < 10)
-                Attack();
-            
-            if (health <= 0)
+            if(dying == false)
             {
-                GameWorld.Instance.RemoveGameObject(this.GameObject);
-                Random rnd = new Random();
-                if (rnd.Next(0, 101) <= chanceToSpawnHealth)
+                goblinCanBeHit = true;
+                goblinPos = new Vector2(transform.Position.X, transform.Position.Y);
+                if(goblinPos.X > GameWorld.PlayerPos.X)
                 {
-                    director = new Director(new HealthGlobeBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                    direction = "Left";
+                }
+                else
+                {
+                    direction = "Right";
+                }
+                var range = Math.Sqrt(((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X)) + ((goblinPos.Y - GameWorld.PlayerPos.Y)) * (goblinPos.Y - GameWorld.PlayerPos.Y));
+                var xdistance = Math.Sqrt((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X));
+                if(attacking == false)
+                {
+                    if (range >= 400)
+                        Idle();
+
+                    if (range < 400)
+                        Chase(xdistance);
+
+                    if (range < 10)
+                        Attack();
+                }
+                if (health <= 0)
+                {
+                    animator.PlayAnimation("Die" + direction);
+                    dying = true;
+                    Random rnd = new Random();
+                    if (rnd.Next(0, 101) <= chanceToSpawnHealth)
+                    {
+                        director = new Director(new HealthGlobeBuilder());
+                        GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                    }
                 }
             }
         }
@@ -55,7 +73,7 @@ namespace WizardLizard
         //Idle behaviour
         public void Idle()
         {
-            animator.PlayAnimation("Idle");
+            animator.PlayAnimation("Idle"+direction);
             Vector2 translation = new Vector2(0, 0);
             float i = 5;
             velocity.Y += 0.05f * i;
@@ -69,7 +87,11 @@ namespace WizardLizard
         }
 
         //Attacks the player when close enough
-        public void Attack() { }
+        public void Attack()
+        {
+            animator.PlayAnimation("Attack" + direction);
+            attacking = true;
+        }
 
 
         public void Chase(double xdistance)
@@ -81,11 +103,12 @@ namespace WizardLizard
                 if (GameWorld.PlayerPos.X > goblinPos.X)
                 {
                     translation.X++;
+                    animator.PlayAnimation("Run"+direction);
                 }
                 if (GameWorld.PlayerPos.X < goblinPos.X)
                 {
                     translation.X--;
-                    animator.PlayAnimation("RunLeft");
+                    animator.PlayAnimation("Run" + direction);
                 }
             }
 
@@ -100,7 +123,7 @@ namespace WizardLizard
             transform.Translate(translation * GameWorld.DeltaTime * speed);
             if(translation.X == 0)
             {
-                animator.PlayAnimation("Idle");
+                animator.PlayAnimation("Idle"+direction);
             }
 
 
@@ -117,13 +140,27 @@ namespace WizardLizard
 
         public void LoadContent(ContentManager content)
         {
-            animator.CreateAnimation("Idle",new Animation(5,44,0,25,43,5,Vector2.Zero));
-            animator.CreateAnimation("RunLeft", new Animation(14,1,0,28,43,14,Vector2.Zero));
-            animator.PlayAnimation("Idle");
+            animator.CreateAnimation("RunLeft",new Animation(12,0,0,58,90,8,Vector2.Zero));
+            animator.CreateAnimation("RunRight", new Animation(12,90,0,58,90,8,Vector2.Zero));
+            animator.CreateAnimation("IdleLeft", new Animation(5, 180, 0, 53, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("IdleRight", new Animation(5, 270, 0, 53, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("DieLeft", new Animation(7, 360, 0, 95, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("DieRight", new Animation(7, 450, 0, 95, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("AttackLeft", new Animation(9, 540, 0, 70, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("AttackRight", new Animation(9, 630, 0, 70, 90, 8, Vector2.Zero));
+            animator.PlayAnimation("Idle"+direction);
         }
         public void OnAnimationDone(string animationName)
         {
+            if (animationName == "AttackLeft" || animationName == "AttackRight")
+            {
+                attacking = false;
+            }
 
+            if(animationName == "DieLeft" || animationName == "DieRight")
+            {
+                GameWorld.ObjectsToRemove.Add(GameObject);
+            }
         }
 
         public void OnCollisionEnter(Collider other)

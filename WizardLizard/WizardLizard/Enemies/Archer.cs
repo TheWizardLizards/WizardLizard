@@ -20,6 +20,7 @@ namespace WizardLizard
         private int health;
         private bool shooting;
         private string Direction;
+        private bool dying = false;
         private int chanceToSpawnHealth = 50; //I procent
 
 
@@ -191,39 +192,41 @@ namespace WizardLizard
                 velocity.Y = 10;
             }
             translation += velocity;
-
             transform.Translate(translation * GameWorld.DeltaTime * speed);
-            archerPos = new Vector2(transform.Position.X, transform.Position.Y);
-            if(archerPos.X > GameWorld.PlayerPos.X)
+            if (dying == false)
             {
-                Direction = "Left";
-            }
-            else
-            {
-                Direction = "Right";
-            }
-            var range = Math.Sqrt(((archerPos.X - GameWorld.PlayerPos.X) * (archerPos.X - GameWorld.PlayerPos.X)) + ((archerPos.Y - GameWorld.PlayerPos.Y)) * (archerPos.Y - GameWorld.PlayerPos.Y));
-            if (range < 800)
-            {
-                if (Timer() == true)
+                archerPos = new Vector2(transform.Position.X, transform.Position.Y);
+                if (archerPos.X > GameWorld.PlayerPos.X)
                 {
-                    shooting = true;
-                    animator.PlayAnimation("Attack" + Direction);
+                    Direction = "Left";
                 }
-                if(animator.CurrentIndex >= 5 && shooting == true && animator.AnimationName.Contains("Attack"))
+                else
                 {
-                    shooting = false;
-                    shoot();
+                    Direction = "Right";
                 }
-            }
-            if (health <= 0)
-            {
-                animator.PlayAnimation("Die" + Direction);
-                Random rnd = new Random();
-                if (rnd.Next(0, 101) <= chanceToSpawnHealth)
+                var range = Math.Sqrt(((archerPos.X - GameWorld.PlayerPos.X) * (archerPos.X - GameWorld.PlayerPos.X)) + ((archerPos.Y - GameWorld.PlayerPos.Y)) * (archerPos.Y - GameWorld.PlayerPos.Y));
+                if (range < 800)
                 {
-                    director = new Director(new HealthGlobeBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                    if (Timer() == true)
+                    {
+                        shooting = true;
+                        animator.PlayAnimation("Attack" + Direction);
+                    }
+                    if (animator.CurrentIndex >= 5 && shooting == true && animator.AnimationName.Contains("Attack"))
+                    {
+                        shooting = false;
+                        shoot();
+                    }
+                }
+                if (health <= 0)
+                {
+                    animator.PlayAnimation("Die" + Direction);
+                    Random rnd = new Random();
+                    if (rnd.Next(0, 101) <= chanceToSpawnHealth)
+                    {
+                        director = new Director(new HealthGlobeBuilder());
+                        GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                    }
                 }
             }
         }

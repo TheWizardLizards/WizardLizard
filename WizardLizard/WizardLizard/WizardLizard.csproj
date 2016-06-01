@@ -85,7 +85,6 @@
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\ILoadable.cs" />
     <Compile Include="Interfaces\IMoveAble.cs" />
-    <Compile Include="Interfaces\IStrategy.cs" />
     <Compile Include="Interfaces\IUpdateable.cs" />
     <Compile Include="Spells\LightningStrike.cs" />
     <Compile Include="Builder\LightningStrikeBuilder.cs" />
@@ -130,6 +129,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\GoblinRangedSpriteSheet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GoblinSpriteSheet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\HealthGlobe.png">
