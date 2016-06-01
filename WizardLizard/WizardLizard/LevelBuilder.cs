@@ -50,9 +50,9 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(800, 743)));
             director = new Director(new PlatformBuilder());
             //højre side bund
-            gameObjects.Add(director.Construct(new Vector2(0, 850), 386, 100));
+            gameObjects.Add(director.Construct(new Vector2(0, 850), 1600, 100));
             //venstre side bund
-            gameObjects.Add(director.Construct(new Vector2(483, 850), 1117, 100));
+            //gameObjects.Add(director.Construct(new Vector2(483, 850), 1117, 100));
             //venstre væg
             gameObjects.Add(director.Construct(new Vector2(0, 0), 60, 850));
             //første platform over hulen

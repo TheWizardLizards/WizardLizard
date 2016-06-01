@@ -132,11 +132,7 @@ namespace WizardLizard
             Vector2 distance = new Vector2(petPos.X - playerPos.X);
             Vector2 distanceTwo = new Vector2();
             distanceTwo = GameWorld.PlayerPos - petPos;
-            if (distance.Length() > speed)
-            {
-                transform.Position = petPos;
-            }
-            else if (petPos.X < playerPos.X)
+            if (petPos.X < playerPos.X)
             {
                 translation = new Vector2(1, 0);
             }
