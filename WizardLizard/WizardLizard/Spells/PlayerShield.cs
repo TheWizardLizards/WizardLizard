@@ -67,7 +67,7 @@ namespace WizardLizard
         }
         public void CreateAnimations()
         {
-            animator.CreateAnimation("ShieldAnimation", new Animation(3, 0, 0, 144, 200, 6, Vector2.Zero));
+            animator.CreateAnimation("ShieldAnimation", new Animation(6, 0, 0, 144, 200, 6, Vector2.Zero));
             animator.PlayAnimation("ShieldAnimation");
         }
     }
