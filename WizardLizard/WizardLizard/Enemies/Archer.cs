@@ -45,11 +45,11 @@ namespace WizardLizard
         }
         public void OnAnimationDone(string animationName)
         {
-            if (animationName.Contains("Left"))
+            if (animationName.Contains("Left") && dying == false)
             {
                 animator.PlayAnimation("IdleLeft");
             }
-            else
+            else if(animationName.Contains("Right") && dying == false)
             {
                 animator.PlayAnimation("IdleRight");
             }
@@ -221,6 +221,7 @@ namespace WizardLizard
                 if (health <= 0)
                 {
                     animator.PlayAnimation("Die" + Direction);
+                    dying = true;
                     Random rnd = new Random();
                     if (rnd.Next(0, 101) <= chanceToSpawnHealth)
                     {
