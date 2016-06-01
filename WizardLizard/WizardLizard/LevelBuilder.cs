@@ -91,7 +91,6 @@ namespace WizardLizard
             gameObjects.Add(background);
             director = new Director(new AimerBuilder());
             gameObjects.Add(director.Construct(new Vector2(2, 50)));
-            director = new Director(new PlayerBuilder());
             //foreach (GameObject go in GameWorld.GameObjects)
             //{
             //    if (go.GetComponent("Player") != null)
@@ -102,10 +101,18 @@ namespace WizardLizard
             //    {
             //        go.Transform.Position = new Vector2(2, 50);
             //    }
+            //    if (go.GetComponent("PlayerHealth") != null)
+            //    {
+            //        go.Transform.Position = new Vector2(10, 10);
+            //    }
             //}
+            director = new Director(new PlayerBuilder());
             gameObjects.Add(director.Construct(new Vector2(2, 50)));
             director = new Director(new CompanionBuilder());
             gameObjects.Add(director.Construct(new Vector2(2, 50)));
+            Player health
+            director = new Director(new PlayerHealthBuilder());
+            gameObjects.Add(director.Construct(new Vector2(10, 10)));
             //Toppen
             director = new Director(new PlatformBuilder());
             gameObjects.Add(director.Construct(new Vector2(0, 0), 1600, 48));

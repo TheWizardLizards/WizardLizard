@@ -31,6 +31,7 @@ namespace WizardLizard
         private static GameWorld instance;
         private static float deltaTime;
         public static Dictionary<int, GameObject> spawnList = new Dictionary<int, GameObject>();
+        private List<GameObject> gameObjectsToSave = new List<GameObject>();
         private static List<GameObject> objectToAdd = new List<GameObject>();
         private static List<GameObject> objectsToRemove = new List<GameObject>();
         private static List<GameObject> gameObjects = new List<GameObject>();
@@ -132,13 +133,13 @@ namespace WizardLizard
             {
                 if (level == "level01")
                 {
-                    isCompleted = false;
-                    levelBuilder.LevelTwo();
+                    levelBuilder.LevelOne();
+                    canInitialize = false;
                 }
-                if (level == "level02" && isCompleted == true)
+                if (level == "level02")
                 {
-                    isCompleted = false;
                     levelBuilder.LevelTwo();
+                    canInitialize = false;
                 }
                 IsMouseVisible = false;
             }
@@ -207,6 +208,16 @@ namespace WizardLizard
                     if (!paused)
                     {
                         IsMouseVisible = false;
+                        foreach (GameObject go in gameObjectsToSave)
+                        {
+                            objectToAdd.Add(go);
+                        }
+                        gameObjectsToSave.Clear();
+                        foreach (GameObject go in objectsToRemove)
+                        {
+                            gameObjects.Remove(go);
+                        }
+                        objectsToRemove.Clear();
                         if (keyState.IsKeyDown(Keys.Escape) || keyState.IsKeyDown(Keys.P))
                         {
                             paused = true;
@@ -217,12 +228,6 @@ namespace WizardLizard
                         }
                         GameObjects.AddRange(ObjectToAdd);
                         objectToAdd.Clear();
-                        foreach (GameObject go in objectsToRemove)
-                        {
-                            gameObjects.Remove(go);
-
-                        }
-                        objectsToRemove.Clear();
 
                         foreach (GameObject go in gameObjects)
                         {
@@ -231,14 +236,24 @@ namespace WizardLizard
                         if (canInitialize)
                         {
                             Initialize();
-                            canInitialize = false;
                         }
-                        //if (playerPos.X > 1550 && playerPos.Y > 750)
-                        //{
-                        //    level = "level02";
-                        //    isCompleted = true;
-                        //    Initialize();
-                        //}
+                        if (playerPos.X > 1550 && playerPos.Y > 750 && level == "level01")
+                        {
+                            objectsToRemove.AddRange(gameObjects);
+                            //foreach (GameObject go in gameObjects)
+                            //{
+                            //    foreach (GameObject item in gameObjects)
+                            //    {
+                            //        if (item.GetComponent("Player") != null && item.GetComponent("Companion") != null && item.GetComponent("PlayerHealth") != null)
+                            //        {
+                            //            gameObjectsToSave.Add(go);
+                            //        }
+                            //    }
+                            //    objectsToRemove.Add(go);
+                            //}
+                            level = "level02";
+                            canInitialize = true;
+                        }
                     }
                     if (paused)
                     {
