@@ -137,12 +137,10 @@ namespace WizardLizard
                 if (level == "level01")
                 {
                     levelBuilder.LevelOne();
-                    canInitialize = false;
                 }
                 if (level == "level02")
                 {
                     levelBuilder.LevelTwo();
-                    canInitialize = false;
                 }
                 IsMouseVisible = false;
             }
