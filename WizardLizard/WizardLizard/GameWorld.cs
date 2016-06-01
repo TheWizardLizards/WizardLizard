@@ -20,8 +20,9 @@ namespace WizardLizard
         bool canInitialize = true;
         Rectangle pausedRectangle = new Rectangle(0, 0, 1600, 900);
         Button btnStartGame;
-        Button btnPlay;
+        Button btnContinue;
         Button btnExit;
+        Button btnMainMenu;
         LevelBuilder levelBuilder = new LevelBuilder();
         private string level = "level01";
         private bool isCompleted = false;
@@ -31,7 +32,6 @@ namespace WizardLizard
         private static GameWorld instance;
         private static float deltaTime;
         public static Dictionary<int, GameObject> spawnList = new Dictionary<int, GameObject>();
-        private List<GameObject> gameObjectsToSave = new List<GameObject>();
         private static List<GameObject> objectToAdd = new List<GameObject>();
         private static List<GameObject> objectsToRemove = new List<GameObject>();
         private static List<GameObject> gameObjects = new List<GameObject>();
@@ -162,6 +162,7 @@ namespace WizardLizard
                 case GameState.MainMenu:
                     IsMouseVisible = true;
                     btnStartGame = new Button(Content.Load<Texture2D>("PlayOff"), new Vector2(700, 300), "PlayOff", "PlayOn");
+                    btnExit = new Button(Content.Load<Texture2D>("ExitOff"), new Vector2(700, 500), "ExitOff", "ExitOn");
                     break;
                 case GameState.Playing:
                     if (!paused)
@@ -198,21 +199,21 @@ namespace WizardLizard
             switch (currentGameState)
             {
                 case GameState.MainMenu:
+                    btnStartGame.Update(Content, mouse);
+                    btnExit.Update(Content, mouse);
                     if (btnStartGame.isClicked)
                     {
                         currentGameState = GameState.Playing;
                     }
-                    btnStartGame.Update(Content, mouse);
+                    if (btnExit.isClicked)
+                    {
+                        Exit();
+                    }
                     break;
                 case GameState.Playing:
                     if (!paused)
                     {
                         IsMouseVisible = false;
-                        foreach (GameObject go in gameObjectsToSave)
-                        {
-                            objectToAdd.Add(go);
-                        }
-                        gameObjectsToSave.Clear();
                         foreach (GameObject go in objectsToRemove)
                         {
                             gameObjects.Remove(go);
@@ -236,6 +237,7 @@ namespace WizardLizard
                         if (canInitialize)
                         {
                             Initialize();
+                            canInitialize = false;
                         }
                         if (playerPos.X > 1550 && playerPos.Y > 750 && level == "level01")
                         {
@@ -258,17 +260,17 @@ namespace WizardLizard
                     if (paused)
                     {
                         IsMouseVisible = true;
-                        btnPlay = new Button(Content.Load<Texture2D>("PlayOff"), new Vector2(700, 300), "PlayOff", "PlayOn");
-                        btnExit = new Button(Content.Load<Texture2D>("ExitOff"), new Vector2(700, 400), "ExitOff", "ExitOn");
-                        btnPlay.Update(Content, mouse);
-                        btnExit.Update(Content, mouse);
-                        if (btnPlay.isClicked)
+                        btnContinue = new Button(Content.Load<Texture2D>("ContinueOff"), new Vector2(700, 300), "ContinueOff", "ContinueOn");
+                        btnMainMenu = new Button(Content.Load<Texture2D>("MainMenuOff"), new Vector2(700, 420), "MainMenuOff", "MainMenuOn");
+                        btnMainMenu.Update(Content, mouse);
+                        btnContinue.Update(Content, mouse);
+                        if (btnContinue.isClicked)
                         {
                             paused = false;
                         }
-                        if (btnExit.isClicked)
+                        if (btnMainMenu.isClicked)
                         {
-                            Exit();
+                            currentGameState = GameState.MainMenu;
                         }
                     }
                     break;
@@ -300,7 +302,8 @@ namespace WizardLizard
             switch (currentGameState)
             {
                 case GameState.MainMenu:
-                    spriteBatch.Draw(Content.Load<Texture2D>("MainMenu"), new Rectangle(0, 0, 800, 600), Color.White);
+                    spriteBatch.Draw(Content.Load<Texture2D>("MainMenu"), new Rectangle(0, 0, 1600, 900), Color.White);
+                    btnExit.Draw(spriteBatch);
                     btnStartGame.Draw(spriteBatch);
                     break;
                 case GameState.Playing:
@@ -318,8 +321,8 @@ namespace WizardLizard
                             go.Draw(spriteBatch);
                         }
                         spriteBatch.Draw(Content.Load<Texture2D>("Paused"), pausedRectangle, Color.White);
-                        btnExit.Draw(spriteBatch);
-                        btnPlay.Draw(spriteBatch);
+                        btnMainMenu.Draw(spriteBatch);
+                        btnContinue.Draw(spriteBatch);
                     }
                     break;
             }

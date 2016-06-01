@@ -39,7 +39,7 @@ namespace WizardLizard
             director = new Director(new ArcherBuilder());
             gameObjects.Add(director.Construct(new Vector2(310, 10)));
             director = new Director(new GoblinBuilder());
-            gameObjects.Add(director.Construct(new Vector2(480, 250)));
+            gameObjects.Add(director.Construct(new Vector2(580, 250)));
             gameObjects.Add(director.Construct(new Vector2(680, 100)));
 
             director = new Director(new OrcBuilder());
@@ -47,7 +47,7 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(1000, 10)));
 
             director = new Director(new MoveableBoxBuilder());
-            gameObjects.Add(director.Construct(new Vector2(600, 0)));
+            gameObjects.Add(director.Construct(new Vector2(800, 0)));
             director = new Director(new PlatformBuilder());
             //højre side bund
             gameObjects.Add(director.Construct(new Vector2(0, 850), 386, 100));
@@ -110,7 +110,7 @@ namespace WizardLizard
             gameObjects.Add(director.Construct(new Vector2(2, 50)));
             director = new Director(new CompanionBuilder());
             gameObjects.Add(director.Construct(new Vector2(2, 50)));
-            Player health
+            //Player health
             director = new Director(new PlayerHealthBuilder());
             gameObjects.Add(director.Construct(new Vector2(10, 10)));
             //Toppen

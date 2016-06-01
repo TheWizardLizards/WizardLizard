@@ -42,6 +42,7 @@ namespace WizardLizard
             else
             {
                 texture = content.Load<Texture2D>(spriteBlack);
+                isClicked = false;
             }
         }
         public void Draw(SpriteBatch spriteBatch)
