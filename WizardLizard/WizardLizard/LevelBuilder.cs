@@ -86,7 +86,7 @@ namespace WizardLizard
         public void LevelTwo()
         {
             GameObject background = new GameObject();
-            background.AddComponent(new SpriteRenderer(background, "Level02", 1f));
+            background.AddComponent(new SpriteRenderer(background, "Level02New", 1f));
             background.Transform.Position = new Vector2(0, 0);
             gameObjects.Add(background);
             director = new Director(new AimerBuilder());

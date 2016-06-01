@@ -133,7 +133,7 @@ namespace WizardLizard
                 if (level == "level01")
                 {
                     isCompleted = false;
-                    levelBuilder.LevelOne();
+                    levelBuilder.LevelTwo();
                 }
                 if (level == "level02" && isCompleted == true)
                 {
