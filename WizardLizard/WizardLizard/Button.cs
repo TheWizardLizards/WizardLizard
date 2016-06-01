@@ -17,18 +17,22 @@ namespace WizardLizard
         Rectangle rectangle;
         string spriteBlack;
         string spriteRed;
-        public Button(Texture2D newTexture, Vector2 newPosition, string spirteOff, string spriteOn)
+        int width;
+        int height;
+        public Button(Texture2D newTexture, Vector2 newPosition, string spirteOff, string spriteOn, int newWidth, int newHeight)
         {
             texture = newTexture;
             position = newPosition;
             spriteBlack = spirteOff;
             spriteRed = spriteOn;
+            width = newWidth;
+            height = newHeight;
         }
         
         public bool isClicked;
         public void Update(ContentManager content, MouseState mouse)
         {
-            rectangle = new Rectangle((int)position.X, (int)position.Y, 200, 100);
+            rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
             Rectangle mouseRectangle = new Rectangle(mouse.X, mouse.Y, 1, 1);
 
             if (mouseRectangle.Intersects(rectangle))

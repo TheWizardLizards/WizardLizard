@@ -164,11 +164,11 @@ namespace WizardLizard
             {
                 case GameState.MainMenu:
                     IsMouseVisible = true;
-                    btnCreateProfile = new Button(Content.Load<Texture2D>("CreateProfileOff"), new Vector2(100, 300), "CreateProfileOff", "CreateProfileOn");
-                    btnLoadProfile = new Button(Content.Load<Texture2D>("LoadProfileOff"), new Vector2(100, 400), "LoadProfileOff", "LoadProfileOn");
-                    btnStartGame = new Button(Content.Load<Texture2D>("PlayOff"), new Vector2(100, 500), "PlayOff", "PlayOn");
-                    btnLoad = new Button(Content.Load<Texture2D>("LoadOff"), new Vector2(100, 600), "LoadOff", "LoadOn");
-                    btnExit = new Button(Content.Load<Texture2D>("ExitOff"), new Vector2(100, 700), "ExitOff", "ExitOn");
+                    btnCreateProfile = new Button(Content.Load<Texture2D>("CreateProfileOff"), new Vector2(100, 300), "CreateProfileOff", "CreateProfileOn", 300, 100);
+                    btnLoadProfile = new Button(Content.Load<Texture2D>("LoadProfileOff"), new Vector2(100, 400), "LoadProfileOff", "LoadProfileOn", 300, 100);
+                    btnStartGame = new Button(Content.Load<Texture2D>("PlayOff"), new Vector2(100, 500), "PlayOff", "PlayOn", 200, 100);
+                    btnLoad = new Button(Content.Load<Texture2D>("LoadOff"), new Vector2(100, 600), "LoadOff", "LoadOn", 200, 100);
+                    btnExit = new Button(Content.Load<Texture2D>("ExitOff"), new Vector2(100, 700), "ExitOff", "ExitOn", 200, 100);
                     break;
                 case GameState.Playing:
                     if (!paused)
@@ -264,9 +264,9 @@ namespace WizardLizard
                     if (paused)
                     {
                         IsMouseVisible = true;
-                        btnContinue = new Button(Content.Load<Texture2D>("ContinueOff"), new Vector2(700, 300), "ContinueOff", "ContinueOn");
-                        btnSave = new Button(Content.Load<Texture2D>("SaveOff"), new Vector2(700, 400), "SaveOff", "SaveOn");
-                        btnMainMenu = new Button(Content.Load<Texture2D>("MainMenuOff"), new Vector2(700, 500), "MainMenuOff", "MainMenuOn");
+                        btnContinue = new Button(Content.Load<Texture2D>("ContinueOff"), new Vector2(700, 300), "ContinueOff", "ContinueOn", 200, 100);
+                        btnSave = new Button(Content.Load<Texture2D>("SaveOff"), new Vector2(700, 400), "SaveOff", "SaveOn", 200, 100);
+                        btnMainMenu = new Button(Content.Load<Texture2D>("MainMenuOff"), new Vector2(700, 500), "MainMenuOff", "MainMenuOn", 300, 100);
                         btnMainMenu.Update(Content, mouse);
                         btnContinue.Update(Content, mouse);
                         btnSave.Update(Content, mouse); //Mangler funktionalitet
