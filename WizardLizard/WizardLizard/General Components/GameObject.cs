@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    public enum Direction { Front, Back, Left, Right}
+    public enum Direction { Left, Right}
     public class GameObject : Component, IAnimateable
     {
         private Transform transform;

@@ -17,6 +17,33 @@ namespace WizardLizard
         private Dictionary<string, Animation> animations = new Dictionary<string, Animation>();
         private Rectangle[] rectangles;
         private GameObject gameObject;
+
+        public int CurrentIndex
+        {
+            get
+            {
+                return currentIndex;
+            }
+
+            set
+            {
+                currentIndex = value;
+            }
+        }
+
+        public string AnimationName
+        {
+            get
+            {
+                return animationName;
+            }
+
+            set
+            {
+                animationName = value;
+            }
+        }
+
         public Animator(GameObject gameObject) : base(gameObject)
         {
             this.gameObject = gameObject;
@@ -31,7 +58,7 @@ namespace WizardLizard
         public void PlayAnimation(string animationName)
         {
             //Checks if it’s a new animation
-            if (this.animationName != animationName)
+            if (this.AnimationName != animationName)
             {
                 //Sets the rectangles
                 this.rectangles = animations[animationName].Rectangles;
@@ -40,12 +67,12 @@ namespace WizardLizard
                 //Sets the offset
                 this.spriteRenderer.Offset = animations[animationName].Offset;
                 //Sets the animation name
-                this.animationName = animationName;
+                this.AnimationName = animationName;
                 //Sets the fps
                 this.fps = animations[animationName].Fps;
                 //Resets the animation
                 timeElapsed = 0;
-                currentIndex = 0;
+                CurrentIndex = 0;
             }
 
         }
@@ -53,15 +80,15 @@ namespace WizardLizard
         {
             timeElapsed += GameWorld.DeltaTime;
 
-            currentIndex = (int)(timeElapsed * fps);
+            CurrentIndex = (int)(timeElapsed * fps);
 
-            if (currentIndex > rectangles.Length - 1)
+            if (CurrentIndex > rectangles.Length - 1)
             {
-                GameObject.OnAnimationDone(animationName);
+                GameObject.OnAnimationDone(AnimationName);
                 timeElapsed = 0;
-                currentIndex = 0;
+                CurrentIndex = 0;
             }
-            spriteRenderer.Rectangle = rectangles[currentIndex];
+            spriteRenderer.Rectangle = rectangles[CurrentIndex];
         }
     }
 }

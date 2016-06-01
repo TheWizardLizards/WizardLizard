@@ -18,6 +18,8 @@ namespace WizardLizard
         private int speed = 100;
         private bool archerCanBeHit;
         private int health;
+        private bool shooting;
+        private string Direction;
         private int chanceToSpawnHealth = 50; //I procent
 
 
@@ -26,16 +28,34 @@ namespace WizardLizard
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
             health = 1;
+            Direction = "Left";
+            shooting = false;
         }
 
         public void LoadContent(ContentManager content)
         {
-            animator.CreateAnimation("Idle", new Animation(5, 86, 0, 38, 43,5, Vector2.Zero));
-            animator.PlayAnimation("Idle");
+            animator.CreateAnimation("DieLeft", new Animation(7, 0, 0, 92, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("DieRight", new Animation(7, 90, 0, 92, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("AttackLeft", new Animation(9, 180, 0, 77, 90, 8, new Vector2(3,0)));
+            animator.CreateAnimation("AttackRight", new Animation(9, 270, 0, 77, 90, 8, new Vector2(3, 0)));
+            animator.CreateAnimation("IdleLeft", new Animation(5, 360, 0, 78, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("IdleRight", new Animation(5, 450, 0, 78, 90, 8, Vector2.Zero));
+            animator.PlayAnimation("IdleLeft");
         }
         public void OnAnimationDone(string animationName)
         {
-            animator.PlayAnimation("Idle");
+            if (animationName.Contains("Left"))
+            {
+                animator.PlayAnimation("IdleLeft");
+            }
+            else
+            {
+                animator.PlayAnimation("IdleRight");
+            }
+            if (animationName.Contains("Die"))
+            {
+                GameWorld.ObjectsToRemove.Add(GameObject);
+            }
         }
         public void OnCollisionEnter(Collider other)
         {
@@ -161,6 +181,7 @@ namespace WizardLizard
 
         public void Update()
         {
+
             archerCanBeHit = true;
             Vector2 translation = new Vector2(0, 0);
             float i = 5;
@@ -173,14 +194,31 @@ namespace WizardLizard
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
             archerPos = new Vector2(transform.Position.X, transform.Position.Y);
+            if(archerPos.X > GameWorld.PlayerPos.X)
+            {
+                Direction = "Left";
+            }
+            else
+            {
+                Direction = "Right";
+            }
             var range = Math.Sqrt(((archerPos.X - GameWorld.PlayerPos.X) * (archerPos.X - GameWorld.PlayerPos.X)) + ((archerPos.Y - GameWorld.PlayerPos.Y)) * (archerPos.Y - GameWorld.PlayerPos.Y));
             if (range < 800)
             {
-                Timer();
+                if (Timer() == true)
+                {
+                    shooting = true;
+                    animator.PlayAnimation("Attack" + Direction);
+                }
+                if(animator.CurrentIndex >= 5 && shooting == true && animator.AnimationName.Contains("Attack"))
+                {
+                    shooting = false;
+                    shoot();
+                }
             }
             if (health <= 0)
             {
-                GameWorld.Instance.RemoveGameObject(this.GameObject);
+                animator.PlayAnimation("Die" + Direction);
                 Random rnd = new Random();
                 if (rnd.Next(0, 101) <= chanceToSpawnHealth)
                 {
@@ -192,20 +230,21 @@ namespace WizardLizard
         public void shoot()
         {
             director = new Director(new ArrowBuilder());
+
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 50, transform.Position.Y + 50)));
         }
 
-        public void Timer()
+        public bool Timer()
         {
             if (countdown > 0)
             {
                 countdown -= GameWorld.DeltaTime;
+                return false;
             }
-            
-            if (countdown <= 0)
+            else
             {
-                shoot();
                 countdown = delay;
+                return true;
             }
         }
     }
