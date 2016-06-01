@@ -12,7 +12,6 @@ namespace WizardLizard
     {
         private SpriteRenderer spriterenderer;
         private Texture2D texture2D;
-        private Rectangle collisionBox;
         private List<Collider> otherColliders = new List<Collider>();
         private bool doCollisionChecks;
         private Rectangle topLine;

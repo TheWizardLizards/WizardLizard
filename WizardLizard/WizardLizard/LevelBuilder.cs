@@ -37,17 +37,17 @@ namespace WizardLizard
             director = new Director(new CompanionBuilder());
             gameObjects.Add(director.Construct(new Vector2(100, 700)));
             director = new Director(new ArcherBuilder());
-            gameObjects.Add(director.Construct(new Vector2(310, 10)));
+            gameObjects.Add(director.Construct(new Vector2(315, 395)));
             director = new Director(new GoblinBuilder());
-            gameObjects.Add(director.Construct(new Vector2(580, 250)));
-            gameObjects.Add(director.Construct(new Vector2(680, 100)));
+            gameObjects.Add(director.Construct(new Vector2(580, 730)));
+            gameObjects.Add(director.Construct(new Vector2(680, 730)));
 
             director = new Director(new OrcBuilder());
-            gameObjects.Add(director.Construct(new Vector2(900, 10)));
-            gameObjects.Add(director.Construct(new Vector2(1000, 10)));
+            gameObjects.Add(director.Construct(new Vector2(1183, 481)));
+            gameObjects.Add(director.Construct(new Vector2(1300, 700)));
 
             director = new Director(new MoveableBoxBuilder());
-            gameObjects.Add(director.Construct(new Vector2(800, 0)));
+            gameObjects.Add(director.Construct(new Vector2(800, 743)));
             director = new Director(new PlatformBuilder());
             //højre side bund
             gameObjects.Add(director.Construct(new Vector2(0, 850), 386, 100));

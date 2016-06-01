@@ -21,7 +21,6 @@ namespace WizardLizard
         private int speed = 200;
         private bool canInteract;
         private bool haveInteracted;
-        private Director director;
         private Lever lastknownLever;
         private bool fly = false;
         public static bool CompanionControle

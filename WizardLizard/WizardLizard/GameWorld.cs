@@ -203,12 +203,13 @@ namespace WizardLizard
             switch (currentGameState)
             {
                 case GameState.MainMenu:
-                    //objectsToRemove.AddRange(gameObjects);
-                    //foreach (GameObject go in objectsToRemove)
-                    //{
-                    //    gameObjects.Remove(go);
-                    //}
-                    //objectsToRemove.Clear();
+                    objectsToRemove.AddRange(gameObjects);
+                    spawnList.Clear();
+                    foreach (GameObject go in objectsToRemove)
+                    {
+                        gameObjects.Remove(go);
+                    }
+                    objectsToRemove.Clear();
                     btnStartGame.Update(Content, mouse);
                     btnExit.Update(Content, mouse);
                     btnLoad.Update(Content, mouse); //Mangler funktionalitet
@@ -275,7 +276,7 @@ namespace WizardLizard
                         if (btnMainMenu.isClicked)
                         {
                             paused = false;
-                            //canInitialize = true;
+                            canInitialize = true;
                             currentGameState = GameState.MainMenu;
                         }
                     }
