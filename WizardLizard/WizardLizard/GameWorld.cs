@@ -23,9 +23,12 @@ namespace WizardLizard
         Button btnContinue;
         Button btnExit;
         Button btnMainMenu;
+        Button btnSave;
+        Button btnLoad;
+        Button btnCreateProfile;
+        Button btnLoadProfile;
         LevelBuilder levelBuilder = new LevelBuilder();
         private string level = "level01";
-        private bool isCompleted = false;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private static Vector2 playerPos;
@@ -161,8 +164,11 @@ namespace WizardLizard
             {
                 case GameState.MainMenu:
                     IsMouseVisible = true;
-                    btnStartGame = new Button(Content.Load<Texture2D>("PlayOff"), new Vector2(700, 300), "PlayOff", "PlayOn");
-                    btnExit = new Button(Content.Load<Texture2D>("ExitOff"), new Vector2(700, 500), "ExitOff", "ExitOn");
+                    btnCreateProfile = new Button(Content.Load<Texture2D>("CreateProfileOff"), new Vector2(100, 300), "CreateProfileOff", "CreateProfileOn");
+                    btnLoadProfile = new Button(Content.Load<Texture2D>("LoadProfileOff"), new Vector2(100, 400), "LoadProfileOff", "LoadProfileOn");
+                    btnStartGame = new Button(Content.Load<Texture2D>("PlayOff"), new Vector2(100, 500), "PlayOff", "PlayOn");
+                    btnLoad = new Button(Content.Load<Texture2D>("LoadOff"), new Vector2(100, 600), "LoadOff", "LoadOn");
+                    btnExit = new Button(Content.Load<Texture2D>("ExitOff"), new Vector2(100, 700), "ExitOff", "ExitOn");
                     break;
                 case GameState.Playing:
                     if (!paused)
@@ -199,8 +205,17 @@ namespace WizardLizard
             switch (currentGameState)
             {
                 case GameState.MainMenu:
+                    //objectsToRemove.AddRange(gameObjects);
+                    //foreach (GameObject go in objectsToRemove)
+                    //{
+                    //    gameObjects.Remove(go);
+                    //}
+                    //objectsToRemove.Clear();
                     btnStartGame.Update(Content, mouse);
                     btnExit.Update(Content, mouse);
+                    btnLoad.Update(Content, mouse); //Mangler funktionalitet
+                    btnCreateProfile.Update(Content, mouse); //Mangler funktionalitet
+                    btnLoadProfile.Update(Content, mouse); //Mangler funktionalitet
                     if (btnStartGame.isClicked)
                     {
                         currentGameState = GameState.Playing;
@@ -242,17 +257,6 @@ namespace WizardLizard
                         if (playerPos.X > 1550 && playerPos.Y > 750 && level == "level01")
                         {
                             objectsToRemove.AddRange(gameObjects);
-                            //foreach (GameObject go in gameObjects)
-                            //{
-                            //    foreach (GameObject item in gameObjects)
-                            //    {
-                            //        if (item.GetComponent("Player") != null && item.GetComponent("Companion") != null && item.GetComponent("PlayerHealth") != null)
-                            //        {
-                            //            gameObjectsToSave.Add(go);
-                            //        }
-                            //    }
-                            //    objectsToRemove.Add(go);
-                            //}
                             level = "level02";
                             canInitialize = true;
                         }
@@ -261,15 +265,19 @@ namespace WizardLizard
                     {
                         IsMouseVisible = true;
                         btnContinue = new Button(Content.Load<Texture2D>("ContinueOff"), new Vector2(700, 300), "ContinueOff", "ContinueOn");
-                        btnMainMenu = new Button(Content.Load<Texture2D>("MainMenuOff"), new Vector2(700, 420), "MainMenuOff", "MainMenuOn");
+                        btnSave = new Button(Content.Load<Texture2D>("SaveOff"), new Vector2(700, 400), "SaveOff", "SaveOn");
+                        btnMainMenu = new Button(Content.Load<Texture2D>("MainMenuOff"), new Vector2(700, 500), "MainMenuOff", "MainMenuOn");
                         btnMainMenu.Update(Content, mouse);
                         btnContinue.Update(Content, mouse);
+                        btnSave.Update(Content, mouse); //Mangler funktionalitet
                         if (btnContinue.isClicked)
                         {
                             paused = false;
                         }
                         if (btnMainMenu.isClicked)
                         {
+                            paused = false;
+                            //canInitialize = true;
                             currentGameState = GameState.MainMenu;
                         }
                     }
@@ -305,6 +313,9 @@ namespace WizardLizard
                     spriteBatch.Draw(Content.Load<Texture2D>("MainMenu"), new Rectangle(0, 0, 1600, 900), Color.White);
                     btnExit.Draw(spriteBatch);
                     btnStartGame.Draw(spriteBatch);
+                    btnLoad.Draw(spriteBatch);
+                    btnCreateProfile.Draw(spriteBatch);
+                    btnLoadProfile.Draw(spriteBatch);
                     break;
                 case GameState.Playing:
                     if (!paused)
@@ -323,6 +334,7 @@ namespace WizardLizard
                         spriteBatch.Draw(Content.Load<Texture2D>("Paused"), pausedRectangle, Color.White);
                         btnMainMenu.Draw(spriteBatch);
                         btnContinue.Draw(spriteBatch);
+
                     }
                     break;
             }
