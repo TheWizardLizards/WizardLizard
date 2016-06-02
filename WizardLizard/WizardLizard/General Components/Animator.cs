@@ -10,7 +10,7 @@ namespace WizardLizard
     class Animator : Component, IUpdateable
     {
         private SpriteRenderer spriteRenderer;
-        private int currentIndex = 0;
+        private float currentIndex = 0;
         private float timeElapsed;
         private float fps;
         private string animationName;
@@ -18,7 +18,7 @@ namespace WizardLizard
         private Rectangle[] rectangles;
         private GameObject gameObject;
 
-        public int CurrentIndex
+        public float CurrentIndex
         {
             get
             {
@@ -80,7 +80,7 @@ namespace WizardLizard
         {
             timeElapsed += GameWorld.DeltaTime;
 
-            CurrentIndex = (int)(timeElapsed * fps);
+            CurrentIndex = (timeElapsed * fps);
 
             if (CurrentIndex > rectangles.Length - 1)
             {
@@ -88,7 +88,7 @@ namespace WizardLizard
                 timeElapsed = 0;
                 CurrentIndex = 0;
             }
-            spriteRenderer.Rectangle = rectangles[CurrentIndex];
+            spriteRenderer.Rectangle = rectangles[(int)CurrentIndex];
         }
     }
 }

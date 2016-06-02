@@ -116,6 +116,9 @@
     <Content Include="Content\CollisionTexture.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\companionSpriteSheet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\ContinueOff.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
