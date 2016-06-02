@@ -224,6 +224,9 @@
     <Content Include="Content\OgreChasePlayer.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\OgreSpriteSheet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Paused.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
