@@ -113,7 +113,9 @@
     <Content Include="Content\AniMainChar_idel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\ArcherShoot.mp3" />
+    <Content Include="Content\ArcherShoot.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\CollisionTexture.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -177,8 +179,12 @@
     <Content Include="Content\LeverSpriteSheet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LeverUsed.mp3" />
-    <Content Include="Content\LightningStrikeShoot.mp3" />
+    <Content Include="Content\LeverUsed.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\LightningStrikeShoot.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\LoadOff.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -212,12 +218,18 @@
     <Content Include="Content\MainMenuOn.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\OgreAttack.mp3" />
-    <Content Include="Content\OgreChasePlayer.mp3" />
+    <Content Include="Content\OgreAttack.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OgreChasePlayer.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Paused.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PlayerAttack.mp3" />
+    <Content Include="Content\PlayerAttack.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\PlayerShieldAnimation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
