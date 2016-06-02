@@ -221,6 +221,9 @@
     <Content Include="Content\Pet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\PlayerSpriteSheet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\PlayOff.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

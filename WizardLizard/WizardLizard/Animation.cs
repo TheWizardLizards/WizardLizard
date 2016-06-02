@@ -42,7 +42,7 @@ namespace WizardLizard
             rectangles = new Rectangle[frames];
             for (int i = 0; i < frames; i++)
             {
-                rectangles[i] = new Rectangle((i + xStratFrame) * widht, yPos, widht, height);
+                rectangles[i] = new Rectangle((i * widht)+ xStratFrame, yPos, widht, height);
             }
 
 

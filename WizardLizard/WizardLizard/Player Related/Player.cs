@@ -22,11 +22,14 @@ namespace WizardLizard
         private bool fireball = true;
         private bool lightning = true;
         private bool shield = true;
+        private bool attack = true;
         private Director director;
         private bool canInteract = false;
         private bool haveInteracted = true;
         private bool playerCanBeHit;
+        private bool shooting = false;
         private Lever lastknownLever;
+        private string direction;
         private const float fireballCooldown = 3; // seconds
         private float fireballCountdown = fireballCooldown;
         private const float lightningstrikCooldown = 3; // seconds
@@ -61,10 +64,23 @@ namespace WizardLizard
             health = 6;
             hasJumped = true;
             shiftControle = true;
+            direction = "Right";
         }
         public void LoadContent(ContentManager content)
         {
-
+            animator.CreateAnimation("IdleRight", new Animation(1, 0, 22, 64, 100, 1, Vector2.Zero));
+            animator.CreateAnimation("IdleLeft", new Animation(1, 100, 24, 64, 100, 1, Vector2.Zero));
+            animator.CreateAnimation("DieRight", new Animation(8, 0, 0, 109, 100, 16, new Vector2(22, 0)));
+            animator.CreateAnimation("DieLeft", new Animation(8, 100, 0, 109, 100, 16, new Vector2(24, 0)));
+            animator.CreateAnimation("AttackLeft", new Animation(19, 200, 0, 110, 119, 57, new Vector2(22,0)));
+            animator.CreateAnimation("AttackRight", new Animation(19, 319, 0, 110, 119, 57, new Vector2(37,0)));
+            animator.CreateAnimation("CastFireRight", new Animation(13, 438, 0, 83, 112, 26, new Vector2(13,0)));
+            animator.CreateAnimation("CastFireLeft", new Animation(13, 550, 0, 83, 112, 26, new Vector2(13, 0)));
+            animator.CreateAnimation("CastLightRight", new Animation(13, 662, 0, 83, 112, 26, new Vector2(13, 0)));
+            animator.CreateAnimation("CastLightLeft", new Animation(13, 774, 0, 83, 112, 26, new Vector2(13, 0)));
+            animator.CreateAnimation("RunRight", new Animation(23, 886, 0, 107, 100, 46, new Vector2(0, 0)));
+            animator.CreateAnimation("RunLeft", new Animation(23, 986, 0, 107, 100, 46, new Vector2(0, 0)));
+            animator.PlayAnimation("IdleRight");
         }
         public void Update()
         {
@@ -82,13 +98,18 @@ namespace WizardLizard
 
         public void OnAnimationDone(string animationName)
         {
-
+            animator.PlayAnimation("Idle"+direction);
         }
         private void MeleeAttack(MouseState mouseState)
         {
-            if (mouseState.LeftButton == ButtonState.Pressed)
+            if (mouseState.LeftButton == ButtonState.Pressed && attack == true && shooting == false)
             {
-                //Attack
+                attack = false;
+                animator.PlayAnimation("Attack" + direction);
+            }
+            if(mouseState.LeftButton == ButtonState.Released)
+            {
+                attack = true;
             }
         }
         private void Interact(KeyboardState keyState)
@@ -150,17 +171,23 @@ namespace WizardLizard
             {
                 lightningstrikeCountdown = 0;
                 //Shoots a lightningstrike from above towards the moueses position
-                if (keyState.IsKeyDown(Keys.R) && lightning == true)
+                if (keyState.IsKeyDown(Keys.R) && lightning == true && shooting == false)
                 {
-                    director = new Director(new LightningStrikeBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, -956)));
-                    lightning = false;
-                    lightningstrikeCountdown = lightningstrikCooldown;
+                    shooting = true;
+                    animator.PlayAnimation("CastLight" + direction);
                 }
                 if (keyState.IsKeyUp(Keys.R))
                 {
                     lightning = true;
                 }
+            }
+            if(animator.CurrentIndex >= 12 && shooting == true && animator.AnimationName == "CastLight"+direction)
+            {
+                director = new Director(new LightningStrikeBuilder());
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, -956)));
+                lightning = false;
+                shooting = false;
+                lightningstrikeCountdown = lightningstrikCooldown;
             }
         }
 
@@ -175,18 +202,24 @@ namespace WizardLizard
             {
                 fireballCountdown = 0;
                 //Shoots a fireball towards the moueses position at the given time the button has been pressed
-                if (mouseState.RightButton == ButtonState.Pressed && fireball == true)
+                if (mouseState.RightButton == ButtonState.Pressed && fireball == true && shooting == false)
                 {
-                    director = new Director(new FireballBuilder());
-                    //Updates the fireballs spawn position
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 40, transform.Position.Y + 40)));
-                    fireball = false;
-                    fireballCountdown = fireballCooldown;
+                    shooting = true;
+                    animator.PlayAnimation("CastFire" + direction);
                 }
                 if (mouseState.RightButton == ButtonState.Released)
                 {
                     fireball = true;
                 }
+            }
+            if(animator.CurrentIndex >= 12 && shooting == true && animator.AnimationName == "CastFire" + direction)
+            {
+                director = new Director(new FireballBuilder());
+                //Updates the fireballs spawn position
+                GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 10, transform.Position.Y + 20)));
+                shooting = false;
+                fireball = false;
+                fireballCountdown = fireballCooldown;
             }
         }
 
@@ -215,16 +248,26 @@ namespace WizardLizard
         {
             if (Companion.CompanionControle == false)
             {
-
-                if (keyState.IsKeyDown(Keys.D))
+                if(animator.AnimationName != "CastFire" + direction && animator.AnimationName != "CastLight" + direction && animator.AnimationName != "Attack"+direction)
                 {
-                    translation += new Vector2(1, 0);
-                }
-                if (keyState.IsKeyDown(Keys.A))
-                {
-                    translation += new Vector2(-1, 0);
-                }
+                    if (keyState.IsKeyDown(Keys.D))
+                    {
+                        translation += new Vector2(1, 0);
+                        direction = "Right";
+                        animator.PlayAnimation("Run" + direction);
+                    }
+                    if (keyState.IsKeyDown(Keys.A))
+                    {
+                        translation += new Vector2(-1, 0);
+                        direction = "Left";
+                        animator.PlayAnimation("Run" + direction);
+                    }
 
+                    if (translation.X == 0)
+                    {
+                        animator.PlayAnimation("Idle" + direction);
+                    }
+                }
                 Jump(keyState, translation);
 
                 ShiftToCompanion(keyState);
