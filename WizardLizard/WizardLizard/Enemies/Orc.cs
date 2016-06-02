@@ -104,7 +104,7 @@ namespace WizardLizard
 
         public void CreateAnimations()
         {
-            animator.CreateAnimation("Idle", new Animation(8,0,0,145,150,20,Vector2.Zero));
+            animator.CreateAnimation("Idle", new Animation(8,0,0,145,150,10,Vector2.Zero));
             animator.PlayAnimation("Idle");
         }
 

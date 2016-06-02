@@ -40,7 +40,6 @@ namespace WizardLizard
         public Animation(int frames, int yPos, int xStratFrame, int widht, int height, float fps, Vector2 offset)
         {
             rectangles = new Rectangle[frames];
-            fps = 5;
             for (int i = 0; i < frames; i++)
             {
                 rectangles[i] = new Rectangle((i + xStratFrame) * widht, yPos, widht, height);

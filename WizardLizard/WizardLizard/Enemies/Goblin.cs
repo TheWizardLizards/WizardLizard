@@ -140,14 +140,14 @@ namespace WizardLizard
 
         public void LoadContent(ContentManager content)
         {
-            animator.CreateAnimation("RunLeft",new Animation(12,0,0,58,90,8,Vector2.Zero));
-            animator.CreateAnimation("RunRight", new Animation(12,90,0,58,90,8,Vector2.Zero));
+            animator.CreateAnimation("RunLeft",new Animation(12,0,0,58,90,16,Vector2.Zero));
+            animator.CreateAnimation("RunRight", new Animation(12,90,0,58,90,16,Vector2.Zero));
             animator.CreateAnimation("IdleLeft", new Animation(5, 180, 0, 53, 90, 8, Vector2.Zero));
             animator.CreateAnimation("IdleRight", new Animation(5, 270, 0, 53, 90, 8, Vector2.Zero));
-            animator.CreateAnimation("DieLeft", new Animation(7, 360, 0, 95, 90, 8, Vector2.Zero));
-            animator.CreateAnimation("DieRight", new Animation(7, 450, 0, 95, 90, 8, Vector2.Zero));
-            animator.CreateAnimation("AttackLeft", new Animation(9, 540, 0, 70, 90, 8, Vector2.Zero));
-            animator.CreateAnimation("AttackRight", new Animation(9, 630, 0, 70, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("DieLeft", new Animation(7, 360, 0, 95, 90, 12, Vector2.Zero));
+            animator.CreateAnimation("DieRight", new Animation(7, 450, 0, 95, 90, 12, Vector2.Zero));
+            animator.CreateAnimation("AttackLeft", new Animation(9, 540, 0, 70, 90, 16, Vector2.Zero));
+            animator.CreateAnimation("AttackRight", new Animation(9, 630, 0, 70, 90, 16, Vector2.Zero));
             animator.PlayAnimation("Idle"+direction);
         }
         public void OnAnimationDone(string animationName)
