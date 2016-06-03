@@ -13,6 +13,10 @@ namespace WizardLizard
         private Vector2 orcPos;
         private Vector2 velocity;
         private bool orcCanBeHit;
+        private bool attacking = false;
+        private bool dying = false;
+        private string direction = "Left";
+        private Vector2 centering = new Vector2(0, 0);
         private int health;
         private int chanceToSpawnHealth = 50; //I Procent
 
@@ -27,26 +31,45 @@ namespace WizardLizard
         public void Update()
         {
             orcCanBeHit = true;
-            orcPos = new Vector2(transform.Position.X, transform.Position.Y);
+            orcPos = new Vector2(transform.Position.X + centering.X, transform.Position.Y + centering.X);
             var range = Math.Sqrt(((orcPos.X - GameWorld.PlayerPos.X) * (orcPos.X - GameWorld.PlayerPos.X)) + ((orcPos.Y - GameWorld.PlayerPos.Y)) * (orcPos.Y - GameWorld.PlayerPos.Y));
             var xdistance = Math.Sqrt((orcPos.X - GameWorld.PlayerPos.X) * (orcPos.X - GameWorld.PlayerPos.X));
-            if (range <= 500)
+            if(dying == false)
             {
-                Chase(xdistance);
-            }
-            else
-            {
-                Idle();
+                if (attacking == false)
+                {
+                    if (range <= 500)
+                    {
+                        Chase(xdistance);
+                    }
+                    if (range <= 100)
+                    {
+                        Attack();
+                    }
+                    else
+                    {
+                        Idle();
+                    }
+                }
+                if (attacking == true && animator.AnimationName == "Attack" + direction)
+                {
+                    if (15 <= animator.CurrentIndex && animator.CurrentIndex <= 19)
+                    {
+                        if (direction == "Right")
+                        {
+
+                        }
+                        else if (direction == "Left")
+                        {
+
+                        }
+                    }
+                }
             }
             if (health <= 0)
             {
-                GameWorld.Instance.RemoveGameObject(this.GameObject);
-                Random rnd = new Random();
-                if (rnd.Next(0, 101) <= chanceToSpawnHealth)
-                {
-                    director = new Director(new HealthGlobeBuilder());
-                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
-                }
+                animator.PlayAnimation("Die" + direction);
+                dying = true;
             }
         }
         public void TakeDamage(int dmg)
@@ -79,13 +102,20 @@ namespace WizardLizard
                 if (GameWorld.PlayerPos.X > orcPos.X)
                 {
                     translation.X++;
+                    direction = "Right";
+                    animator.PlayAnimation("Walk"+direction);
                 }
                 if (GameWorld.PlayerPos.X < orcPos.X)
                 {
                     translation.X--;
+                    direction = "Left";
+                    animator.PlayAnimation("Walk"+direction);
                 }
             }
-
+            if(translation.X == 0)
+            {
+                animator.PlayAnimation("Idle" + direction);
+            }
             float i = 5;
             velocity.Y += 0.05f * i;
             if (velocity.Y > 10)
@@ -97,6 +127,16 @@ namespace WizardLizard
             transform.Translate(translation * GameWorld.DeltaTime * speed);
         }
 
+        public void Attack()
+        {
+            if(attacking == false)
+            {
+                animator.PlayAnimation("Attack" + direction);
+                attacking = true;
+            }
+
+        }
+
         public void LoadContent(ContentManager content)
         {
             CreateAnimations();
@@ -104,20 +144,42 @@ namespace WizardLizard
 
         public void CreateAnimations()
         {
-            animator.CreateAnimation("Idle", new Animation(8,0,0,145,150,10,Vector2.Zero));
-            animator.PlayAnimation("Idle");
+            animator.CreateAnimation("IdleRight", new Animation(8,0,0,145,150,10,Vector2.Zero));
+            animator.CreateAnimation("IdleLeft", new Animation(8, 0, 1160, 145, 150, 10, Vector2.Zero));
+            animator.CreateAnimation("AttackLeft", new Animation(22, 150, 0, 271, 220, 22, Vector2.Zero));
+            animator.CreateAnimation("AttackRight", new Animation(22, 370, 0, 271, 220, 22, Vector2.Zero));
+            animator.CreateAnimation("WalkLeft", new Animation(11, 590, 0, 181, 160, 11, Vector2.Zero));
+            animator.CreateAnimation("WalkRight", new Animation(11, 590, 1991, 181, 160, 11, Vector2.Zero));
+            animator.CreateAnimation("DieLeft", new Animation(9, 750, 0, 275, 200, 9, Vector2.Zero));
+            animator.CreateAnimation("DieRight", new Animation(9, 750, 2475, 275, 200, 9, Vector2.Zero));
+            animator.PlayAnimation("IdleLeft");
         }
 
         public void OnAnimationDone(string animationName)
         {
-            animator.PlayAnimation("Idle");
+            if(animationName == "Attack" + direction)
+            {
+                attacking = false;
+            }
+            if(animationName == "Die" + direction)
+            {
+                GameWorld.Instance.RemoveGameObject(this.GameObject);
+                Random rnd = new Random();
+                if (rnd.Next(0, 101) <= chanceToSpawnHealth)
+                {
+                    director = new Director(new HealthGlobeBuilder());
+                    GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
+                }
+            }
+            if(dying == false)
+            animator.PlayAnimation("Idle"+direction);
         }
         public void OnCollisionEnter(Collider other)
         {
             if (other.GameObject.GetComponent("SolidPlatform") != null)
             {
                 Collider collider = (Collider)GameObject.GetComponent("Collider");
-
+                centering = new Vector2(collider.CollisionBox.Width / 2, collider.CollisionBox.Height / 2);
                 int top = Math.Max(collider.CollisionBox.Top, other.CollisionBox.Top);
                 int left = Math.Max(collider.CollisionBox.Left, other.CollisionBox.Left);
                 int width = Math.Min(collider.CollisionBox.Right, other.CollisionBox.Right) - left;

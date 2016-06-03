@@ -30,6 +30,7 @@ namespace WizardLizard
         private bool shooting = false;
         private Lever lastknownLever;
         private string direction;
+        private Vector2 centering = new Vector2(0, 0);
         private const float fireballCooldown = 3; // seconds
         private float fireballCountdown = fireballCooldown;
         private const float lightningstrikCooldown = 3; // seconds
@@ -93,7 +94,7 @@ namespace WizardLizard
             MouseState mouseState = Mouse.GetState();
 
             PlayerController(keyState, translation, mouseState);
-            GameWorld.PlayerPos = transform.Position;
+            GameWorld.PlayerPos = new Vector2(transform.Position.X + centering.X, transform.Position.Y + centering.Y);
         }
 
         public void OnAnimationDone(string animationName)
@@ -339,7 +340,7 @@ namespace WizardLizard
             if (other.GameObject.GetComponent("SolidPlatform") != null)
             {
                 Collider collider = (Collider)GameObject.GetComponent("Collider");
-
+                centering = new Vector2(collider.CollisionBox.Width / 2, collider.CollisionBox.Height / 2);
                 int top = Math.Max(collider.CollisionBox.Top, other.CollisionBox.Top);
                 int left = Math.Max(collider.CollisionBox.Left, other.CollisionBox.Left);
                 int width = Math.Min(collider.CollisionBox.Right, other.CollisionBox.Right) - left;
