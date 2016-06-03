@@ -235,7 +235,7 @@ namespace WizardLizard
         {
             director = new Director(new ArrowBuilder());
 
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 50, transform.Position.Y + 50)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 50, transform.Position.Y + 10)));
         }
 
         public bool Timer()
