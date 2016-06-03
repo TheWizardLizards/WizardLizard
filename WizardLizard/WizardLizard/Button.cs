@@ -40,8 +40,8 @@ namespace WizardLizard
                 texture = content.Load<Texture2D>(spriteRed);
                 if (mouse.LeftButton == ButtonState.Pressed)
                 {
-                    isClicked = true;
-                }
+                    isClicked = true;  
+                } 
             }
             else
             {

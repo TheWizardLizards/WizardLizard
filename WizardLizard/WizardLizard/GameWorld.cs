@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WizardLizard
 {
@@ -15,6 +16,7 @@ namespace WizardLizard
             MainMenu,
             Playing
         }
+        Db.CreateDb createdb = new Db.CreateDb();
         GameState currentGameState = GameState.MainMenu;
         bool paused = false;
         bool canInitialize = true;
@@ -28,12 +30,14 @@ namespace WizardLizard
         Button btnCreateProfile;
         Button btnLoadProfile;
         LevelBuilder levelBuilder = new LevelBuilder();
-        private string level = "level01";
+        private int level = 1;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private static Vector2 playerPos;
         private static GameWorld instance;
         private static float deltaTime;
+        private Db.character player;
+        private bool profileExisting;
         public static Dictionary<int, GameObject> spawnList = new Dictionary<int, GameObject>();
         private static List<GameObject> objectToAdd = new List<GameObject>();
         private static List<GameObject> objectsToRemove = new List<GameObject>();
@@ -87,40 +91,22 @@ namespace WizardLizard
         {
             get { return deltaTime; }
         }
-
-
-
         public static Vector2 PlayerPos
         {
             get { return playerPos; }
-
             set { playerPos = value; }
         }
 
         public static List<GameObject> ObjectsToRemove
         {
-            get
-            {
-                return objectsToRemove;
-            }
-
-            set
-            {
-                objectsToRemove = value;
-            }
+            get { return objectsToRemove; }
+            set { objectsToRemove = value; }
         }
 
         public static List<GameObject> ObjectToAdd
         {
-            get
-            {
-                return objectToAdd;
-            }
-
-            set
-            {
-                objectToAdd = value;
-            }
+            get { return objectToAdd; }
+            set { objectToAdd = value; }
         }
 
         /// <summary>
@@ -131,22 +117,29 @@ namespace WizardLizard
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            if (currentGameState == GameState.Playing)
+            using (Db.Connection con = new Db.Connection())
             {
-                if (level == "level01")
+                con.OpenCon();
+                player = con.GetAllRows<Db.character>().First();
+                if (currentGameState == GameState.Playing)
                 {
-                    levelBuilder.LevelOne();
+                    if (player.Level == 1)
+                    {
+                        levelBuilder.LevelOne();
+                    }
+                    if (player.Level == 2)
+                    {
+                        levelBuilder.LevelTwo();
+                    }
+                    IsMouseVisible = false;
                 }
-                if (level == "level02")
-                {
-                    levelBuilder.LevelTwo();
-                }
-                IsMouseVisible = false;
+                con.Dispose();
             }
+                // TODO: Add your initialization logic here
+               
+            createdb.CreateDatabase();
 
-
-
+            
             base.Initialize();
         }
 
@@ -163,9 +156,7 @@ namespace WizardLizard
                 case GameState.MainMenu:
                     IsMouseVisible = true;
                     btnCreateProfile = new Button(Content.Load<Texture2D>("CreateProfileOff"), new Vector2(100, 300), "CreateProfileOff", "CreateProfileOn", 300, 100);
-                    btnLoadProfile = new Button(Content.Load<Texture2D>("LoadProfileOff"), new Vector2(100, 400), "LoadProfileOff", "LoadProfileOn", 300, 100);
-                    btnStartGame = new Button(Content.Load<Texture2D>("PlayOff"), new Vector2(100, 500), "PlayOff", "PlayOn", 200, 100);
-                    btnLoad = new Button(Content.Load<Texture2D>("LoadOff"), new Vector2(100, 600), "LoadOff", "LoadOn", 200, 100);
+                    btnStartGame = new Button(Content.Load<Texture2D>("ContinueOff"), new Vector2(100, 500), "ContinueOff", "ContinueOn", 200, 100);
                     btnExit = new Button(Content.Load<Texture2D>("ExitOff"), new Vector2(100, 700), "ExitOff", "ExitOn", 200, 100);
                     break;
                 case GameState.Playing:
@@ -204,7 +195,13 @@ namespace WizardLizard
             {
                 case GameState.MainMenu:
                     objectsToRemove.AddRange(gameObjects);
-                    spawnList.Clear();
+                    //spawnList.Clear();
+                    foreach(GameObject go in ObjectToAdd)
+                    {
+                        go.LoadContent(Content);
+                        gameObjects.Add(go);
+                    }
+                    objectToAdd.Clear();
                     foreach (GameObject go in objectsToRemove)
                     {
                         gameObjects.Remove(go);
@@ -212,9 +209,9 @@ namespace WizardLizard
                     objectsToRemove.Clear();
                     btnStartGame.Update(Content, mouse);
                     btnExit.Update(Content, mouse);
-                    btnLoad.Update(Content, mouse); //Mangler funktionalitet
+                    //btnLoad.Update(Content, mouse); //Mangler funktionalitet
                     btnCreateProfile.Update(Content, mouse); //Mangler funktionalitet
-                    btnLoadProfile.Update(Content, mouse); //Mangler funktionalitet
+                    //btnLoadProfile.Update(Content, mouse); //Mangler funktionalitet
                     if (btnStartGame.isClicked)
                     {
                         currentGameState = GameState.Playing;
@@ -223,10 +220,28 @@ namespace WizardLizard
                     {
                         Exit();
                     }
+                    using(Db.Connection con = new Db.Connection())
+                    {  
+                        if (btnCreateProfile.isClicked && profileExisting == false)
+                        {
+                            
+                            con.OpenCon();
+                            con.InsertRow(new Db.character { Level = 2, health = 1, PetID = 1, spellID = 1, name = "ib" });
+                            con.Dispose();
+                            profileExisting = true;
+                        }   
+                       
+                    }
+                    
                     break;
                 case GameState.Playing:
                     if (!paused)
                     {
+                        if (canInitialize)
+                        {
+                            Initialize();
+                            canInitialize = false;
+                        }
                         IsMouseVisible = false;
                         foreach (GameObject go in objectsToRemove)
                         {
@@ -248,17 +263,33 @@ namespace WizardLizard
                         {
                             go.Update();
                         }
-                        if (canInitialize)
+                        using (Db.Connection con = new Db.Connection())
                         {
-                            Initialize();
-                            canInitialize = false;
+                            con.OpenCon();
+                            player = con.GetAllRows<Db.character>().First();
+                            player.Level = level;                       
+                            con.Dispose();
                         }
-                        if (playerPos.X > 1550 && playerPos.Y > 750 && level == "level01")
+                      
+                        using (Db.Connection con = new Db.Connection())
                         {
-                            objectsToRemove.AddRange(gameObjects);
-                            level = "level02";
-                            canInitialize = true;
+                            if (playerPos.X > 1550 && playerPos.Y > 750 && level == 1)
+                            {
+                                con.OpenCon();
+
+                                player.Level = 2;
+                                con.UpdateRow<Db.character>(player);
+                                objectsToRemove.AddRange(gameObjects);
+                                level = 2;
+                                canInitialize = true;
+                                con.Dispose();
+                            }
+                         
                         }
+                       
+
+                        
+
                     }
                     if (paused)
                     {
@@ -295,7 +326,6 @@ namespace WizardLizard
         public void RemoveGameObject(GameObject go)
         {
             objectsToRemove.Add(go);
-
         }
 
         /// <summary>
@@ -312,9 +342,7 @@ namespace WizardLizard
                     spriteBatch.Draw(Content.Load<Texture2D>("MainMenu"), new Rectangle(0, 0, 1600, 900), Color.White);
                     btnExit.Draw(spriteBatch);
                     btnStartGame.Draw(spriteBatch);
-                    btnLoad.Draw(spriteBatch);
                     btnCreateProfile.Draw(spriteBatch);
-                    btnLoadProfile.Draw(spriteBatch);
                     break;
                 case GameState.Playing:
                     if (!paused)
@@ -330,6 +358,7 @@ namespace WizardLizard
                         {
                             go.Draw(spriteBatch);
                         }
+                        
                         spriteBatch.Draw(Content.Load<Texture2D>("Paused"), pausedRectangle, Color.White);
                         btnMainMenu.Draw(spriteBatch);
                         btnContinue.Draw(spriteBatch);

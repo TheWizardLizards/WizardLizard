@@ -35,6 +35,7 @@ namespace WizardLizard
         private float shieldCountdown = shieldCooldown;
         public float Delay { get; set; }
 
+
         public static int Health
         {
             get { return health; }
@@ -68,6 +69,7 @@ namespace WizardLizard
         }
         public void Update()
         {
+            
             playerCanBeHit = true;
 
             KeyboardState keyState = Keyboard.GetState();
