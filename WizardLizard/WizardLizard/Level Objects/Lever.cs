@@ -41,7 +41,7 @@ namespace WizardLizard
         public void CreateAnimations()
         {
             animator.CreateAnimation("Idle", new Animation(1, 0, 0, 150, 52, 1, Vector2.Zero));
-            animator.CreateAnimation("Activated", new Animation(4, 0, 0, 150, 52, 1, Vector2.Zero));
+            animator.CreateAnimation("Activated", new Animation(4, 0, 0, 150, 52, 8, Vector2.Zero));
             animator.PlayAnimation("Idle");
         }
 

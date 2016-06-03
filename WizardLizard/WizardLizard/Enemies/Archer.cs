@@ -35,8 +35,8 @@ namespace WizardLizard
 
         public void LoadContent(ContentManager content)
         {
-            animator.CreateAnimation("DieLeft", new Animation(7, 0, 0, 92, 90, 8, Vector2.Zero));
-            animator.CreateAnimation("DieRight", new Animation(7, 90, 0, 92, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("DieLeft", new Animation(7, 0, 0, 92, 90, 12, Vector2.Zero));
+            animator.CreateAnimation("DieRight", new Animation(7, 90, 0, 92, 90, 12, Vector2.Zero));
             animator.CreateAnimation("AttackLeft", new Animation(9, 180, 0, 77, 90, 8, new Vector2(3,0)));
             animator.CreateAnimation("AttackRight", new Animation(9, 270, 0, 77, 90, 8, new Vector2(3, 0)));
             animator.CreateAnimation("IdleLeft", new Animation(5, 360, 0, 78, 90, 8, Vector2.Zero));
@@ -235,7 +235,7 @@ namespace WizardLizard
         {
             director = new Director(new ArrowBuilder());
 
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 50, transform.Position.Y + 50)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 50, transform.Position.Y + 10)));
         }
 
         public bool Timer()

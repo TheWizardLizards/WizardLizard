@@ -61,12 +61,14 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
-
+            animator.CreateAnimation("Left", new Animation(1, 0, 0, 67, 50, 1, Vector2.Zero));
+            animator.CreateAnimation("Right", new Animation(1, 0, 1, 67, 50, 1, Vector2.Zero));
+            animator.PlayAnimation("Left");
         }
 
         public void OnAnimationDone(string animationName)
         {
-            throw new NotImplementedException();
+            animator.PlayAnimation(animationName);
         }
         public void ControlePet(KeyboardState keyState, Vector2 translation)
         {
@@ -123,6 +125,14 @@ namespace WizardLizard
                 haveInteracted = true;
             }
             transform.Translate(translation * GameWorld.DeltaTime * speed);
+            if (translation.X > 0)
+            {
+                animator.PlayAnimation("Right");
+            }
+            if (translation.X < 0)
+            {
+                animator.PlayAnimation("Left");
+            }
         }
         public void FollowPlayer(Vector2 translation)
         {
@@ -132,11 +142,11 @@ namespace WizardLizard
             Vector2 distance = new Vector2(petPos.X - playerPos.X);
             Vector2 distanceTwo = new Vector2();
             distanceTwo = GameWorld.PlayerPos - petPos;
-            if (petPos.X < playerPos.X)
+            if (petPos.X+1 < playerPos.X)
             {
                 translation = new Vector2(1, 0);
             }
-            else if (petPos.X > playerPos.X)
+            else if (petPos.X-1 > playerPos.X)
             {
                 translation = new Vector2(-1, 0);
             }
@@ -169,6 +179,14 @@ namespace WizardLizard
                 fly = false;
             }
             transform.Translate(translation * GameWorld.DeltaTime * speed);
+            if (translation.X > 0)
+            {
+                animator.PlayAnimation("Right");
+            }
+            if (translation.X < 0)
+            {
+                animator.PlayAnimation("Left");
+            }
         }
         public void Update()
         {
