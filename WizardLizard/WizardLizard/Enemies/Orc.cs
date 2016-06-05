@@ -16,6 +16,7 @@ namespace WizardLizard
         private Vector2 velocity;
         private bool orcCanBeHit;
         private bool attacking = false;
+        private bool attack = false;
         private bool dying = false;
         private string direction = "Left";
         private Vector2 centering = new Vector2(0, 0);
@@ -38,7 +39,7 @@ namespace WizardLizard
             var xdistance = Math.Sqrt((orcPos.X - GameWorld.PlayerPos.X) * (orcPos.X - GameWorld.PlayerPos.X));
             if(dying == false)
             {
-                if (attacking == false)
+                if (attack == false)
                 {
                     if (range <= 500)
                     {
@@ -139,6 +140,7 @@ namespace WizardLizard
             if(attacking == false)
             {
                 animator.PlayAnimation("Attack" + direction);
+                attack = true;
                 attacking = true;
             }
 
@@ -169,6 +171,7 @@ namespace WizardLizard
             if(animationName == "Attack" + direction)
             {
                 attacking = false;
+                attack = false;
             }
             if(animationName == "Die" + direction)
             {
