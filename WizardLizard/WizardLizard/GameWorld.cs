@@ -117,6 +117,12 @@ namespace WizardLizard
         /// </summary>
         protected override void Initialize()
         {
+                // TODO: Add your initialization logic here
+            createdb.CreateDatabase(); 
+            base.Initialize();
+        }
+        public void Choselvl()
+        {
             using (Db.Connection con = new Db.Connection())
             {
                 con.OpenCon();
@@ -135,12 +141,6 @@ namespace WizardLizard
                 }
                 con.Dispose();
             }
-                // TODO: Add your initialization logic here
-               
-            createdb.CreateDatabase();
-
-            
-            base.Initialize();
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace WizardLizard
                     {
                         if (canInitialize)
                         {
-                            Initialize();
+                            Choselvl();
                             canInitialize = false;
                         }
                         IsMouseVisible = false;
