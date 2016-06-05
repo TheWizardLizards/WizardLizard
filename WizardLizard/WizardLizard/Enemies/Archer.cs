@@ -168,6 +168,31 @@ namespace WizardLizard
                     }
                 }
             }
+            if (other.GameObject.GetComponent("NonSolidPlatform") != null)
+            {
+                Collider collider = (Collider)GameObject.GetComponent("Collider");
+
+                if (collider.CollisionBox.Intersects(other.TopLine))
+                {
+                    if (velocity.Y > 0)
+                    {
+                        int top = Math.Max(collider.CollisionBox.Top, other.CollisionBox.Top);
+                        int left = Math.Max(collider.CollisionBox.Left, other.CollisionBox.Left);
+                        int width = Math.Min(collider.CollisionBox.Right, other.CollisionBox.Right) - left;
+                        int height = Math.Min(collider.CollisionBox.Bottom, other.CollisionBox.Bottom) - top;
+                        if (width > height)
+                        {
+                            if (collider.CollisionBox.Y + collider.CollisionBox.Height - 20 < other.TopLine.Y)
+                            {
+                                Vector2 position = GameObject.Transform.Position;
+                                position.Y = other.CollisionBox.Y - collider.CollisionBox.Height;
+                                GameObject.Transform.Position = position;
+                                velocity.Y = 0;
+                            }
+                        }
+                    }
+                }
+            }
         }
         public void OnCollisionExit(Collider other)
         {
