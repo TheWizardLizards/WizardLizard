@@ -19,6 +19,7 @@ namespace WizardLizard
         private int speed = 200;
         private static int health;
         private static bool hasJumped;
+        private bool dying = false;
         private bool fireball = true;
         private bool lightning = true;
         private bool shield = true;
@@ -75,6 +76,8 @@ namespace WizardLizard
             animator.CreateAnimation("IdleLeft", new Animation(1, 100, 24, 64, 100, 1, Vector2.Zero));
             animator.CreateAnimation("DieRight", new Animation(8, 0, 0, 109, 100, 16, new Vector2(22, 0)));
             animator.CreateAnimation("DieLeft", new Animation(8, 100, 0, 109, 100, 16, new Vector2(24, 0)));
+            animator.CreateAnimation("DeadRight", new Animation(1, 0, 763, 109, 100, 1, new Vector2(22,0)));
+            animator.CreateAnimation("DeadLeft", new Animation(1, 100, 763, 109, 100, 1, new Vector2(24, 0)));
             animator.CreateAnimation("AttackLeft", new Animation(19, 200, 0, 110, 119, 57, new Vector2(22,0)));
             animator.CreateAnimation("AttackRight", new Animation(19, 319, 0, 110, 119, 57, new Vector2(37,0)));
             animator.CreateAnimation("CastFireRight", new Animation(13, 438, 0, 83, 112, 26, new Vector2(13,0)));
@@ -87,43 +90,61 @@ namespace WizardLizard
         }
         public void Update()
         {
-            
-            playerCanBeHit = true;
-
-            KeyboardState keyState = Keyboard.GetState();
-
-            Vector2 translation = Vector2.Zero;
-
-            MouseState mouseState = Mouse.GetState();
-
-            PlayerController(keyState, translation, mouseState);
-            GameWorld.PlayerPos = new Vector2(transform.Position.X + centering.X, transform.Position.Y + centering.Y);
-            if(attacking == true)
+            if(dying == false)
             {
-                if(animator.CurrentIndex >= 14)
+                playerCanBeHit = true;
+
+                KeyboardState keyState = Keyboard.GetState();
+
+                Vector2 translation = Vector2.Zero;
+
+                MouseState mouseState = Mouse.GetState();
+
+                PlayerController(keyState, translation, mouseState);
+                GameWorld.PlayerPos = new Vector2(transform.Position.X + centering.X, transform.Position.Y + centering.Y);
+                if (attacking == true)
                 {
-                    director = new Director(new AttackFieldBuilder());
-                    if(direction == "Right")
+                    if (animator.CurrentIndex >= 14)
                     {
-                        GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X+37, transform.Position.Y+8), 38, 72, "Player"));
-                        attacking = false;
+                        director = new Director(new AttackFieldBuilder());
+                        if (direction == "Right")
+                        {
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 37, transform.Position.Y + 8), 38, 72, "Player"));
+                            attacking = false;
+                        }
+                        if (direction == "Left")
+                        {
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X - 22, transform.Position.Y + 8), 38, 72, "Player"));
+                            attacking = false;
+                        }
                     }
-                    if(direction == "Left")
-                    {
-                        GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X-22, transform.Position.Y+8), 38, 72, "Player"));
-                        attacking = false;
-                    }
+                }
+                if (Health <= 0)
+                {
+                    animator.PlayAnimation("Die" + direction);
+                    dying = true;
                 }
             }
         }
 
         public void OnAnimationDone(string animationName)
         {
-            animator.PlayAnimation("Idle"+direction);
-            if(animationName == "Attack" + direction)
+            if(animationName == "Die" + direction)
             {
-                attacking = false;
+                animator.PlayAnimation("Dead" + direction);
             }
+            else
+            {
+                if(dying == false)
+                {
+                    animator.PlayAnimation("Idle" + direction);
+                    if (animationName == "Attack" + direction)
+                    {
+                        attacking = false;
+                    }
+                }
+            }
+            
         }
         private void MeleeAttack(MouseState mouseState)
         {

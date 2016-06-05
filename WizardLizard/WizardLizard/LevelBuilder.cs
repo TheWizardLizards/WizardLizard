@@ -169,5 +169,13 @@ namespace WizardLizard
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(970, 805)));
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 455)));
         }
+        public void LevelThree()
+        {
+
+        }
+        public void LevelFour()
+        {
+
+        }
     }
 }

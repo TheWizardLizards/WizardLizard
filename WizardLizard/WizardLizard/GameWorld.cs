@@ -126,7 +126,7 @@ namespace WizardLizard
             using (Db.Connection con = new Db.Connection())
             {
                 con.OpenCon();
-                player = con.GetAllRows<Db.character>().First();
+                player = con.GetAllRows<Db.character>().Last();
                 if (currentGameState == GameState.Playing)
                 {
                     if (player.Level == 1)
@@ -134,6 +134,14 @@ namespace WizardLizard
                         levelBuilder.LevelOne();
                     }
                     if (player.Level == 2)
+                    {
+                        levelBuilder.LevelTwo();
+                    }
+                    if (player.Level == 3)
+                    {
+                        levelBuilder.LevelOne();
+                    }
+                    if (player.Level == 4)
                     {
                         levelBuilder.LevelTwo();
                     }
@@ -195,6 +203,7 @@ namespace WizardLizard
             {
                 case GameState.MainMenu:
                     objectsToRemove.AddRange(gameObjects);
+                    spawnList.Clear();
                     //spawnList.Clear();
                     foreach(GameObject go in ObjectToAdd)
                     {
@@ -226,7 +235,7 @@ namespace WizardLizard
                         {
                             
                             con.OpenCon();
-                            con.InsertRow(new Db.character { Level = 2, health = 1, PetID = 1, spellID = 1, name = "ib" });
+                            con.InsertRow(new Db.character { Level = 1, health = 1, PetID = 1, spellID = 1, name = "ib" });
                             con.Dispose();
                             profileExisting = true;
                         }   

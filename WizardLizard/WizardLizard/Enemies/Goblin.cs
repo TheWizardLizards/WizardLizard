@@ -7,6 +7,7 @@ namespace WizardLizard
     class Goblin : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Director director;
+        private Vector2 centering = new Vector2(0, 0);
         private Transform transform;
         private Animator animator;
         private Vector2 goblinPos;
@@ -18,10 +19,11 @@ namespace WizardLizard
         private bool dying = false;
         private bool attacking = false;
         private int chanceToSpawnHealth = 50; //i procent
-
+        private GameObject gameObject;
 
         public Goblin(GameObject gameObject) : base(gameObject)
         {
+            this.gameObject = gameObject;
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = GameObject.Transform;
             health = 1;
@@ -34,7 +36,7 @@ namespace WizardLizard
             if(dying == false)
             {
                 goblinCanBeHit = true;
-                goblinPos = new Vector2(transform.Position.X, transform.Position.Y);
+                goblinPos = new Vector2(transform.Position.X+centering.X, transform.Position.Y+centering.Y);
                 if(goblinPos.X > GameWorld.PlayerPos.X)
                 {
                     direction = "Left";
@@ -97,7 +99,7 @@ namespace WizardLizard
         public void Chase(double xdistance)
         {
             Vector2 translation = new Vector2(0, 0);
-            Vector2 goblinPos = new Vector2(transform.Position.X, transform.Position.Y);
+            Vector2 goblinPos = new Vector2(transform.Position.X + centering.X, transform.Position.Y + centering.Y);
             if (xdistance > 2)
             {
                 if (GameWorld.PlayerPos.X > goblinPos.X)
@@ -168,6 +170,7 @@ namespace WizardLizard
             if (other.GameObject.GetComponent("SolidPlatform") != null)
             {
                 Collider collider = (Collider)GameObject.GetComponent("Collider");
+                centering = new Vector2(collider.CollisionBox.Width / 2, collider.CollisionBox.Height / 2);
 
                 int top = Math.Max(collider.CollisionBox.Top, other.CollisionBox.Top);
                 int left = Math.Max(collider.CollisionBox.Left, other.CollisionBox.Left);

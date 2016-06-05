@@ -55,13 +55,16 @@ namespace WizardLizard
                 {
                     if (15 <= animator.CurrentIndex && animator.CurrentIndex <= 19)
                     {
+                        director = new Director(new AttackFieldBuilder());
                         if (direction == "Right")
                         {
-
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y), 38, 72, "Orc"));
+                            attacking = false;
                         }
                         else if (direction == "Left")
                         {
-
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X+15, transform.Position.Y+98), 90, 122, "Orc"));
+                            attacking = false;
                         }
                     }
                 }
@@ -97,7 +100,7 @@ namespace WizardLizard
         public void Chase(double xdistance)
         {
             Vector2 translation = new Vector2(0, 0);
-            if(xdistance > 2)
+            if(xdistance > 15)
             {
                 if (GameWorld.PlayerPos.X > orcPos.X)
                 {
