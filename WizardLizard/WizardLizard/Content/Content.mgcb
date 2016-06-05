@@ -13,3 +13,57 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin FireballShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:FireballShoot.wav
+
+#begin ArcherShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ArcherShoot.wav
+
+#begin LightningStrikeShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LightningStrikeShoot.wav
+
+#begin OgreAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:OgreAttack.wav
+
+#begin OgreChasePlayer.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:OgreChasePlayer.wav
+
+#begin PlayerAttack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:PlayerAttack.wav
+
+#begin PlayerJump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:PlayerJump.wav
+
+#begin MagicDoorSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MagicDoorSound.wav
+
+#begin LeverUsed.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LeverUsed.wav
+

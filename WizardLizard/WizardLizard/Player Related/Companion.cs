@@ -139,9 +139,8 @@ namespace WizardLizard
             speed = 200;
             Vector2 playerPos = new Vector2(GameWorld.PlayerPos.X + 20, GameWorld.PlayerPos.Y + 50);
             Vector2 petPos = new Vector2(transform.Position.X, transform.Position.Y);
-            Vector2 distance = new Vector2(petPos.X - playerPos.X);
-            Vector2 distanceTwo = new Vector2();
-            distanceTwo = GameWorld.PlayerPos - petPos;
+            Vector2 distance = new Vector2();
+            distance = GameWorld.PlayerPos - petPos;
             if (petPos.X+1 < playerPos.X)
             {
                 translation = new Vector2(1, 0);
@@ -168,13 +167,13 @@ namespace WizardLizard
                 velocity.Y += 0.05f * i;
                 translation += velocity;
             }
-            if (distanceTwo.Length() > 100)
+            if (distance.Length() > 100)
             {
                 fly = true;
-                distanceTwo.Normalize();
-                translation += distanceTwo;
+                distance.Normalize();
+                translation += distance;
             }
-            else if(distanceTwo.Length() > 20)
+            else if(distance.Length() > 20)
             {
                 fly = false;
             }
