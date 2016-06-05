@@ -40,6 +40,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AttackField.cs" />
+    <Compile Include="AttackFieldBuilder.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Db\character.cs" />
     <Compile Include="Db\Connection.cs" />
