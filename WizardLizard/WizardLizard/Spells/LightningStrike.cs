@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
     class LightningStrike : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
+        private SoundEffect lightningSound;
         private Transform transform;
         private int speed = 2000;
         private Animator animator;
@@ -21,6 +23,8 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
+            lightningSound = content.Load<SoundEffect>("LightningStrikeShoot");
+            lightningSound.Play();
         }
 
         public void OnAnimationDone(string animationName)

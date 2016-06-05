@@ -1,11 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using System;
+using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
     class Orc : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
+        private SoundEffect chaseSound, attackSound;
         Director director;
         private Transform transform;
         private Animator animator;
@@ -41,10 +43,12 @@ namespace WizardLizard
                     if (range <= 500)
                     {
                         Chase(xdistance);
+                        chaseSound.Play();
                     }
                     if (range <= 100)
                     {
                         Attack();
+                        attackSound.Play();
                     }
                     else
                     {
@@ -142,6 +146,8 @@ namespace WizardLizard
 
         public void LoadContent(ContentManager content)
         {
+            chaseSound = content.Load<SoundEffect>("OgreChasePlayer");
+            attackSound = content.Load<SoundEffect>("OgreAttack");
             CreateAnimations();
         }
 

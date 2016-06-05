@@ -7,11 +7,13 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
     class Fireball : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
+        private SoundEffect fireballSound;
         private Transform transform;
         private int dmg = 1;
         private Animator animator;
@@ -27,6 +29,8 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
+            fireballSound = content.Load<SoundEffect>("FireballShoot");
+            fireballSound.Play();
             CreateAnimations();
             foreach (GameObject go in GameWorld.GameObjects)
             {

@@ -7,11 +7,13 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
     class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
+        private SoundEffect jumpSound, attackSound;
         private Vector2 velocity;
         private Transform transform;
         private Animator animator;
@@ -72,6 +74,8 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
+            jumpSound = content.Load<SoundEffect>("PlayerJump");
+            attackSound = content.Load<SoundEffect>("PlayerAttack");
             animator.CreateAnimation("IdleRight", new Animation(1, 0, 22, 64, 100, 1, Vector2.Zero));
             animator.CreateAnimation("IdleLeft", new Animation(1, 100, 24, 64, 100, 1, Vector2.Zero));
             animator.CreateAnimation("DieRight", new Animation(8, 0, 0, 109, 100, 16, new Vector2(22, 0)));
@@ -150,6 +154,7 @@ namespace WizardLizard
         {
             if (mouseState.LeftButton == ButtonState.Pressed && attack == true && shooting == false)
             {
+                attackSound.Play();
                 attack = false;
                 animator.PlayAnimation("Attack" + direction);
                 attacking = true;
@@ -286,6 +291,7 @@ namespace WizardLizard
         {
             if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
             {
+                jumpSound.Play();
                 translation.Y -= 5f;
                 velocity.Y = -5f;
                 hasJumped = true;
