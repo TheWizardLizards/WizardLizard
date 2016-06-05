@@ -15,7 +15,7 @@ namespace WizardLizard
     {
         private SoundEffect fireballSound;
         private Transform transform;
-        private int dmg = 1;
+        private int dmg = 3;
         private Animator animator;
         private int speed = 400;
         Vector2 mousePosition;

@@ -28,7 +28,7 @@ namespace WizardLizard
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = GameObject.Transform;
-            health = 8;
+            health = 15;
         }
 
         public void Update()
@@ -44,7 +44,7 @@ namespace WizardLizard
                     if (range <= 500)
                     {
                         Chase(xdistance);
-                        //chaseSound.Play();
+                       // chaseSound.Play();
                     }
                     if (range <= 100)
                     {
