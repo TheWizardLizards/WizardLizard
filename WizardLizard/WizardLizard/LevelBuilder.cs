@@ -38,8 +38,8 @@ namespace WizardLizard
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 700)));
             director = new Director(new ArcherBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(315, 395)));
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1360, 395)));
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1150, 190)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1360, 300)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1150, 120)));
             director = new Director(new GoblinBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1183, 481)));
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(680, 730)));
