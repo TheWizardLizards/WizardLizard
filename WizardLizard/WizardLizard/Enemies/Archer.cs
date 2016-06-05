@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using System;
 
@@ -6,7 +7,8 @@ namespace WizardLizard
 {
     class Archer : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
-        
+
+        private SoundEffect shootSound;
         private Transform transform;
         private Animator animator;
         private Director director;
@@ -35,6 +37,7 @@ namespace WizardLizard
 
         public void LoadContent(ContentManager content)
         {
+            shootSound = content.Load<SoundEffect>("ArcherShoot");
             animator.CreateAnimation("DieLeft", new Animation(7, 0, 0, 92, 90, 12, Vector2.Zero));
             animator.CreateAnimation("DieRight", new Animation(7, 90, 0, 92, 90, 12, Vector2.Zero));
             animator.CreateAnimation("AttackLeft", new Animation(9, 180, 0, 77, 90, 8, new Vector2(3,0)));
@@ -233,6 +236,7 @@ namespace WizardLizard
         }
         public void shoot()
         {
+            shootSound.Play();
             director = new Director(new ArrowBuilder());
 
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 50, transform.Position.Y + 10)));
