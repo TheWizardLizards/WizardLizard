@@ -48,7 +48,7 @@ namespace WizardLizard
                     if (range <= 100)
                     {
                         Attack();
-                        attackSound.Play();
+                        //attackSound.Play();
                     }
                     else
                     {
@@ -146,8 +146,8 @@ namespace WizardLizard
 
         public void LoadContent(ContentManager content)
         {
-            chaseSound = content.Load<SoundEffect>("OgreChasePlayer");
-            attackSound = content.Load<SoundEffect>("OgreAttack");
+            //chaseSound = content.Load<SoundEffect>("OgreChasePlayer");
+            //attackSound = content.Load<SoundEffect>("OgreAttack");
             CreateAnimations();
         }
 

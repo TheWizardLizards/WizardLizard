@@ -246,6 +246,7 @@ namespace WizardLizard
                 case GameState.Playing:
                     if (!paused)
                     {
+                        profileExisting = false;
                         if (canInitialize)
                         {
                             Choselvl();
@@ -275,11 +276,41 @@ namespace WizardLizard
                         using (Db.Connection con = new Db.Connection())
                         {
                             con.OpenCon();
-                            player = con.GetAllRows<Db.character>().First();
-                            player.Level = level;                       
+                            player = con.GetAllRows<Db.character>().Last();
+                            player.Level = level;
                             con.Dispose();
                         }
-                      
+                        using (Db.Connection con = new Db.Connection())
+                        {
+                            if (playerPos.X > 1550 && playerPos.Y > 750 && level == 3)
+                            {
+                                con.OpenCon();
+
+                                player.Level = 4;
+                                con.UpdateRow<Db.character>(player);
+                                objectsToRemove.AddRange(gameObjects);
+                                level = 4;
+                                canInitialize = true;
+                                con.Dispose();
+                            }
+
+                        }
+                        using (Db.Connection con = new Db.Connection())
+                        {
+                            if (playerPos.X > 1550 && playerPos.Y > 750 && level == 2)
+                            {
+                                con.OpenCon();
+
+                                player.Level = 3;
+                                con.UpdateRow<Db.character>(player);
+                                objectsToRemove.AddRange(gameObjects);
+                                spawnList.Clear();
+                                level = 3;
+                                canInitialize = true;
+                                con.Dispose();
+                            }
+
+                        }
                         using (Db.Connection con = new Db.Connection())
                         {
                             if (playerPos.X > 1550 && playerPos.Y > 750 && level == 1)
@@ -289,16 +320,13 @@ namespace WizardLizard
                                 player.Level = 2;
                                 con.UpdateRow<Db.character>(player);
                                 objectsToRemove.AddRange(gameObjects);
+                                spawnList.Clear();
                                 level = 2;
                                 canInitialize = true;
                                 con.Dispose();
                             }
                          
                         }
-                       
-
-                        
-
                     }
                     if (paused)
                     {
