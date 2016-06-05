@@ -30,7 +30,7 @@ namespace WizardLizard
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
-            health = 1;
+            health = 3;
             Direction = "Left";
             shooting = false;
         }

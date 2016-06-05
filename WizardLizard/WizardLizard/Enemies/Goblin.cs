@@ -26,7 +26,7 @@ namespace WizardLizard
             this.gameObject = gameObject;
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = GameObject.Transform;
-            health = 1;
+            health = 5;
             direction = "Left";
         }
 
