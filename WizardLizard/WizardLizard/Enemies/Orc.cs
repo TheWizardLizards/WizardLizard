@@ -25,7 +25,7 @@ namespace WizardLizard
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = GameObject.Transform;
-            health = 1;
+            health = 8;
         }
 
         public void Update()

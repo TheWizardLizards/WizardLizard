@@ -37,6 +37,11 @@ namespace WizardLizard
         {
         }
 
+        public void BuildGameObject(Vector2 position, int width, int height, string creator)
+        {
+            throw new NotImplementedException();
+        }
+
         public GameObject GetResult()
         {
             return gameObject;

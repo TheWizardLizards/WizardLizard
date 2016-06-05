@@ -23,6 +23,7 @@ namespace WizardLizard
         private bool lightning = true;
         private bool shield = true;
         private bool attack = true;
+        private bool attacking = false;
         private Director director;
         private bool canInteract = false;
         private bool haveInteracted = true;
@@ -97,11 +98,32 @@ namespace WizardLizard
 
             PlayerController(keyState, translation, mouseState);
             GameWorld.PlayerPos = new Vector2(transform.Position.X + centering.X, transform.Position.Y + centering.Y);
+            if(attacking == true)
+            {
+                if(animator.CurrentIndex >= 14)
+                {
+                    director = new Director(new AttackFieldBuilder());
+                    if(direction == "Right")
+                    {
+                        GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X+37, transform.Position.Y+8), 38, 72, "Player"));
+                        attacking = false;
+                    }
+                    if(direction == "Left")
+                    {
+                        GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X-22, transform.Position.Y+8), 38, 72, "Player"));
+                        attacking = false;
+                    }
+                }
+            }
         }
 
         public void OnAnimationDone(string animationName)
         {
             animator.PlayAnimation("Idle"+direction);
+            if(animationName == "Attack" + direction)
+            {
+                attacking = false;
+            }
         }
         private void MeleeAttack(MouseState mouseState)
         {
@@ -109,6 +131,7 @@ namespace WizardLizard
             {
                 attack = false;
                 animator.PlayAnimation("Attack" + direction);
+                attacking = true;
             }
             if(mouseState.LeftButton == ButtonState.Released)
             {
@@ -328,11 +351,11 @@ namespace WizardLizard
             }
         }
 
-        public void PlayerHit()
+        public void PlayerHit(int dmg)
         {
             if (playerCanBeHit == true)
             {
-                Health = Health - 1;
+                Health = Health - dmg;
                 playerCanBeHit = false;
             }
         }

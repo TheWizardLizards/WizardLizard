@@ -50,7 +50,7 @@ namespace WizardLizard
             {
                 Player player = (Player)other.GameObject.GetComponent("Player");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                player.PlayerHit();
+                player.PlayerHit(1);
             }
             if (other.GameObject.GetComponent("PlayerShield") != null)
             {
