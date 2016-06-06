@@ -11,13 +11,14 @@ namespace WizardLizard
         private Transform transform;
         private Animator animator;
         private Vector2 goblinPos;
-        private float speed = 200;
+        private float speed = 150;
         private Vector2 velocity;
         private bool goblinCanBeHit;
         private int health;
         private string direction;
         private bool dying = false;
         private bool attacking = false;
+        private bool attack = false;
         private int chanceToSpawnHealth = 50; //i procent
         private GameObject gameObject;
 
@@ -47,7 +48,7 @@ namespace WizardLizard
                 }
                 var range = Math.Sqrt(((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X)) + ((goblinPos.Y - GameWorld.PlayerPos.Y)) * (goblinPos.Y - GameWorld.PlayerPos.Y));
                 var xdistance = Math.Sqrt((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X));
-                if(attacking == false)
+                if(attack == false)
                 {
                     if (range >= 400)
                         Idle();
@@ -57,6 +58,23 @@ namespace WizardLizard
 
                     if (range < 10)
                         Attack();
+                }
+                if (attacking == true && animator.AnimationName == "Attack" + direction)
+                {
+                    if (4 <= animator.CurrentIndex && animator.CurrentIndex <= 6)
+                    {
+                        director = new Director(new AttackFieldBuilder());
+                        if (direction == "Right")
+                        {
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X+44, transform.Position.Y+48), 27, 16, "Goblin"));
+                            attacking = false;
+                        }
+                        else if (direction == "Left")
+                        {
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y+48), 27, 16, "Goblin"));
+                            attacking = false;
+                        }
+                    }
                 }
                 if (health <= 0)
                 {
@@ -93,6 +111,7 @@ namespace WizardLizard
         {
             animator.PlayAnimation("Attack" + direction);
             attacking = true;
+            attack = true;
         }
 
 
@@ -157,6 +176,7 @@ namespace WizardLizard
             if (animationName == "AttackLeft" || animationName == "AttackRight")
             {
                 attacking = false;
+                attack = false;
             }
 
             if(animationName == "DieLeft" || animationName == "DieRight")

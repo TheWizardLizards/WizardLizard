@@ -94,7 +94,7 @@ namespace WizardLizard
                         }
                         else if (Attacker == "Goblin")
                         {
-                            player.PlayerHit(2);
+                            player.PlayerHit(1);
                             GameWorld.ObjectsToRemove.Add(this.GameObject);
                             hit = true;
                         }

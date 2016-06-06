@@ -167,7 +167,7 @@ namespace WizardLizard
                 velocity.Y += 0.05f * i;
                 translation += velocity;
             }
-            if (distance.Length() > 100)
+            if (distance.Length() > 50)
             {
                 fly = true;
                 distance.Normalize();

@@ -162,7 +162,6 @@ namespace WizardLizard
                 }
             }
             if (other.GameObject.GetComponent("Player") != null
-                || other.GameObject.GetComponent("Companion") != null
                 || other.GameObject.GetComponent("Goblin") != null
                 || other.GameObject.GetComponent("Orc") != null)
             {

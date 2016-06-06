@@ -63,7 +63,7 @@ namespace WizardLizard
                         director = new Director(new AttackFieldBuilder());
                         if (direction == "Right")
                         {
-                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y), 38, 72, "Orc"));
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X+180, transform.Position.Y+98), 90, 122, "Orc"));
                             attacking = false;
                         }
                         else if (direction == "Left")
@@ -157,8 +157,8 @@ namespace WizardLizard
         {
             animator.CreateAnimation("IdleRight", new Animation(8,0,0,145,150,10,Vector2.Zero));
             animator.CreateAnimation("IdleLeft", new Animation(8, 0, 1160, 145, 150, 10, Vector2.Zero));
-            animator.CreateAnimation("AttackLeft", new Animation(22, 150, 0, 271, 220, 22, Vector2.Zero));
-            animator.CreateAnimation("AttackRight", new Animation(22, 370, 0, 271, 220, 22, Vector2.Zero));
+            animator.CreateAnimation("AttackLeft", new Animation(22, 150, 0, 271, 220, 22, new Vector2(50,0)));
+            animator.CreateAnimation("AttackRight", new Animation(22, 370, 0, 271, 220, 22, new Vector2(-100,0)));
             animator.CreateAnimation("WalkLeft", new Animation(11, 590, 0, 181, 160, 11, Vector2.Zero));
             animator.CreateAnimation("WalkRight", new Animation(11, 590, 1991, 181, 160, 11, Vector2.Zero));
             animator.CreateAnimation("DieLeft", new Animation(9, 750, 0, 275, 200, 9, Vector2.Zero));
