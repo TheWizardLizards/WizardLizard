@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
-    class LightningStrike : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class LightningStrike : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private SoundEffect lightningSound;
         private Transform transform;

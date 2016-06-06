@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
-    class Fireball : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Fireball : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private SoundEffect fireballSound;
         private Transform transform;

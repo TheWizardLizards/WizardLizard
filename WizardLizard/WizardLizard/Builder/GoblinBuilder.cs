@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class GoblinBuilder: IBuilder
+    public class GoblinBuilder : IBuilder
     {
         private GameObject gameObject;
         public void BuildGameObject(Vector2 position)

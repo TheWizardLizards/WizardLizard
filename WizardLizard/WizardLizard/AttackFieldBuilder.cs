@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WizardLizard
 {
-    class AttackFieldBuilder : IBuilder
+    public class AttackFieldBuilder : IBuilder
     {
         private GameObject gameObject;
         public void BuildGameObject(Vector2 position)

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    class Arrow : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Arrow : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private float speed = 1216;
         Transform transform;

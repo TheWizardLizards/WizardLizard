@@ -5,7 +5,7 @@ using System;
 
 namespace WizardLizard
 {
-    class Archer : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Archer : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
 
         private SoundEffect shootSound;

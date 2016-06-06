@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WizardLizard
 {
-    class HealthGlobe : Component, IUpdateable, ICollisionEnter
+    public class HealthGlobe : Component, IUpdateable, ICollisionEnter
     {
         private Transform transform;
         private Animator animator;

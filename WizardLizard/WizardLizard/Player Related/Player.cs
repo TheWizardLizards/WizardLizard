@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
-    class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private SoundEffect jumpSound, attackSound;
         private Vector2 velocity;

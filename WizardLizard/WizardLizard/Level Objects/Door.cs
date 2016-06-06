@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    class Door : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Door : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Animator animator;
         private Transform transform;

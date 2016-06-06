@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WizardLizard
 {
-    class Director
+    public class Director
     {
         private IBuilder builder;
         public Director(IBuilder builder)

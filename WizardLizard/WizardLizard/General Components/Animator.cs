@@ -7,7 +7,7 @@ using System.Text;
 
 namespace WizardLizard
 {
-    class Animator : Component, IUpdateable
+    public class Animator : Component, IUpdateable
     {
         private SpriteRenderer spriteRenderer;
         private int currentIndex = 0;

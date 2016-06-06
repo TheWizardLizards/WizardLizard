@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    class AttackField : Component, ILoadable, IUpdateable, ICollisionEnter, ICollisionExit
+    public class AttackField : Component, ILoadable, IUpdateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
         private string attacker;

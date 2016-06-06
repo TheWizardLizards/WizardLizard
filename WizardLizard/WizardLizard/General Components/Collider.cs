@@ -8,7 +8,7 @@ using System.Text;
 
 namespace WizardLizard
 {
-    public class Collider : Component, IDrawable, ILoadable, IUpdateable
+    public public class Collider : Component, IDrawable, ILoadable, IUpdateable
     {
         private SpriteRenderer spriterenderer;
         private Texture2D texture2D;

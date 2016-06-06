@@ -8,7 +8,7 @@ using System.Data.SQLite;
 
 namespace WizardLizard.Db
 {
-    class CreateDb
+    public class CreateDb
     {
         
 

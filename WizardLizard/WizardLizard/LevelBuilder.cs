@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WizardLizard
 {
-    class LevelBuilder
+    public class LevelBuilder
     {
         Director director;
         private List<GameObject> gameObjects;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WizardLizard
 {
-    public abstract class Component
+    public public abstract class Component
     {
         private GameObject gameObject;
         public Component(GameObject gameObject)

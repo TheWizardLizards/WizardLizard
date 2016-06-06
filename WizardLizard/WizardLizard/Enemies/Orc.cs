@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
-    class Orc : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Orc : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private SoundEffect chaseSound, attackSound;
         Director director;

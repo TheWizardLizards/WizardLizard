@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    class SolidPlatform : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class SolidPlatform : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
         private Animator animator;

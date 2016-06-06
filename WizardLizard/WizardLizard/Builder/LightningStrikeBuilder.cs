@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class LightningStrikeBuilder : IBuilder
+    public class LightningStrikeBuilder : IBuilder
     {
         private GameObject gameObject;
         public void BuildGameObject(Vector2 position)

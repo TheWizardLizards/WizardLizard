@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class CompanionBuilder : IBuilder
+    public class CompanionBuilder : IBuilder
     {
         private GameObject gameObject;
         public void BuildGameObject(Vector2 position)

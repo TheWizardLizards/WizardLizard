@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WizardLizard
 {
-    class Lever : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Lever : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private SoundEffect leverSound, magicDoorSound;
         private Transform transform;

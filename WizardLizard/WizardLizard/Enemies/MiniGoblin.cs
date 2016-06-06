@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WizardLizard
 {
-    class MiniGoblin : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class MiniGoblin : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
         private Animator animator;

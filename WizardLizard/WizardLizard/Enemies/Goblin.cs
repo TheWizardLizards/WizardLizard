@@ -4,7 +4,7 @@ using System;
 
 namespace WizardLizard
 {
-    class Goblin : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Goblin : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Director director;
         private Vector2 centering = new Vector2(0, 0);

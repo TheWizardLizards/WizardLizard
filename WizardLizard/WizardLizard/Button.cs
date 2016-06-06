@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace WizardLizard
 {
-    class Button
+    public class Button
     {
         Texture2D texture;
         Vector2 position;

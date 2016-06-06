@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    class Animation
+    public class Animation
     {
         private float fps;
         private Vector2 offset;

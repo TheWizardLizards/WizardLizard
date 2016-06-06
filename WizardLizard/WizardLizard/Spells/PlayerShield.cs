@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class PlayerShield : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class PlayerShield : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Animator animator;
         private Transform transform;

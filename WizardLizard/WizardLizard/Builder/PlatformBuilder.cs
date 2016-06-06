@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class PlatformBuilder : IBuilder
+    public class PlatformBuilder : IBuilder
     {
         private GameObject gameObject;
 

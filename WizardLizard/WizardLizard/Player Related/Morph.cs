@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WizardLizard
 {
-    class Morph : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Morph : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
         private Animator animator;

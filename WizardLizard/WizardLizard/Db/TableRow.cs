@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WizardLizard.Db
 {
-     class TableRow
+    public class TableRow
     {
         public int ID { get; set; }
     }

@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WizardLizard
 {
-    class Aimer : Component, IUpdateable, ILoadable
+    public class Aimer : Component, IUpdateable, ILoadable
     {
         private Transform transform;
         private Animator animator;

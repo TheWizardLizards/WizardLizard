@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace WizardLizard.Db
 {
-    class Connection : IDisposable
+    public class Connection : IDisposable
     {
         SQLiteConnection con = new SQLiteConnection("Data source = data.db");
 

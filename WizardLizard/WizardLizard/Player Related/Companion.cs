@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WizardLizard
 {
-    class Companion : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Companion : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
         private Animator animator;

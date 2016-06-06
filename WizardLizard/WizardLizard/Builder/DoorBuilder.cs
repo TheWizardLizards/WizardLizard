@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    class DoorBuilder : IBuilder
+    public class DoorBuilder : IBuilder
     {
         private GameObject gameObject;
 
