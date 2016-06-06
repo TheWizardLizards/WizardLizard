@@ -134,11 +134,12 @@ namespace WizardLizard
             RightLine = new Rectangle(CollisionBox.X + CollisionBox.Width, CollisionBox.Y, 1, CollisionBox.Height);
             LeftLine = new Rectangle(CollisionBox.X, CollisionBox.Y, 1, CollisionBox.Height);
 
+#if DEBUG
             spriteBatch.Draw(texture2D, TopLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(texture2D, BottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(texture2D, RightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(texture2D, LeftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-
+#endif
         }
 
         private void CheckCollision()

@@ -329,7 +329,7 @@ namespace WizardLizard
 
                 ShootLighting(keyState, mouseState);
 
-                CreateShield(keyState);
+                //CreateShield(keyState);
 
                 Interact(keyState);
 
@@ -345,7 +345,7 @@ namespace WizardLizard
                 velocity.Y = 10;
             }
 
-            MorphPlayer(keyState);
+            //MorphPlayer(keyState);
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
 

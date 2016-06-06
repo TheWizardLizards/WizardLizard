@@ -139,11 +139,11 @@ namespace WizardLizard
                     }
                     if (player.Level == 3)
                     {
-                        levelBuilder.LevelOne();
+                        levelBuilder.LevelThree();
                     }
                     if (player.Level == 4)
                     {
-                        levelBuilder.LevelTwo();
+                        levelBuilder.LevelOne();
                     }
                     IsMouseVisible = false;
                 }

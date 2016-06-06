@@ -270,6 +270,9 @@
     <Content Include="Content\SaveOn.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\TutorialScreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
     <Content Include="Content\LightningStrike.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
