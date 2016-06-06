@@ -1,11 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using System;
+using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
     public class Goblin : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
+        private SoundEffect chaseSound, dieSound, attackSound, hitSound;
         private Director director;
         private Vector2 centering = new Vector2(0, 0);
         private Transform transform;
@@ -16,6 +18,7 @@ namespace WizardLizard
         private bool goblinCanBeHit;
         private int health;
         private string direction;
+        private bool playSoundOne = true;
         private bool dying = false;
         private bool attacking = false;
         private bool attack = false;
@@ -31,14 +34,31 @@ namespace WizardLizard
             direction = "Left";
         }
 
+        public void LoadContent(ContentManager content)
+        {
+            chaseSound = content.Load<SoundEffect>("GoblinChaseSound");
+            dieSound = content.Load<SoundEffect>("GoblinDieSound3");
+            attackSound = content.Load<SoundEffect>("SwordSlice");
+            hitSound = content.Load<SoundEffect>("GoblinHitSound");
+            animator.CreateAnimation("RunLeft", new Animation(12, 0, 0, 58, 90, 16, Vector2.Zero));
+            animator.CreateAnimation("RunRight", new Animation(12, 90, 0, 58, 90, 16, Vector2.Zero));
+            animator.CreateAnimation("IdleLeft", new Animation(5, 180, 0, 53, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("IdleRight", new Animation(5, 270, 0, 53, 90, 8, Vector2.Zero));
+            animator.CreateAnimation("DieLeft", new Animation(7, 360, 0, 95, 90, 12, Vector2.Zero));
+            animator.CreateAnimation("DieRight", new Animation(7, 450, 0, 95, 90, 12, Vector2.Zero));
+            animator.CreateAnimation("AttackLeft", new Animation(9, 540, 0, 70, 90, 16, Vector2.Zero));
+            animator.CreateAnimation("AttackRight", new Animation(9, 630, 0, 70, 90, 16, Vector2.Zero));
+            animator.PlayAnimation("Idle" + direction);
+        }
+
         public void Update()
         {
-            
-            if(dying == false)
+
+            if (dying == false)
             {
                 goblinCanBeHit = true;
-                goblinPos = new Vector2(transform.Position.X+centering.X, transform.Position.Y+centering.Y);
-                if(goblinPos.X > GameWorld.PlayerPos.X)
+                goblinPos = new Vector2(transform.Position.X + centering.X, transform.Position.Y + centering.Y);
+                if (goblinPos.X > GameWorld.PlayerPos.X)
                 {
                     direction = "Left";
                 }
@@ -48,16 +68,30 @@ namespace WizardLizard
                 }
                 var range = Math.Sqrt(((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X)) + ((goblinPos.Y - GameWorld.PlayerPos.Y)) * (goblinPos.Y - GameWorld.PlayerPos.Y));
                 var xdistance = Math.Sqrt((goblinPos.X - GameWorld.PlayerPos.X) * (goblinPos.X - GameWorld.PlayerPos.X));
-                if(attack == false)
+                if (attack == false)
                 {
                     if (range >= 400)
                         Idle();
 
                     if (range < 400)
+                    {
                         Chase(xdistance);
+                        if (range < 400 && playSoundOne)
+                        {
+                            chaseSound.Play();
+                            playSoundOne = false;
+                        }
+                    }
+                    if (range > 400)
+                    {
+                        playSoundOne = true;
+                    }
 
                     if (range < 10)
+                    {
                         Attack();
+                        attackSound.Play();
+                    }
                 }
                 if (attacking == true && animator.AnimationName == "Attack" + direction)
                 {
@@ -66,18 +100,19 @@ namespace WizardLizard
                         director = new Director(new AttackFieldBuilder());
                         if (direction == "Right")
                         {
-                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X+44, transform.Position.Y+48), 27, 16, "Goblin"));
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 44, transform.Position.Y + 48), 27, 16, "Goblin"));
                             attacking = false;
                         }
                         else if (direction == "Left")
                         {
-                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y+48), 27, 16, "Goblin"));
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y + 48), 27, 16, "Goblin"));
                             attacking = false;
                         }
                     }
                 }
                 if (health <= 0)
                 {
+                    dieSound.Play();
                     animator.PlayAnimation("Die" + direction);
                     dying = true;
                     Random rnd = new Random();
@@ -93,7 +128,7 @@ namespace WizardLizard
         //Idle behaviour
         public void Idle()
         {
-            animator.PlayAnimation("Idle"+direction);
+            animator.PlayAnimation("Idle" + direction);
             Vector2 translation = new Vector2(0, 0);
             float i = 5;
             velocity.Y += 0.05f * i;
@@ -124,7 +159,7 @@ namespace WizardLizard
                 if (GameWorld.PlayerPos.X > goblinPos.X)
                 {
                     translation.X++;
-                    animator.PlayAnimation("Run"+direction);
+                    animator.PlayAnimation("Run" + direction);
                 }
                 if (GameWorld.PlayerPos.X < goblinPos.X)
                 {
@@ -142,9 +177,9 @@ namespace WizardLizard
             translation += velocity;
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
-            if(translation.X == 0)
+            if (translation.X == 0)
             {
-                animator.PlayAnimation("Idle"+direction);
+                animator.PlayAnimation("Idle" + direction);
             }
 
 
@@ -155,22 +190,15 @@ namespace WizardLizard
             if (goblinCanBeHit == true)
             {
                 health = health - dmg;
+                if (health >= 1)
+                {
+                    hitSound.Play();
+                }
                 goblinCanBeHit = false;
             }
         }
 
-        public void LoadContent(ContentManager content)
-        {
-            animator.CreateAnimation("RunLeft",new Animation(12,0,0,58,90,16,Vector2.Zero));
-            animator.CreateAnimation("RunRight", new Animation(12,90,0,58,90,16,Vector2.Zero));
-            animator.CreateAnimation("IdleLeft", new Animation(5, 180, 0, 53, 90, 8, Vector2.Zero));
-            animator.CreateAnimation("IdleRight", new Animation(5, 270, 0, 53, 90, 8, Vector2.Zero));
-            animator.CreateAnimation("DieLeft", new Animation(7, 360, 0, 95, 90, 12, Vector2.Zero));
-            animator.CreateAnimation("DieRight", new Animation(7, 450, 0, 95, 90, 12, Vector2.Zero));
-            animator.CreateAnimation("AttackLeft", new Animation(9, 540, 0, 70, 90, 16, Vector2.Zero));
-            animator.CreateAnimation("AttackRight", new Animation(9, 630, 0, 70, 90, 16, Vector2.Zero));
-            animator.PlayAnimation("Idle"+direction);
-        }
+        
         public void OnAnimationDone(string animationName)
         {
             if (animationName == "AttackLeft" || animationName == "AttackRight")
@@ -179,7 +207,7 @@ namespace WizardLizard
                 attack = false;
             }
 
-            if(animationName == "DieLeft" || animationName == "DieRight")
+            if (animationName == "DieLeft" || animationName == "DieRight")
             {
                 GameWorld.ObjectsToRemove.Add(GameObject);
             }

@@ -8,7 +8,7 @@ namespace WizardLizard
     public class Archer : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
 
-        private SoundEffect shootSound;
+        private SoundEffect shootSound, dieSound, hitSound;
         private Transform transform;
         private Animator animator;
         private Director director;
@@ -38,6 +38,8 @@ namespace WizardLizard
         public void LoadContent(ContentManager content)
         {
             shootSound = content.Load<SoundEffect>("ArcherShoot");
+            dieSound = content.Load<SoundEffect>("GoblinDieSound3");
+            hitSound = content.Load<SoundEffect>("GoblinHitSound");
             animator.CreateAnimation("DieLeft", new Animation(7, 0, 0, 92, 90, 12, Vector2.Zero));
             animator.CreateAnimation("DieRight", new Animation(7, 90, 0, 92, 90, 12, Vector2.Zero));
             animator.CreateAnimation("AttackLeft", new Animation(9, 180, 0, 77, 90, 8, new Vector2(3,0)));
@@ -203,6 +205,10 @@ namespace WizardLizard
             if (archerCanBeHit == true)
             {
                 health = health - dmg;
+                if (health >= 1)
+                {
+                    hitSound.Play();
+                }
                 archerCanBeHit = false;
             }
         }
@@ -248,6 +254,7 @@ namespace WizardLizard
                 }
                 if (health <= 0)
                 {
+                    dieSound.Play();
                     animator.PlayAnimation("Die" + Direction);
                     dying = true;
                     Random rnd = new Random();

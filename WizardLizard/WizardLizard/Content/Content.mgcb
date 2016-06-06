@@ -67,3 +67,63 @@
 /processorParam:Quality=Best
 /build:LeverUsed.wav
 
+#begin GoblinChaseSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GoblinChaseSound.wav
+
+#begin GoblinDieSound3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GoblinDieSound3.wav
+
+#begin MainMenuSong.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MainMenuSong.wav
+
+#begin OgreDieSound2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:OgreDieSound2.wav
+
+#begin PlayerHit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:PlayerHit.wav
+
+#begin SwordSlice.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SwordSlice.wav
+
+#begin PlayerDies.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:PlayerDies.wav
+
+#begin OgreHitSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:OgreHitSound.wav
+
+#begin GoblinHitSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GoblinHitSound.wav
+
+#begin HealthUpSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:HealthUpSound.wav
+
