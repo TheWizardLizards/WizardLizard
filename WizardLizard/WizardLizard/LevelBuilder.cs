@@ -147,21 +147,6 @@ namespace WizardLizard
             GameWorld.ObjectToAdd.Add(background);
             director = new Director(new AimerBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(2, 50)));
-            //foreach (GameObject go in GameWorld.GameObjects)
-            //{
-            //    if (go.GetComponent("Player") != null)
-            //    {
-            //        go.Transform.Position = new Vector2(2, 50);
-            //    }
-            //    if (go.GetComponent("Companion") != null)
-            //    {
-            //        go.Transform.Position = new Vector2(2, 50);
-            //    }
-            //    if (go.GetComponent("PlayerHealth") != null)
-            //    {
-            //        go.Transform.Position = new Vector2(10, 10);
-            //    }
-            //}
             director = new Director(new PlayerBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(2, 50)));
             director = new Director(new CompanionBuilder());
@@ -203,7 +188,7 @@ namespace WizardLizard
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(50, 800), 200, 50));
             //Crates
             director = new Director(new MoveableBoxBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1300, 750)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1046, 750)));
             //Magiske døre
             director = new Director(new DoorBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(320, 200), 1));
@@ -224,7 +209,7 @@ namespace WizardLizard
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(970, 805)));
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 455)));
             director = new Director(new OrcBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1183, 481)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1300, 481)));
         }
     }
 }
