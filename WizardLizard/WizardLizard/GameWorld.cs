@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,6 +31,7 @@ namespace WizardLizard
         Button btnLoad;
         Button btnCreateProfile;
         Button btnLoadProfile;
+        Song mainMenuSong;
         LevelBuilder levelBuilder = new LevelBuilder();
         private int level = 1;
         GraphicsDeviceManager graphics;
@@ -158,10 +161,13 @@ namespace WizardLizard
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
+            mainMenuSong = Content.Load<Song>("MainMenuSong");
             spriteBatch = new SpriteBatch(GraphicsDevice);
             switch (currentGameState)
             {
                 case GameState.MainMenu:
+                    MediaPlayer.Play(mainMenuSong);
+                    MediaPlayer.IsRepeating = true;
                     IsMouseVisible = true;
                     btnCreateProfile = new Button(Content.Load<Texture2D>("CreateProfileOff"), new Vector2(100, 300), "CreateProfileOff", "CreateProfileOn", 300, 100);
                     btnStartGame = new Button(Content.Load<Texture2D>("ContinueOff"), new Vector2(100, 500), "ContinueOff", "ContinueOn", 200, 100);
@@ -246,6 +252,7 @@ namespace WizardLizard
                 case GameState.Playing:
                     if (!paused)
                     {
+                        MediaPlayer.Stop();
                         profileExisting = false;
                         if (canInitialize)
                         {
@@ -345,6 +352,7 @@ namespace WizardLizard
                         {
                             paused = false;
                             canInitialize = true;
+                            MediaPlayer.Play(mainMenuSong);
                             currentGameState = GameState.MainMenu;
                         }
                     }
