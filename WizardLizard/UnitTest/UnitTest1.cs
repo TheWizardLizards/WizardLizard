@@ -8,8 +8,10 @@ namespace TestWizardLizard
     public class UnitTest1
     {
         [TestMethod]
-        public void TestHealthGlobe()
+        public void TestPlayerHealth()
         {
+            int result = WizardLizard.Player.Health;
+            Assert.AreEqual(6, result);
         }
     }
 }
