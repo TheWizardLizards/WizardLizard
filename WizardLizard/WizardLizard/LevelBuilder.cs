@@ -26,11 +26,11 @@ namespace WizardLizard
             director = new Director(new AimerBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(0, 0)));
             director = new Director(new PlayerBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 700)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 675)));
             director = new Director(new PlayerHealthBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new CompanionBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 700)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 675)));
 
             director = new Director(new PlatformBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(0, 850), 1600, 100));
@@ -55,7 +55,7 @@ namespace WizardLizard
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(26, 255), 193, 20));
             
             director = new Director(new MoveableBoxBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(435, 720)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(435, 675)));
 
             director = new Director(new DoorBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1375, 705), 1, "MagicDoor30x150"));
@@ -64,11 +64,11 @@ namespace WizardLizard
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(780, 800), 1));
 
             director = new Director(new ArcherBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(490, 140)));
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1450, 140)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(490, 120)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1450, 120)));
             
             director = new Director(new GoblinBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1100, 500)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1100, 475)));
         }
         public void LevelTwo()
         {
@@ -79,7 +79,7 @@ namespace WizardLizard
             director = new Director(new AimerBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(0, 0)));
             director = new Director(new PlayerBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 700)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 675)));
             director = new Director(new PlayerHealthBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(10, 10)));
             director = new Director(new LeverBuilder());
@@ -88,21 +88,21 @@ namespace WizardLizard
             director = new Director(new DoorBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(970, 655), 1));
             director = new Director(new CompanionBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 700)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 675)));
             director = new Director(new ArcherBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(315, 395)));
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1360, 300)));
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1150, 120)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(315, 375)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1360, 275)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1150, 100)));
             director = new Director(new GoblinBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1183, 481)));
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(680, 730)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1183, 460)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(680, 705)));
 
             director = new Director(new OrcBuilder());
             // GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1183, 481)));
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1300, 700)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1300, 675)));
 
             director = new Director(new MoveableBoxBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(800, 743)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(800, 720)));
             director = new Director(new PlatformBuilder());
             //højre side bund
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(0, 850), 1600, 100));
@@ -148,9 +148,9 @@ namespace WizardLizard
             director = new Director(new AimerBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(2, 50)));
             director = new Director(new PlayerBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(2, 50)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(2, 20)));
             director = new Director(new CompanionBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(2, 50)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(2, 20)));
             //Player health
             director = new Director(new PlayerHealthBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(10, 10)));
@@ -188,7 +188,7 @@ namespace WizardLizard
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(50, 800), 200, 50));
             //Crates
             director = new Director(new MoveableBoxBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1046, 750)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1046, 730)));
             //Magiske døre
             director = new Director(new DoorBuilder());
             GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(320, 200), 1));
@@ -202,14 +202,14 @@ namespace WizardLizard
             //Enemies
             //Achers
             director = new Director(new ArcherBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1350, 155)));
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(950, 505)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1350, 125)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(950, 480)));
             //Goblins
             director = new Director(new GoblinBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(970, 805)));
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 455)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(970, 780)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(100, 425)));
             director = new Director(new OrcBuilder());
-            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1300, 481)));
+            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(1300, 451)));
         }
     }
 }
