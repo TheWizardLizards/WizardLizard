@@ -28,7 +28,7 @@ namespace WizardLizard.Db
                 var str= @"
                 CREATE TABLE spell(ID primary key, primaryspell integer not null, secondaryspell integer not null, shield integer not null);
                 CREATE TABLE pet(ID primary key, health integer not null);
-                CREATE TABLE character (ID integer primary key,spellID integer not null, level integer not null, petID integer not null,  name string not null, health integer not null, FOREIGN key(spellID) REFERENCES spell(ID), FOREIGN key(PetID) REFERENCES pet(ID));";
+                CREATE TABLE character (ID integer primary key,spellID integer, level integer not null, petID integer,  name string not null, health integer not null, FOREIGN key(spellID) REFERENCES spell(ID), FOREIGN key(PetID) REFERENCES pet(ID));";
                     new SQLiteCommand(str, con).ExecuteNonQuery();
 
                }

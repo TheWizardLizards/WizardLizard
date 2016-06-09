@@ -23,6 +23,7 @@ namespace WizardLizard
 
         public void OnAnimationDone(string animationName)
         {
+
         }
 
         public void Update()
