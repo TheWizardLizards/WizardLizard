@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WizardLizard
 {
-    class LeverBuilder : IBuilder
+    public class LeverBuilder : IBuilder
     {
         private GameObject gameObject;
         public void BuildGameObject(Vector2 position)
@@ -39,6 +39,11 @@ namespace WizardLizard
         public void BuildGameObject(Vector2 position, int width, int height)
         {
 
+        }
+
+        public void BuildGameObject(Vector2 position, int width, int height, string creator)
+        {
+            throw new NotImplementedException();
         }
 
         public GameObject GetResult()

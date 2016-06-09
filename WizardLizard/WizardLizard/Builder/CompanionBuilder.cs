@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class CompanionBuilder : IBuilder
+    public class CompanionBuilder : IBuilder
     {
         private GameObject gameObject;
         public void BuildGameObject(Vector2 position)
@@ -39,6 +39,11 @@ namespace WizardLizard
         }
 
         public void BuildGameObject(Vector2 position, int width, int height)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BuildGameObject(Vector2 position, int width, int height, string creator)
         {
             throw new NotImplementedException();
         }

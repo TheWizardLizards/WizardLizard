@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class PlatformBuilder : IBuilder
+    public class PlatformBuilder : IBuilder
     {
         private GameObject gameObject;
 
@@ -43,6 +43,11 @@ namespace WizardLizard
             gameObject.AddComponent(new SolidPlatform(gameObject));
             gameObject.AddComponent(new Collider(gameObject, width, height));
             this.gameObject = gameObject;
+        }
+
+        public void BuildGameObject(Vector2 position, int width, int height, string creator)
+        {
+            throw new NotImplementedException();
         }
 
         public GameObject GetResult()

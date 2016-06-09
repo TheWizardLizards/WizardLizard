@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    class DoorBuilder : IBuilder
+    public class DoorBuilder : IBuilder
     {
         private GameObject gameObject;
 
@@ -45,6 +45,11 @@ namespace WizardLizard
         }
 
         public void BuildGameObject(Vector2 position, int width, int height)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BuildGameObject(Vector2 position, int width, int height, string creator)
         {
             throw new NotImplementedException();
         }

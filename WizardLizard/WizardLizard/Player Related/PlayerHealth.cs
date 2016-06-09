@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class PlayerHealth : Component, IUpdateable, ILoadable, IAnimateable
+    public class PlayerHealth : Component, IUpdateable, ILoadable, IAnimateable
     {
         private Animator animator;
         public PlayerHealth(GameObject gameObject) : base(gameObject)

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
-    class LightningStrike : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class LightningStrike : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
+        private SoundEffect lightningSound;
         private Transform transform;
         private int speed = 2000;
         private Animator animator;
@@ -21,6 +23,8 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
+            lightningSound = content.Load<SoundEffect>("LightningStrikeShoot");
+            lightningSound.Play();
         }
 
         public void OnAnimationDone(string animationName)
@@ -33,19 +37,19 @@ namespace WizardLizard
             {
                 Goblin goblin = (Goblin)other.GameObject.GetComponent("Goblin");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                goblin.TakeDamage(1);
+                goblin.TakeDamage(6);
             }
             if (other.GameObject.GetComponent("Orc") != null)
             {
                 Orc orc = (Orc)other.GameObject.GetComponent("Orc");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                orc.TakeDamage(1);
+                orc.TakeDamage(6);
             }
             if (other.GameObject.GetComponent("Archer") != null)
             {
                 Archer archer = (Archer)other.GameObject.GetComponent("Archer");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                archer.TakeDamage(1);
+                archer.TakeDamage(6);
             }
             if (other.GameObject.GetComponent("SolidPlatform") != null
                 || other.GameObject.GetComponent("Door") != null

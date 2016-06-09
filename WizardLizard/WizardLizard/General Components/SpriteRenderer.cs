@@ -8,7 +8,7 @@ using System.Text;
 
 namespace WizardLizard
 {
-    class SpriteRenderer : Component, IDrawable, ILoadable
+    public class SpriteRenderer : Component, IDrawable, ILoadable
     {
         private Color color;
         private Rectangle rectangle;

@@ -7,11 +7,13 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
-    class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
+        private SoundEffect jumpSound, attackSound, hitSound, dieSound;
         private Vector2 velocity;
         private Transform transform;
         private Animator animator;
@@ -19,10 +21,12 @@ namespace WizardLizard
         private int speed = 200;
         private static int health;
         private static bool hasJumped;
+        private bool dying = false;
         private bool fireball = true;
         private bool lightning = true;
         private bool shield = true;
         private bool attack = true;
+        private bool attacking = false;
         private Director director;
         private bool canInteract = false;
         private bool haveInteracted = true;
@@ -70,13 +74,19 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
+            jumpSound = content.Load<SoundEffect>("PlayerJump");
+            attackSound = content.Load<SoundEffect>("PlayerAttack");
+            hitSound = content.Load<SoundEffect>("PlayerHit");
+            dieSound = content.Load<SoundEffect>("PlayerDies");
             animator.CreateAnimation("IdleRight", new Animation(1, 0, 22, 64, 100, 1, Vector2.Zero));
             animator.CreateAnimation("IdleLeft", new Animation(1, 100, 24, 64, 100, 1, Vector2.Zero));
             animator.CreateAnimation("DieRight", new Animation(8, 0, 0, 109, 100, 16, new Vector2(22, 0)));
             animator.CreateAnimation("DieLeft", new Animation(8, 100, 0, 109, 100, 16, new Vector2(24, 0)));
-            animator.CreateAnimation("AttackLeft", new Animation(19, 200, 0, 110, 119, 57, new Vector2(22,0)));
-            animator.CreateAnimation("AttackRight", new Animation(19, 319, 0, 110, 119, 57, new Vector2(37,0)));
-            animator.CreateAnimation("CastFireRight", new Animation(13, 438, 0, 83, 112, 26, new Vector2(13,0)));
+            animator.CreateAnimation("DeadRight", new Animation(1, 0, 763, 109, 100, 1, new Vector2(22, 0)));
+            animator.CreateAnimation("DeadLeft", new Animation(1, 100, 763, 109, 100, 1, new Vector2(24, 0)));
+            animator.CreateAnimation("AttackLeft", new Animation(19, 200, 0, 110, 119, 57, new Vector2(22, 0)));
+            animator.CreateAnimation("AttackRight", new Animation(19, 319, 0, 110, 119, 57, new Vector2(37, 0)));
+            animator.CreateAnimation("CastFireRight", new Animation(13, 438, 0, 83, 112, 26, new Vector2(13, 0)));
             animator.CreateAnimation("CastFireLeft", new Animation(13, 550, 0, 83, 112, 26, new Vector2(13, 0)));
             animator.CreateAnimation("CastLightRight", new Animation(13, 662, 0, 83, 112, 26, new Vector2(13, 0)));
             animator.CreateAnimation("CastLightLeft", new Animation(13, 774, 0, 83, 112, 26, new Vector2(13, 0)));
@@ -86,31 +96,73 @@ namespace WizardLizard
         }
         public void Update()
         {
-            
-            playerCanBeHit = true;
+            if (dying == false)
+            {
+                playerCanBeHit = true;
 
-            KeyboardState keyState = Keyboard.GetState();
+                KeyboardState keyState = Keyboard.GetState();
 
-            Vector2 translation = Vector2.Zero;
+                Vector2 translation = Vector2.Zero;
 
-            MouseState mouseState = Mouse.GetState();
+                MouseState mouseState = Mouse.GetState();
 
-            PlayerController(keyState, translation, mouseState);
-            GameWorld.PlayerPos = new Vector2(transform.Position.X + centering.X, transform.Position.Y + centering.Y);
+                PlayerController(keyState, translation, mouseState);
+                GameWorld.PlayerPos = new Vector2(transform.Position.X + centering.X, transform.Position.Y + centering.Y);
+                if (attacking == true)
+                {
+                    if (animator.CurrentIndex >= 14)
+                    {
+                        director = new Director(new AttackFieldBuilder());
+                        if (direction == "Right")
+                        {
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 37, transform.Position.Y + 8), 38, 72, "Player"));
+                            attacking = false;
+                        }
+                        if (direction == "Left")
+                        {
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X - 22, transform.Position.Y + 8), 38, 72, "Player"));
+                            attacking = false;
+                        }
+                    }
+                }
+                if (Health <= 0)
+                {
+                    dieSound.Play();
+                    animator.PlayAnimation("Die" + direction);
+                    dying = true;
+                }
+            }
         }
 
         public void OnAnimationDone(string animationName)
         {
-            animator.PlayAnimation("Idle"+direction);
+            if (animationName == "Die" + direction)
+            {
+                animator.PlayAnimation("Dead" + direction);
+            }
+            else
+            {
+                if (dying == false)
+                {
+                    animator.PlayAnimation("Idle" + direction);
+                    if (animationName == "Attack" + direction)
+                    {
+                        attacking = false;
+                    }
+                }
+            }
+
         }
         private void MeleeAttack(MouseState mouseState)
         {
             if (mouseState.LeftButton == ButtonState.Pressed && attack == true && shooting == false)
             {
+                attackSound.Play();
                 attack = false;
                 animator.PlayAnimation("Attack" + direction);
+                attacking = true;
             }
-            if(mouseState.LeftButton == ButtonState.Released)
+            if (mouseState.LeftButton == ButtonState.Released)
             {
                 attack = true;
             }
@@ -120,7 +172,7 @@ namespace WizardLizard
             //press E to interact
             if (keyState.IsKeyDown(Keys.E) && canInteract == true && haveInteracted == true)
             {
-                if(lastknownLever != null)
+                if (lastknownLever != null)
                 {
                     lastknownLever.Interaction(this.GameObject);
                 }
@@ -184,7 +236,7 @@ namespace WizardLizard
                     lightning = true;
                 }
             }
-            if(animator.CurrentIndex >= 12 && shooting == true && animator.AnimationName == "CastLight"+direction)
+            if (animator.CurrentIndex >= 12 && shooting == true && animator.AnimationName == "CastLight" + direction)
             {
                 director = new Director(new LightningStrikeBuilder());
                 GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(mouseState.X - 51, -956)));
@@ -215,7 +267,7 @@ namespace WizardLizard
                     fireball = true;
                 }
             }
-            if(animator.CurrentIndex >= 12 && shooting == true && animator.AnimationName == "CastFire" + direction)
+            if (animator.CurrentIndex >= 12 && shooting == true && animator.AnimationName == "CastFire" + direction)
             {
                 director = new Director(new FireballBuilder());
                 //Updates the fireballs spawn position
@@ -242,6 +294,7 @@ namespace WizardLizard
         {
             if (keyState.IsKeyDown(Keys.W) && hasJumped == false)
             {
+                jumpSound.Play();
                 translation.Y -= 5f;
                 velocity.Y = -5f;
                 hasJumped = true;
@@ -251,7 +304,7 @@ namespace WizardLizard
         {
             if (Companion.CompanionControle == false)
             {
-                if(animator.AnimationName != "CastFire" + direction && animator.AnimationName != "CastLight" + direction && animator.AnimationName != "Attack"+direction)
+                if (animator.AnimationName != "CastFire" + direction && animator.AnimationName != "CastLight" + direction && animator.AnimationName != "Attack" + direction)
                 {
                     if (keyState.IsKeyDown(Keys.D))
                     {
@@ -279,7 +332,7 @@ namespace WizardLizard
 
                 ShootLighting(keyState, mouseState);
 
-                CreateShield(keyState);
+                //CreateShield(keyState);
 
                 Interact(keyState);
 
@@ -295,7 +348,7 @@ namespace WizardLizard
                 velocity.Y = 10;
             }
 
-            MorphPlayer(keyState);
+            //MorphPlayer(keyState);
 
             transform.Translate(translation * GameWorld.DeltaTime * speed);
 
@@ -328,11 +381,15 @@ namespace WizardLizard
             }
         }
 
-        public void PlayerHit()
+        public void PlayerHit(int dmg)
         {
             if (playerCanBeHit == true)
             {
-                Health = Health - 1;
+                Health = Health - dmg;
+                if (dying == false && health >= 1)
+                {
+                    hitSound.Play();
+                }
                 playerCanBeHit = false;
             }
         }
@@ -488,10 +545,10 @@ namespace WizardLizard
                 canInteract = true;
                 lastknownLever = (Lever)other.GameObject.GetComponent("Lever");
             }
-            if(other.GameObject.GetComponent("NonSolidPlatform") != null)
+            if (other.GameObject.GetComponent("NonSolidPlatform") != null)
             {
                 Collider collider = (Collider)GameObject.GetComponent("Collider");
-                 
+
                 if (collider.CollisionBox.Intersects(other.TopLine))
                 {
                     if (velocity.Y > 0)

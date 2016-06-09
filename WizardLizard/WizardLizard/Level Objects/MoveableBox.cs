@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class MoveableBox : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class MoveableBox : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private Transform transform;
         private bool platformEdge = false;
@@ -162,7 +162,6 @@ namespace WizardLizard
                 }
             }
             if (other.GameObject.GetComponent("Player") != null
-                || other.GameObject.GetComponent("Companion") != null
                 || other.GameObject.GetComponent("Goblin") != null
                 || other.GameObject.GetComponent("Orc") != null)
             {

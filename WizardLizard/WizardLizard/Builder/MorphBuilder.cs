@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WizardLizard
 {
-    class MorphBuilder : IBuilder
+    public class MorphBuilder : IBuilder
     {
         private GameObject gameObject;
         public void BuildGameObject(Vector2 position)
@@ -35,6 +35,11 @@ namespace WizardLizard
         }
 
         public void BuildGameObject(Vector2 position, int width, int height)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BuildGameObject(Vector2 position, int width, int height, string creator)
         {
             throw new NotImplementedException();
         }

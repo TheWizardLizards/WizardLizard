@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    class ArrowBuilder : IBuilder
+    public class ArrowBuilder : IBuilder
     {
         private GameObject gameObject;
         public void BuildGameObject(Vector2 position)
         {
             GameObject gameObject = new GameObject();
-            gameObject.AddComponent(new SpriteRenderer(gameObject, "pet", 1));
+            gameObject.AddComponent(new SpriteRenderer(gameObject, "Arrow", 1));
             gameObject.AddComponent(new Collider(gameObject));
             gameObject.Transform.Position = position;
             gameObject.AddComponent(new Arrow(gameObject));
@@ -36,6 +36,11 @@ namespace WizardLizard
         }
 
         public void BuildGameObject(Vector2 position, int width, int height)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BuildGameObject(Vector2 position, int width, int height, string creator)
         {
             throw new NotImplementedException();
         }

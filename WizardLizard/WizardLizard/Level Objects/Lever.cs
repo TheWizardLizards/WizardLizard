@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace WizardLizard
 {
-    class Lever : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Lever : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
+        private SoundEffect leverSound, magicDoorSound;
         private Transform transform;
         private Animator animator;
         private int frequency;
@@ -35,6 +37,8 @@ namespace WizardLizard
         }
         public void LoadContent(ContentManager content)
         {
+            leverSound = content.Load<SoundEffect>("LeverUsed");
+            magicDoorSound = content.Load<SoundEffect>("MagicDoorSound");
             CreateAnimations();
         }
 
@@ -61,6 +65,7 @@ namespace WizardLizard
                     if (GameWorld.spawnList.ContainsKey(frequency))
                     {
                         animator.PlayAnimation("Activated");
+                        leverSound.Play();
                         GameWorld.ObjectToAdd.Add(GameWorld.spawnList[frequency]);
                         GameWorld.spawnList.Remove(frequency);
                     }
@@ -75,6 +80,8 @@ namespace WizardLizard
                             if (door.Frequency == Frequency)
                             {
                                 animator.PlayAnimation("Activated");
+                                magicDoorSound.Play();
+                                leverSound.Play();
                                 GameWorld.ObjectsToRemove.Add(go);
                             }
                         }

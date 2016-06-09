@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    class Arrow : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Arrow : Component, IUpdateable, ILoadable, IAnimateable, ICollisionEnter, ICollisionExit
     {
         private float speed = 1216;
         Transform transform;
@@ -50,7 +50,7 @@ namespace WizardLizard
             {
                 Player player = (Player)other.GameObject.GetComponent("Player");
                 GameWorld.ObjectsToRemove.Add(this.GameObject);
-                player.PlayerHit();
+                player.PlayerHit(1);
             }
             if (other.GameObject.GetComponent("PlayerShield") != null)
             {

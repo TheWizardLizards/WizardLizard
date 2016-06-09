@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using System;
+using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
-    class Orc : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Orc : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
     {
+        private SoundEffect chaseSound, attackSound, hitSound, dieSound;
+        private bool playSoundOne = true, playSoundTwo = true;
         Director director;
         private Transform transform;
         private Animator animator;
@@ -14,6 +17,7 @@ namespace WizardLizard
         private Vector2 velocity;
         private bool orcCanBeHit;
         private bool attacking = false;
+        private bool attack = false;
         private bool dying = false;
         private string direction = "Left";
         private Vector2 centering = new Vector2(0, 0);
@@ -25,7 +29,16 @@ namespace WizardLizard
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = GameObject.Transform;
-            health = 1;
+            health = 15;
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            chaseSound = content.Load<SoundEffect>("OgreChasePlayer");
+            attackSound = content.Load<SoundEffect>("OgreAttack");
+            dieSound = content.Load<SoundEffect>("OgreDieSound2");
+            hitSound = content.Load<SoundEffect>("OgreHitSound");
+            CreateAnimations();
         }
 
         public void Update()
@@ -34,34 +47,48 @@ namespace WizardLizard
             orcPos = new Vector2(transform.Position.X + centering.X, transform.Position.Y + centering.X);
             var range = Math.Sqrt(((orcPos.X - GameWorld.PlayerPos.X) * (orcPos.X - GameWorld.PlayerPos.X)) + ((orcPos.Y - GameWorld.PlayerPos.Y)) * (orcPos.Y - GameWorld.PlayerPos.Y));
             var xdistance = Math.Sqrt((orcPos.X - GameWorld.PlayerPos.X) * (orcPos.X - GameWorld.PlayerPos.X));
-            if(dying == false)
+            if (dying == false)
             {
-                if (attacking == false)
+                if (attack == false)
                 {
                     if (range <= 500)
                     {
                         Chase(xdistance);
+                        if (range <= 500 && playSoundOne)
+                        {
+                            chaseSound.Play();
+                            playSoundOne = false;
+                        }
                     }
                     if (range <= 100)
                     {
                         Attack();
+
                     }
                     else
                     {
                         Idle();
                     }
                 }
+                if (range > 500)
+                {
+                    playSoundOne = true;
+                }
+
                 if (attacking == true && animator.AnimationName == "Attack" + direction)
                 {
                     if (15 <= animator.CurrentIndex && animator.CurrentIndex <= 19)
                     {
+                        director = new Director(new AttackFieldBuilder());
                         if (direction == "Right")
                         {
-
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 180, transform.Position.Y + 98), 90, 122, "Orc"));
+                            attacking = false;
                         }
                         else if (direction == "Left")
                         {
-
+                            GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X + 15, transform.Position.Y + 98), 90, 122, "Orc"));
+                            attacking = false;
                         }
                     }
                 }
@@ -69,6 +96,11 @@ namespace WizardLizard
             if (health <= 0)
             {
                 animator.PlayAnimation("Die" + direction);
+                if (playSoundTwo)
+                {
+                    dieSound.Play();
+                    playSoundTwo = false;
+                }
                 dying = true;
             }
         }
@@ -77,6 +109,10 @@ namespace WizardLizard
             if (orcCanBeHit == true)
             {
                 health = health - dmg;
+                if (health >= 1)
+                {
+                    hitSound.Play();
+                }
                 orcCanBeHit = false;
             }
         }
@@ -97,22 +133,22 @@ namespace WizardLizard
         public void Chase(double xdistance)
         {
             Vector2 translation = new Vector2(0, 0);
-            if(xdistance > 2)
+            if (xdistance > 15)
             {
                 if (GameWorld.PlayerPos.X > orcPos.X)
                 {
                     translation.X++;
                     direction = "Right";
-                    animator.PlayAnimation("Walk"+direction);
+                    animator.PlayAnimation("Walk" + direction);
                 }
                 if (GameWorld.PlayerPos.X < orcPos.X)
                 {
                     translation.X--;
                     direction = "Left";
-                    animator.PlayAnimation("Walk"+direction);
+                    animator.PlayAnimation("Walk" + direction);
                 }
             }
-            if(translation.X == 0)
+            if (translation.X == 0)
             {
                 animator.PlayAnimation("Idle" + direction);
             }
@@ -129,25 +165,23 @@ namespace WizardLizard
 
         public void Attack()
         {
-            if(attacking == false)
+            if (attacking == false)
             {
                 animator.PlayAnimation("Attack" + direction);
+                attack = true;
                 attacking = true;
             }
 
         }
 
-        public void LoadContent(ContentManager content)
-        {
-            CreateAnimations();
-        }
+
 
         public void CreateAnimations()
         {
-            animator.CreateAnimation("IdleRight", new Animation(8,0,0,145,150,10,Vector2.Zero));
+            animator.CreateAnimation("IdleRight", new Animation(8, 0, 0, 145, 150, 10, Vector2.Zero));
             animator.CreateAnimation("IdleLeft", new Animation(8, 0, 1160, 145, 150, 10, Vector2.Zero));
-            animator.CreateAnimation("AttackLeft", new Animation(22, 150, 0, 271, 220, 22, Vector2.Zero));
-            animator.CreateAnimation("AttackRight", new Animation(22, 370, 0, 271, 220, 22, Vector2.Zero));
+            animator.CreateAnimation("AttackLeft", new Animation(22, 150, 0, 271, 220, 22, new Vector2(50, 0)));
+            animator.CreateAnimation("AttackRight", new Animation(22, 370, 0, 271, 220, 22, new Vector2(-100, 0)));
             animator.CreateAnimation("WalkLeft", new Animation(11, 590, 0, 181, 160, 11, Vector2.Zero));
             animator.CreateAnimation("WalkRight", new Animation(11, 590, 1991, 181, 160, 11, Vector2.Zero));
             animator.CreateAnimation("DieLeft", new Animation(9, 750, 0, 275, 200, 9, Vector2.Zero));
@@ -157,11 +191,13 @@ namespace WizardLizard
 
         public void OnAnimationDone(string animationName)
         {
-            if(animationName == "Attack" + direction)
+            if (animationName == "Attack" + direction)
             {
+                attackSound.Play();
                 attacking = false;
+                attack = false;
             }
-            if(animationName == "Die" + direction)
+            if (animationName == "Die" + direction)
             {
                 GameWorld.Instance.RemoveGameObject(this.GameObject);
                 Random rnd = new Random();
@@ -171,8 +207,8 @@ namespace WizardLizard
                     GameWorld.ObjectToAdd.Add(director.Construct(new Vector2(transform.Position.X, transform.Position.Y)));
                 }
             }
-            if(dying == false)
-            animator.PlayAnimation("Idle"+direction);
+            if (dying == false)
+                animator.PlayAnimation("Idle" + direction);
         }
         public void OnCollisionEnter(Collider other)
         {
@@ -242,7 +278,7 @@ namespace WizardLizard
                         Vector2 position = GameObject.Transform.Position;
                         position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
                         GameObject.Transform.Position = position;
-                            velocity.Y = 0;
+                        velocity.Y = 0;
                     }
                     else
                     {
@@ -265,7 +301,7 @@ namespace WizardLizard
                         Vector2 position = GameObject.Transform.Position;
                         position.Y = other.CollisionBox.Y + other.CollisionBox.Height;
                         GameObject.Transform.Position = position;
-                            velocity.Y = 0;
+                        velocity.Y = 0;
                     }
                     else if (collider.CollisionBox.Intersects(other.LeftLine))
                     {
