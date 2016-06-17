@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
-    public class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter
     {
         private SoundEffect jumpSound, attackSound, hitSound, dieSound;
         private Vector2 velocity;
@@ -560,10 +560,5 @@ namespace WizardLizard
                 }
             }
         }
-        public void OnCollisionExit(Collider other)
-        {
-
-        }
-
     }
 }
