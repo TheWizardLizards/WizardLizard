@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WizardLizard
 {
@@ -18,15 +13,8 @@ namespace WizardLizard
 
         public int Frequency
         {
-            get
-            {
-                return frequency;
-            }
-
-            set
-            {
-                frequency = value;
-            }
+            get { return frequency; }
+            set { frequency = value; }
         }
 
         public Lever(GameObject gameObject, int frequency) : base(gameObject)

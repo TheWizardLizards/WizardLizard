@@ -120,7 +120,6 @@
     <Compile Include="Interfaces\ICollisionExit.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\ILoadable.cs" />
-    <Compile Include="Interfaces\IMoveAble.cs" />
     <Compile Include="Interfaces\IUpdateable.cs" />
     <Compile Include="Spells\LightningStrike.cs" />
     <Compile Include="Builder\LightningStrikeBuilder.cs" />

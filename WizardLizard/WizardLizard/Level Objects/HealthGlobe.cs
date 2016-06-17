@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
@@ -30,10 +25,13 @@ namespace WizardLizard
         {
             if (other.GameObject.GetComponent("Player") != null && canHeal == true)
             {
-                canHeal = false;
-                Player.Health += 1;
-                healthUpSound.Play();
-                GameWorld.Instance.RemoveGameObject(this.GameObject);
+                if (Player.Health < 6)
+                {
+                    canHeal = false;
+                    Player.Health += 1;
+                    healthUpSound.Play();
+                    GameWorld.Instance.RemoveGameObject(this.GameObject);
+                }
             }
         }
 

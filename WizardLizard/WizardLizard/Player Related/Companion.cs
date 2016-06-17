@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace WizardLizard
 {
-    public class Companion : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Companion : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter
     {
         private Transform transform;
         private Animator animator;
@@ -25,28 +21,14 @@ namespace WizardLizard
         private bool fly = false;
         public static bool CompanionControle
         {
-            get
-            {
-                return companionControle;
-            }
-
-            set
-            {
-                companionControle = value;
-            }
+            get { return companionControle; }
+            set { companionControle = value; }
         }
 
         public static bool Roar
         {
-            get
-            {
-                return roar;
-            }
-
-            set
-            {
-                roar = value;
-            }
+            get { return roar; }
+            set { roar = value; }
         }
 
         public Companion(GameObject gameObject) : base(gameObject)
@@ -331,11 +313,6 @@ namespace WizardLizard
                 canInteract = true;
                 lastknownLever = (Lever)other.GameObject.GetComponent("Lever");
             }
-        }
-
-        public void OnCollisionExit(Collider other)
-        {
-
         }
     }
 }

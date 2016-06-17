@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
@@ -15,26 +10,17 @@ namespace WizardLizard
 
         public float Fps
         {
-            get
-            {
-                return fps;
-            }
+            get { return fps; }
         }
 
         public Vector2 Offset
         {
-            get
-            {
-                return offset;
-            }
+            get            {                return offset;            }
         }
 
         public Rectangle[] Rectangles
         {
-            get
-            {
-                return rectangles;
-            }
+            get { return rectangles; }
         }
 
         public Animation(int frames, int yPos, int xStratFrame, int widht, int height, float fps, Vector2 offset)
