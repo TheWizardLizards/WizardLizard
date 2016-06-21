@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace WizardLizard
 {
-    public class SolidPlatform : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class SolidPlatform : Component
     {
         private Transform transform;
         private Animator animator;
@@ -16,32 +16,6 @@ namespace WizardLizard
         {
             animator = (Animator)GameObject.GetComponent("Animator");
             transform = gameObject.Transform;
-        }
-
-
-        public void LoadContent(ContentManager content)
-        {
-            
-        }
-
-        public void OnAnimationDone(string animationName)
-        {
-
-        }
-
-        public void OnCollisionEnter(Collider other)
-        {
-            
-        }
-
-        public void OnCollisionExit(Collider other)
-        {
-            
-        }
-
-        public void Update()
-        {
-            
         }
     }
 }

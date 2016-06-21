@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
 namespace WizardLizard
@@ -28,20 +23,30 @@ namespace WizardLizard
 
         public void Update()
         {
-            if (Player.Health == 6) animator.PlayAnimation("Healthbar6");
-
-            if (Player.Health == 5) animator.PlayAnimation("Healthbar5");
-
-            if (Player.Health == 4) animator.PlayAnimation("Healthbar4");
-
-            if (Player.Health == 3) animator.PlayAnimation("Healthbar3");
-
-            if (Player.Health == 2) animator.PlayAnimation("Healthbar2");
-
-            if (Player.Health == 1) animator.PlayAnimation("Healthbar1");
-
-            if (Player.Health == 0) animator.PlayAnimation("Healthbar0");
-
+            switch (Player.Health)
+            {
+                case 1:
+                    animator.PlayAnimation("Healthbar1");
+                    break;
+                case 2:
+                    animator.PlayAnimation("Healthbar2");
+                    break;
+                case 3:
+                    animator.PlayAnimation("Healthbar3");
+                    break;
+                case 4:
+                    animator.PlayAnimation("Healthbar4");
+                    break;
+                case 5:
+                    animator.PlayAnimation("Healthbar5");
+                    break;
+                case 6:
+                    animator.PlayAnimation("Healthbar6");
+                    break;
+                case 0:
+                    animator.PlayAnimation("Healthbar0");
+                    break;
+            }
         }
         public void CreateAnimations()
         {

@@ -1,28 +1,27 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace WizardLizard
 {
-    public class AttackFieldBuilder : IBuilder
+    public class HealthGlobeBuilder : IBuilder
     {
         private GameObject gameObject;
         public void BuildGameObject(Vector2 position)
         {
-            throw new NotImplementedException();
+            GameObject gameObject = new GameObject();
+            gameObject.AddComponent(new SpriteRenderer(gameObject, "HealthGlobe", 1f));
+            gameObject.AddComponent(new Collider(gameObject));
+            gameObject.Transform.Position = position;
+            gameObject.AddComponent(new HealthGlobe(gameObject));
+            this.gameObject = gameObject;
         }
 
         public void BuildGameObject(Vector2 position, string spriteName)
         {
-            throw new NotImplementedException();
         }
 
         public void BuildGameObject(Vector2 position, int frequency)
         {
-            throw new NotImplementedException();
         }
 
         public void BuildGameObject(Vector2 position, int frequency, string spriteName)
@@ -32,16 +31,11 @@ namespace WizardLizard
 
         public void BuildGameObject(Vector2 position, int width, int height)
         {
-            throw new NotImplementedException();
         }
 
         public void BuildGameObject(Vector2 position, int width, int height, string creator)
         {
-            GameObject gameObject = new GameObject();
-            gameObject.Transform.Position = position;
-            gameObject.AddComponent(new AttackField(gameObject, creator));
-            gameObject.AddComponent(new Collider(gameObject, width, height));
-            this.gameObject = gameObject;
+            throw new NotImplementedException();
         }
 
         public GameObject GetResult()

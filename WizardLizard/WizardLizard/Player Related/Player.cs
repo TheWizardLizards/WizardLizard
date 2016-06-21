@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 
 namespace WizardLizard
 {
-    public class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter, ICollisionExit
+    public class Player : Component, ILoadable, IUpdateable, IAnimateable, ICollisionEnter
     {
         private SoundEffect jumpSound, attackSound, hitSound, dieSound;
         private Vector2 velocity;
@@ -52,15 +47,8 @@ namespace WizardLizard
 
         public static bool HasJumped
         {
-            get
-            {
-                return hasJumped;
-            }
-
-            set
-            {
-                hasJumped = value;
-            }
+            get { return hasJumped; }
+            set { hasJumped = value; }
         }
 
         public Player(GameObject gameObject) : base(gameObject)
@@ -572,10 +560,5 @@ namespace WizardLizard
                 }
             }
         }
-        public void OnCollisionExit(Collider other)
-        {
-
-        }
-
     }
 }
